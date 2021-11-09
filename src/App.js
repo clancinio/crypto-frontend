@@ -1,10 +1,13 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import HomeContainer from "./containers/HomeContainer";
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Crytpo Trading Application</h1>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<HomeContainer />} />
+      </Routes>
+    </Router>
   );
 }
 
