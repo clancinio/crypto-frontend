@@ -33,6 +33,7 @@ function TopCoinsContainer() {
             <th>Price</th>
             <th>Market Cap</th>
             <th>Volume (24h)</th>
+            <th>Price Change (24h)</th>
           </tr>
         </thead>
         <tbody>
@@ -47,6 +48,7 @@ function TopCoinsContainer() {
                 marketcap={coin.total_volume}
                 volume={coin.market_cap}
                 image={coin.image}
+                priceChange={coin.price_change_24h}
               />
             );
           })}
