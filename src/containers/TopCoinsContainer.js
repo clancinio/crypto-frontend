@@ -51,7 +51,7 @@ function TopCoinsContainer() {
                   marketcap={coin.total_volume}
                   volume={coin.market_cap}
                   image={coin.image}
-                  priceChange={coin.price_change_24h}
+                  priceChange={coin.price_change_percentage_24h}
                 />
               );
             })}
