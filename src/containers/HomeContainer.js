@@ -1,11 +1,11 @@
 import Container from "react-bootstrap/Container";
-import Nav from "../components/navbar/Navbar";
+import TopNav from "../components/navbar/TopNav";
 import TopSection from "../components/topsection/TopSection";
 
 function HomeContainer() {
   return (
     <>
-      <Nav />
+      <TopNav />
       <Container>
         <TopSection />
       </Container>
