@@ -1,8 +1,9 @@
-// import { render, screen } from '@testing-library/react';
-// import App from './App';
+import { render } from "@testing-library/react";
+import App from "./App";
 
-// test('renders learn react link', () => {
-//   render(<App />);
-//   const linkElement = screen.getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
+// Test that the App Component renders without crashing
+describe("App", () => {
+  test("renders App component", () => {
+    render(<App />);
+  });
+});

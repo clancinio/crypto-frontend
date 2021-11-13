@@ -9,10 +9,10 @@ function TopNav() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link activeClassName="active" as={NavLink} to="/">
+            <Nav.Link activeclassname="active" as={NavLink} to="/">
               Home
             </Nav.Link>
-            <Nav.Link activeClassName="active" as={NavLink} to="/top">
+            <Nav.Link activeclassname="active" as={NavLink} to="/top">
               Top 100
             </Nav.Link>
           </Nav>
