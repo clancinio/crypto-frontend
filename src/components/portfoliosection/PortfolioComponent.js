@@ -2,10 +2,27 @@ import { useState } from "react";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import "./portfolio.css";
+import Asset from "./asset/Asset";
 
 function PortfolioComponent() {
   // State to mock assets
-  const [state, setstate] = useState([]);
+  const [assets, setAssets] = useState([
+    {
+      symbol: "BTC",
+      amount: "16",
+      value: "50,1254.54",
+    },
+    {
+      symbol: "ADA",
+      amount: "15,002",
+      value: "45,098.27",
+    },
+    {
+      symbol: "SOL",
+      amount: "15,002",
+      value: "45,098.27",
+    },
+  ]);
 
   return (
     <Col className="section mt-5">
@@ -19,24 +36,20 @@ function PortfolioComponent() {
               <th>Amount</th>
               <th>Value</th>
               <th>Value Change (24h)</th>
+              <th>Price</th>
             </tr>
           </thead>
           <tbody>
-            {/* {coins.map((coin, index) => {
+            {assets.map((asset, index) => {
               return (
-                <Coin
-                  key={coin.id}
-                  position={index}
-                  name={coin.name}
-                  price={coin.current_price}
-                  symbol={coin.symbol}
-                  marketcap={coin.total_volume}
-                  volume={coin.market_cap}
-                  image={coin.image}
-                  priceChange={coin.price_change_percentage_24h}
+                <Asset
+                  key={index}
+                  symbol={asset.symbol}
+                  amount={asset.amount}
+                  value={asset.value}
                 />
               );
-            })} */}
+            })}
           </tbody>
         </Table>
       </div>
