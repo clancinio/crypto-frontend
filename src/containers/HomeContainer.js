@@ -1,10 +1,15 @@
-import React from "react";
+import Container from "react-bootstrap/Container";
+import TopNav from "../components/navbar/TopNav";
+import TopSection from "../components/topsection/TopSection";
 
 function HomeContainer() {
   return (
-    <header>
-      <h1>Crytpo Trading Application</h1>
-    </header>
+    <>
+      <TopNav />
+      <Container>
+        <TopSection />
+      </Container>
+    </>
   );
 }
 
