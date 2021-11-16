@@ -5,6 +5,7 @@ import axios from "axios";
 import { top100 } from "../api";
 import Coin from "../components/coin/Coin";
 import TopNav from "../components/navbar/TopNav";
+import Footer from "../components/footer/Footer";
 
 function TopCoinsContainer() {
   // State to hold and set the top 100 coins
@@ -58,6 +59,7 @@ function TopCoinsContainer() {
           </tbody>
         </Table>
       </Container>
+      <Footer />
     </>
   );
 }
