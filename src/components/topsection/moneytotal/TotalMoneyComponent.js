@@ -4,7 +4,7 @@ import "./totalmoney.css";
 function TotalMoneyComponent() {
   return (
     <Col md={6}>
-      <div className="total-money">
+      <div className="section">
         <h1>Total Capital</h1>
         <p className="lead">€950.65</p>
       </div>
