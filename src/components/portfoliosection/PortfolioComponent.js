@@ -11,16 +11,22 @@ function PortfolioComponent() {
       symbol: "BTC",
       amount: "16",
       value: "50,1254.54",
+      value_change_24h: "+$10",
+      price: "$10.56",
     },
     {
       symbol: "ADA",
       amount: "15,002",
       value: "45,098.27",
+      value_change_24h: "-$10",
+      price: "$10.56",
     },
     {
       symbol: "SOL",
       amount: "15,002",
       value: "45,098.27",
+      value_change_24h: "+$157",
+      price: "$0.56",
     },
   ]);
 
@@ -47,6 +53,8 @@ function PortfolioComponent() {
                   symbol={asset.symbol}
                   amount={asset.amount}
                   value={asset.value}
+                  value_change_24h={asset.value_change_24h}
+                  price={asset.price}
                 />
               );
             })}
