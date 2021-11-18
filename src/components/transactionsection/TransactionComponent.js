@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import "./portfolio.css";
-import Asset from "./asset/Asset";
+import Asset from "../portfoliosection/asset/Asset";
 
-function PortfolioComponent() {
+function TransactionComponent() {
   // State to mock assets
   const [assets, setAssets] = useState([
     {
@@ -32,8 +32,8 @@ function PortfolioComponent() {
 
   return (
     <Col className="section mt-5">
-      <h1>Portfolio</h1>
-      <p className="lead">3 Assests</p>
+      <h1>Transactions</h1>
+      <p className="lead">27 Transactions</p>
       <div className="table-container">
         <Table striped bordered>
           <thead>
@@ -61,8 +61,11 @@ function PortfolioComponent() {
           </tbody>
         </Table>
       </div>
+      <Button variant="secondary" size="md">
+        View All
+      </Button>
     </Col>
   );
 }
 
-export default PortfolioComponent;
+export default TransactionComponent;
