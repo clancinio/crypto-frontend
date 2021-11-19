@@ -10,7 +10,7 @@ function Coin({
   position,
   priceChange,
 }) {
-  // Create our number formatter.
+  // Number formatter for euros
   var formatter = new Intl.NumberFormat("en-IE", {
     style: "currency",
     currency: "EUR",

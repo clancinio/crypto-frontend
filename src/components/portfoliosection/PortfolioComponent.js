@@ -1,34 +1,80 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import "./portfolio.css";
 import Asset from "./asset/Asset";
+import { currrentPrice } from "../../api";
 
 function PortfolioComponent() {
+  const [assets, setAssets] = useState([]);
+
   // State to mock assets
-  const [assets, setAssets] = useState([
+  const [dummyAssets, setDummyAssets] = useState([
     {
+      asset_id: "bitcoin",
       symbol: "BTC",
       amount: "16",
-      value: "50,1254.54",
       value_change_24h: "+$10",
       price: "$10.56",
     },
     {
-      symbol: "ADA",
-      amount: "15,002",
-      value: "45,098.27",
+      asset_id: "ethereum",
+      symbol: "ETH",
+      amount: "15002",
       value_change_24h: "-$10",
       price: "$10.56",
     },
     {
-      symbol: "SOL",
-      amount: "15,002",
-      value: "45,098.27",
+      asset_id: "ripple",
+      symbol: "XRP",
+      amount: "15002",
       value_change_24h: "+$157",
       price: "$0.56",
     },
   ]);
+
+  useEffect(() => {
+    Promise.all(
+      dummyAssets.map(async function (asset) {
+        return await axios
+          .get(currrentPrice(asset.asset_id))
+          .then((response) => {
+            // setCoins(response.data);
+            let cp = response.data.market_data.current_price.eur;
+            let value = Number(cp) * Number(asset.amount);
+            return { ...asset, value: +value };
+          })
+          .catch((error) => console.log(error.response.data.error));
+
+        // console.log("CP: " + cp);
+        // console.log("Amount: " + asset.amount);
+        // console.log(value);
+      })
+    );
+  }, [dummyAssets]);
+
+  useEffect(() => {
+    Promise.all(
+      dummyAssets.map(async function (asset) {
+        try {
+          const response = await axios.get(currrentPrice(asset.asset_id));
+          let cp = response.data.market_data.current_price.eur;
+          let value = Number(cp) * Number(asset.amount);
+          return { ...asset, value: +value, price: cp };
+        } catch (error) {
+          console.log(error.response.data.error);
+          throw error;
+        }
+      })
+    )
+      .then((newAssetArray) => {
+        setAssets(newAssetArray);
+      })
+      .catch((error) => {
+        console.log(error.response.data.error);
+      });
+  }, [dummyAssets]);
 
   return (
     <Col className="section mt-5">
