@@ -93,12 +93,7 @@ function TopNav() {
             <Form.Group className="mb-3" controlId="">
               <InputGroup className="mb-2">
                 <InputGroup.Text>€</InputGroup.Text>
-                <FormControl
-                  type="number"
-                  min="1"
-                  step="any"
-                  pattern="^\d*(\.\d{0,2})?$"
-                />
+                <FormControl type="number" min="1" step="any" />
               </InputGroup>
               <Form.Text id="" muted>
                 Amount you wish to buy in Euros
