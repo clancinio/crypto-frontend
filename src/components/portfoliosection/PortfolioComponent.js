@@ -16,43 +16,20 @@ function PortfolioComponent() {
       symbol: "BTC",
       amount: "16",
       value_change_24h: "+$10",
-      price: "$10.56",
     },
     {
       asset_id: "ethereum",
       symbol: "ETH",
       amount: "15002",
       value_change_24h: "-$10",
-      price: "$10.56",
     },
     {
       asset_id: "ripple",
       symbol: "XRP",
       amount: "15002",
       value_change_24h: "+$157",
-      price: "$0.56",
     },
   ]);
-
-  useEffect(() => {
-    Promise.all(
-      dummyAssets.map(async function (asset) {
-        return await axios
-          .get(currrentPrice(asset.asset_id))
-          .then((response) => {
-            // setCoins(response.data);
-            let cp = response.data.market_data.current_price.eur;
-            let value = Number(cp) * Number(asset.amount);
-            return { ...asset, value: +value };
-          })
-          .catch((error) => console.log(error.response.data.error));
-
-        // console.log("CP: " + cp);
-        // console.log("Amount: " + asset.amount);
-        // console.log(value);
-      })
-    );
-  }, [dummyAssets]);
 
   useEffect(() => {
     Promise.all(
