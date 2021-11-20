@@ -1,5 +1,9 @@
-import { Navbar, Nav, Container } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
+import { NavLink } from "react-router-dom/";
+import "./navbar.css";
 
 function TopNav() {
   return (
@@ -16,6 +20,12 @@ function TopNav() {
               Top 100
             </Nav.Link>
           </Nav>
+          <Button className="button" size="ms" variant="outline-success">
+            Buy
+          </Button>
+          <Button className="button" size="md" variant="outline-secondary">
+            Sell
+          </Button>
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               Welcome: <a href="#login">Mark Otto</a>
