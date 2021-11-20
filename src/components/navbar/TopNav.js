@@ -5,6 +5,10 @@ import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { NavLink } from "react-router-dom/";
 import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import InputGroup from "react-bootstrap/InputGroup";
+
 import "./navbar.css";
 
 function TopNav() {
@@ -57,6 +61,7 @@ function TopNav() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      {/* Buy Modal */}
       <Modal
         show={show}
         onHide={handleClose}
@@ -66,7 +71,41 @@ function TopNav() {
         <Modal.Header closeButton>
           <Modal.Title>Buy</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Form for buying cryto goes here</Modal.Body>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Select Asset</Form.Label>
+              <Form.Select aria-label="Deslect asser to buy">
+                <option value=""></option>
+                <option value="bitcoin">Bitcoin</option>
+                <option value="ethereum">Ethereum</option>
+                <option value="binancecoin">Binance Coin</option>
+                <option value="tether">Tether </option>
+                <option value="solana">Solana </option>
+                <option value="binancecoin">Cardano</option>
+                <option value="ripple">Ripple</option>
+                <option value="polkadot">Polkadot</option>
+                <option value="dogecoin">Dogecoin </option>
+                <option value="avalanche-2">Avalanche</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="">
+              <InputGroup className="mb-2">
+                <InputGroup.Text>€</InputGroup.Text>
+                <FormControl
+                  type="number"
+                  min="1"
+                  step="any"
+                  pattern="^\d*(\.\d{0,2})?$"
+                />
+              </InputGroup>
+              <Form.Text id="" muted>
+                Amount you wish to buy in Euros
+              </Form.Text>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
