@@ -73,6 +73,7 @@ function TopNav() {
         </Modal.Header>
         <Modal.Body>
           <Form>
+            <h5>Balance: $25.36</h5>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Select Asset</Form.Label>
               <Form.Select aria-label="Deslect asser to buy">
@@ -89,29 +90,28 @@ function TopNav() {
                 <option value="avalanche-2">Avalanche</option>
               </Form.Select>
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="">
               <InputGroup className="mb-2">
                 <InputGroup.Text>€</InputGroup.Text>
-                <FormControl
-                  type="number"
-                  min="1"
-                  step="any"
-                  pattern="^\d*(\.\d{0,2})?$"
-                />
+                <FormControl type="number" min="1" step="any" />
               </InputGroup>
               <Form.Text id="" muted>
                 Amount you wish to buy in Euros
               </Form.Text>
             </Form.Group>
+            <div>
+              <h5>Buying: 2 ETH</h5>
+              <h5>Cost: $25.36</h5>
+            </div>
+            <hr />
+            <div className="d-grid gap-2">
+              <Button variant="primary" size="lg">
+                Buy
+              </Button>
+            </div>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary">Buy</Button>
-        </Modal.Footer>
+        <Modal.Footer></Modal.Footer>
       </Modal>
       <Modal
         show={show2}
