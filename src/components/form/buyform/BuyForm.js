@@ -16,10 +16,7 @@ const onSubmit = (values) => {
 
 const validationSchema = Yup.object().shape({
   asset: Yup.string().required("Required!"),
-  amount: Yup.number()
-    .min(5, "Must be exactly 5 characters")
-    .positive()
-    .required(),
+  amount: Yup.number().min(5, "The minimum amount is €5.00").required(),
 });
 
 function BuyForm() {
@@ -38,7 +35,7 @@ function BuyForm() {
         handleBlur,
       }) => (
         <Form onSubmit={handleSubmit}>
-          <h5>Balance: $25.36</h5>
+          <h5>Balance: €25.36</h5>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Select Asset</Form.Label>
             <Form.Select
@@ -82,7 +79,7 @@ function BuyForm() {
           </Form.Group>
           <div>
             <h5>Buying: 2 ETH</h5>
-            <h5>Cost: $25.36</h5>
+            <h5>Cost: €25.36</h5>
           </div>
           <hr />
           <div className="d-grid gap-2">
