@@ -13,6 +13,7 @@ function TransactionComponent() {
       amount: "2",
       price: "$10",
       date: "27/09/2021",
+      cost: "$120.50",
     },
     {
       symbol: "ETH",
@@ -20,6 +21,7 @@ function TransactionComponent() {
       amount: "25",
       price: "$250.06",
       date: "27/09/2021",
+      cost: "$50.00",
     },
     {
       symbol: "ADA",
@@ -27,6 +29,7 @@ function TransactionComponent() {
       amount: "987",
       price: "$10.56",
       date: "27/09/2021",
+      cost: "$200.00",
     },
     {
       symbol: "SOL",
@@ -34,6 +37,7 @@ function TransactionComponent() {
       amount: "1,005",
       price: "$1.58",
       date: "27/09/2021",
+      cost: "$28.00",
     },
   ]);
 
@@ -50,6 +54,7 @@ function TransactionComponent() {
               <th>Amount</th>
               <th>Price</th>
               <th>Date</th>
+              <th>Cost</th>
             </tr>
           </thead>
           <tbody>
@@ -62,6 +67,7 @@ function TransactionComponent() {
                   amount={transaction.amount}
                   price={transaction.price}
                   date={transaction.date}
+                  cost={transaction.cost}
                 />
               );
             })}
