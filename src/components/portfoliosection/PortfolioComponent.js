@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import "./portfolio.css";
 import Asset from "./asset/Asset";
-import { currrentPrice } from "../../api";
+import { assetData } from "../../api";
 
 function PortfolioComponent() {
   const [assets, setAssets] = useState([]);
@@ -35,7 +35,7 @@ function PortfolioComponent() {
     Promise.all(
       dummyAssets.map(async function (asset) {
         try {
-          const response = await axios.get(currrentPrice(asset.asset_id));
+          const response = await axios.get(assetData(asset.asset_id));
           let cp = response.data.market_data.current_price.eur;
           let value = Number(cp) * Number(asset.amount);
           return { ...asset, value: +value, price: cp };
