@@ -24,31 +24,42 @@ function BuyForm() {
   const [cost, setCost] = useState("");
   // Cost of purchase
   const [assetAmount, setAssetAmount] = useState();
+  // selected asset ID
+  const [assetSymbol, setAssetSymbol] = useState("btc");
   // Purchase state
   const [isPurchased, setIsPurchased] = useState(false);
 
+  // Formik
   const initialValues = {
     asset: "bitcoin",
     amount: "0.00",
   };
 
+  // Formik
   const onSubmit = (values) => {
     // axios request goes here for posting the buy transaction
     setIsPurchased(true);
-    console.log("Form Values: " + JSON.stringify(values));
+
+    console.log(values.asset);
+    console.log(values.asset);
+    // console.log("Form Values: " + JSON.stringify(values));
   };
 
+  // Formik
   const validationSchema = Yup.object().shape({
     asset: Yup.string().required("Required!"),
     amount: Yup.number().min(5, "The minimum amount is €5.00").required(),
   });
 
+  // This function makes a call to get the price of the selected asset
   async function fetchPrice(c) {
     try {
       const response = await axios.get(assetData(selectedAsset));
       const price = response.data.market_data.current_price.eur;
+      const symbol = response.data.symbol;
       const totalAsset = (Number(c) / Number(price)).toFixed(6);
       setAssetAmount(totalAsset);
+      setAssetSymbol(symbol);
       console.log(price);
       console.log(cost);
       console.log(totalAsset);
@@ -57,6 +68,7 @@ function BuyForm() {
     }
   }
 
+  // Whne component reders, call the fetchPrice function
   useEffect(() => {
     fetchPrice(cost);
   }, [selectedAsset, cost]);
@@ -125,7 +137,7 @@ function BuyForm() {
           </Form.Group>
           <div>
             <h5>
-              Buying: {assetAmount} {values.asset.toUpperCase()}
+              Buying: {assetAmount} {assetSymbol.toUpperCase()}
             </h5>
             <h5>Cost: {formatter.format(values.amount)}</h5>
           </div>
