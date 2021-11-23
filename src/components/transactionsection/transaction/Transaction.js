@@ -1,4 +1,4 @@
-function Transaction({ symbol, amount, buy_sell, price, date }) {
+function Transaction({ symbol, amount, buy_sell, price, date, cost }) {
   return (
     <tr>
       <td>{symbol.toUpperCase()}</td>
@@ -6,6 +6,7 @@ function Transaction({ symbol, amount, buy_sell, price, date }) {
       <td>{amount}</td>
       <td>{price}</td>
       <td>{date}</td>
+      <td>{cost}</td>
     </tr>
   );
 }

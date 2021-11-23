@@ -1,13 +1,22 @@
+import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { Formik } from "formik";
+import axios from "axios";
 import * as Yup from "yup";
+import { assetData } from "../../../api";
 import "../form.css";
 
+// Number formatter for euros
+var formatter = new Intl.NumberFormat("en-IE", {
+  style: "currency",
+  currency: "EUR",
+});
+
 const initialValues = {
-  asset: "",
+  asset: "bitcoin",
   amount: "0.00",
 };
 
@@ -21,6 +30,31 @@ const validationSchema = Yup.object().shape({
 });
 
 function BuyForm() {
+  // Selected asset to buy
+  const [selectedAsset, setSelectedAsset] = useState("bitcoin");
+  // Cost of purchase
+  const [cost, setCost] = useState("");
+  // Cost of purchase
+  const [assetAmount, setAssetAmount] = useState();
+
+  async function fetchPrice(c) {
+    try {
+      const response = await axios.get(assetData(selectedAsset));
+      const price = response.data.market_data.current_price.eur;
+      const totalAsset = (Number(c) / Number(price)).toFixed(6);
+      setAssetAmount(totalAsset);
+      console.log(price);
+      console.log(cost);
+      console.log(totalAsset);
+    } catch (error) {
+      console.log(error.response.data.error);
+    }
+  }
+
+  useEffect(() => {
+    fetchPrice(cost);
+  }, [selectedAsset, cost]);
+
   return (
     <Formik
       initialValues={initialValues}
@@ -36,8 +70,10 @@ function BuyForm() {
         handleBlur,
       }) => (
         <Form onSubmit={handleSubmit}>
-          <h5>Balance: €25.36</h5>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          {setSelectedAsset(values.asset)}
+          {setCost(values.amount)}
+          <h5>Balance: €2,000.00</h5>
+          <Form.Group className="mb-3" controlId="asset">
             <Form.Label>Select Asset</Form.Label>
             <Form.Select
               aria-label="Deslect asser to buy"
@@ -46,13 +82,12 @@ function BuyForm() {
               onBlur={handleBlur}
               value={values.asset}
             >
-              <option value=""></option>
               <option value="bitcoin">Bitcoin</option>
               <option value="ethereum">Ethereum</option>
               <option value="binancecoin">Binance Coin</option>
               <option value="tether">Tether </option>
               <option value="solana">Solana </option>
-              <option value="binancecoin">Cardano</option>
+              <option value="cardano">Cardano</option>
               <option value="ripple">Ripple</option>
               <option value="polkadot">Polkadot</option>
               <option value="dogecoin">Dogecoin </option>
@@ -79,8 +114,10 @@ function BuyForm() {
             ) : null}
           </Form.Group>
           <div>
-            <h5>Buying: 2 ETH</h5>
-            <h5>Cost: €25.36</h5>
+            <h5>
+              Buying: {assetAmount} {values.asset.toUpperCase()}
+            </h5>
+            <h5>Cost: {formatter.format(values.amount)}</h5>
           </div>
           <hr />
           <div className="d-grid gap-2">
