@@ -3,6 +3,8 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
+import { TiTick } from "react-icons/ti/";
 import { Formik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
@@ -15,20 +17,6 @@ var formatter = new Intl.NumberFormat("en-IE", {
   currency: "EUR",
 });
 
-const initialValues = {
-  asset: "bitcoin",
-  amount: "0.00",
-};
-
-const onSubmit = (values) => {
-  console.log("Form Values: " + JSON.stringify(values));
-};
-
-const validationSchema = Yup.object().shape({
-  asset: Yup.string().required("Required!"),
-  amount: Yup.number().min(5, "The minimum amount is €5.00").required(),
-});
-
 function BuyForm() {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
@@ -36,13 +24,42 @@ function BuyForm() {
   const [cost, setCost] = useState("");
   // Cost of purchase
   const [assetAmount, setAssetAmount] = useState();
+  // selected asset ID
+  const [assetSymbol, setAssetSymbol] = useState("btc");
+  // Purchase state
+  const [isPurchased, setIsPurchased] = useState(false);
 
+  // Formik
+  const initialValues = {
+    asset: "bitcoin",
+    amount: "0.00",
+  };
+
+  // Formik
+  const onSubmit = (values) => {
+    // axios request goes here for posting the buy transaction
+    setIsPurchased(true);
+
+    console.log(values.asset);
+    console.log(values.asset);
+    // console.log("Form Values: " + JSON.stringify(values));
+  };
+
+  // Formik
+  const validationSchema = Yup.object().shape({
+    asset: Yup.string().required("Required!"),
+    amount: Yup.number().min(5, "The minimum amount is €5.00").required(),
+  });
+
+  // This function makes a call to get the price of the selected asset
   async function fetchPrice(c) {
     try {
       const response = await axios.get(assetData(selectedAsset));
       const price = response.data.market_data.current_price.eur;
+      const symbol = response.data.symbol;
       const totalAsset = (Number(c) / Number(price)).toFixed(6);
       setAssetAmount(totalAsset);
+      setAssetSymbol(symbol);
       console.log(price);
       console.log(cost);
       console.log(totalAsset);
@@ -51,6 +68,7 @@ function BuyForm() {
     }
   }
 
+  // Whne component reders, call the fetchPrice function
   useEffect(() => {
     fetchPrice(cost);
   }, [selectedAsset, cost]);
@@ -72,6 +90,10 @@ function BuyForm() {
         <Form onSubmit={handleSubmit}>
           {setSelectedAsset(values.asset)}
           {setCost(values.amount)}
+          {isPurchased && (
+            <Alert variant={"success"}>Your purchase was successful</Alert>
+          )}
+
           <h5>Balance: €2,000.00</h5>
           <Form.Group className="mb-3" controlId="asset">
             <Form.Label>Select Asset</Form.Label>
@@ -115,14 +137,19 @@ function BuyForm() {
           </Form.Group>
           <div>
             <h5>
-              Buying: {assetAmount} {values.asset.toUpperCase()}
+              Buying: {assetAmount} {assetSymbol.toUpperCase()}
             </h5>
             <h5>Cost: {formatter.format(values.amount)}</h5>
           </div>
           <hr />
           <div className="d-grid gap-2">
-            <Button type="submit" variant="primary" size="lg">
-              Buy
+            <Button
+              type="submit"
+              variant="primary"
+              size="lg"
+              disabled={isPurchased ? true : false}
+            >
+              {isPurchased ? <TiTick /> : "Buy"}
             </Button>
           </div>
         </Form>
