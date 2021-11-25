@@ -8,7 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import BuyForm from "../form/buyform/BuyForm";
 import "./navbar.css";
 
-function TopNav() {
+function TopNav({ balance, setBalance }) {
   // Buy Modal state
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -69,7 +69,7 @@ function TopNav() {
           <Modal.Title>Buy</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <BuyForm />
+          <BuyForm balance={balance} setBalance={setBalance} />
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
       </Modal>

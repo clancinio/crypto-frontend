@@ -6,6 +6,6 @@ import TotalMoneyComponent from "./TotalMoneyComponent";
 describe("<TotalMoneyComponent />", () => {
   test("Renders <TotalMoneyComponent /> component correctly", () => {
     const { getByText } = render(<TotalMoneyComponent />);
-    expect(getByText(/Total Capital/i)).toBeInTheDocument();
+    expect(getByText(/Balance/i)).toBeInTheDocument();
   });
 });

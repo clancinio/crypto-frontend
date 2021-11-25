@@ -12,7 +12,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm() {
+function BuyForm({ balance, setBalance }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Cost of purchase
@@ -34,8 +34,10 @@ function BuyForm() {
   const onSubmit = (values) => {
     // axios request goes here for posting the buy transaction
     setIsPurchased(true);
-
-    console.log(values.asset);
+    const newBalance = Number(balance) - Number(cost);
+    setBalance(newBalance);
+    console.log(values.assetAmount);
+    console.log("Balance:" + balance);
     console.log(values.asset);
     // console.log("Form Values: " + JSON.stringify(values));
   };
@@ -89,7 +91,10 @@ function BuyForm() {
             <Alert variant={"success"}>Your purchase was successful</Alert>
           )}
 
-          <h5>Balance: €2,000.00</h5>
+          <h5>Balance: {formatter.format(balance)}</h5>
+          {isPurchased && (
+            <p className="text-danger lead">{"-" + formatter.format(cost)}</p>
+          )}
           <Form.Group className="mb-3" controlId="asset">
             <Form.Label>Select Asset</Form.Label>
             <Form.Select
@@ -98,6 +103,7 @@ function BuyForm() {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.asset}
+              disabled={isPurchased ? true : false}
             >
               <option value="bitcoin">Bitcoin</option>
               <option value="ethereum">Ethereum</option>
@@ -124,6 +130,7 @@ function BuyForm() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.amount}
+                disabled={isPurchased ? true : false}
               />
             </InputGroup>
             {touched.amount && errors.amount ? (

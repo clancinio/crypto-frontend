@@ -8,11 +8,11 @@ import TransactionComponent from "../components/transactionsection/TransactionCo
 
 function HomeContainer() {
   // State for holding Total capital - temporary until the backend is ready
-  const [balance, setBalance] = useState(2000);
+  const [balance, setBalance] = useState(1500);
 
   return (
     <>
-      <TopNav />
+      <TopNav balance={balance} setBalance={setBalance} />
       <Container>
         <TopSection balance={balance} setBalance={setBalance} />
         <PortfolioComponent />
