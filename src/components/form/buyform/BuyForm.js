@@ -9,13 +9,8 @@ import { Formik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
 import { assetData } from "../../../api";
+import { formatter } from "../../../helpers";
 import "../form.css";
-
-// Number formatter for euros
-var formatter = new Intl.NumberFormat("en-IE", {
-  style: "currency",
-  currency: "EUR",
-});
 
 function BuyForm() {
   // Selected asset to buy

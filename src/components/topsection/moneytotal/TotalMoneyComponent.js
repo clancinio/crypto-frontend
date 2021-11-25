@@ -1,12 +1,13 @@
 import { Col } from "react-bootstrap";
+import { formatter } from "../../../helpers";
 import "./totalmoney.css";
 
-function TotalMoneyComponent() {
+function TotalMoneyComponent({ balance }) {
   return (
     <Col md={6}>
       <div className="section">
         <h1>Total Capital</h1>
-        <p className="lead">€950.65</p>
+        <p className="lead">{formatter.format(balance)}</p>
       </div>
     </Col>
   );

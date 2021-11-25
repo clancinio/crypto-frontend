@@ -1,3 +1,4 @@
+import { formatter } from "../../helpers";
 import "./coin.css";
 
 function Coin({
@@ -10,12 +11,6 @@ function Coin({
   position,
   priceChange,
 }) {
-  // Number formatter for euros
-  var formatter = new Intl.NumberFormat("en-IE", {
-    style: "currency",
-    currency: "EUR",
-  });
-
   return (
     <tr>
       <td>{position + 1}</td>
