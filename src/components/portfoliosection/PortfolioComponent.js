@@ -9,6 +9,33 @@ import { assetData } from "../../api";
 function PortfolioComponent() {
   const [assets, setAssets] = useState([]);
 
+  async function getAssets() {
+    axios
+      .get("https://jsonplaceholder.typicode.com/todos/1")
+      .then((response) => {
+        // Do as you wish with response here
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+
   // State to mock assets
   const [dummyAssets, setDummyAssets] = useState([
     {
@@ -32,13 +59,15 @@ function PortfolioComponent() {
   ]);
 
   useEffect(() => {
+    getAssets();
+
     Promise.all(
       dummyAssets.map(async function (asset) {
         try {
           const response = await axios.get(assetData(asset.asset_id));
           let cp = response.data.market_data.current_price.eur;
           let value = Number(cp) * Number(asset.amount);
-          return { ...asset, value: +value, price: cp };
+          return { ...asset, value: value, price: cp };
         } catch (error) {
           console.log(error.response.data.error);
           throw error;
