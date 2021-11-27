@@ -136,6 +136,11 @@ function BuyForm({ balance, setBalance }) {
             {touched.amount && errors.amount ? (
               <div className="error">{errors.amount}</div>
             ) : null}
+            {balance - cost < 0 && isPurchased == false ? (
+              <div className="error">
+                You do not have enough money to make this purchase
+              </div>
+            ) : null}
           </Form.Group>
           <div>
             <h5>
@@ -149,7 +154,7 @@ function BuyForm({ balance, setBalance }) {
               type="submit"
               variant="primary"
               size="lg"
-              disabled={isPurchased ? true : false}
+              disabled={isPurchased || balance - cost < 0 ? true : false}
             >
               {isPurchased ? <TiTick /> : "Buy"}
             </Button>
