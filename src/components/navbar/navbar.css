@@ -1,3 +1,22 @@
+.navbar * {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.navbar {
+  padding: 25px 0 !important;
+}
+
+.navbar .navbar-brand {
+  font-size: 24px;
+}
+.navbar .btn {
+  font-weight: bold;
+}
 .button {
-  margin-left: 15px;
+  margin-left: 20px;
+}
+
+#basic-navbar-nav {
+  margin-left: 50px;
 }
