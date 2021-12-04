@@ -152,7 +152,7 @@ function BuyForm({ balance, setBalance }) {
           <div className="d-grid gap-2">
             <Button
               type="submit"
-              variant="primary"
+              variant="success"
               size="lg"
               disabled={isPurchased || balance - cost < 0 ? true : false}
             >

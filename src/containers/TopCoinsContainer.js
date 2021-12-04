@@ -20,11 +20,10 @@ function TopCoinsContainer() {
         console.log(coins);
       })
       .catch((error) => console.log(error.response.data.error));
-  }, [coins]);
+  }, []);
 
   return (
     <>
-      <TopNav />
       <Container>
         <h1>Top 100 Coins</h1>
 

@@ -6,15 +6,11 @@ import PortfolioComponent from "../components/portfoliosection/PortfolioComponen
 import Footer from "../components/footer/Footer";
 import TransactionComponent from "../components/transactionsection/TransactionComponent";
 
-function HomeContainer() {
-  // State for holding Total capital - temporary until the backend is ready
-  const [balance, setBalance] = useState(1500);
-
+function HomeContainer({ balance }) {
   return (
     <>
-      <TopNav balance={balance} setBalance={setBalance} />
       <Container>
-        <TopSection balance={balance} setBalance={setBalance} />
+        <TopSection balance={balance} />
         <PortfolioComponent />
         <TransactionComponent />
       </Container>
