@@ -15,6 +15,8 @@ import "../form.css";
 function BuyForm({ balance, setBalance }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
+  // Price of selected asset
+  const [assetPrice, setAssetPrice] = useState();
   // Cost of purchase
   const [cost, setCost] = useState("");
   // Cost of purchase
@@ -32,9 +34,34 @@ function BuyForm({ balance, setBalance }) {
 
   // Formik
   const onSubmit = (values) => {
-    // axios request goes here for posting the buy transaction
-    setIsPurchased(true);
+    // Get today's date
+    const today = new Date();
+    const date =
+      today.getDate() +
+      "/" +
+      (today.getMonth() + 1) +
+      "/" +
+      today.getFullYear();
+
+    // Create a transaction object
+    const transaction = {
+      AccountId: 1,
+      AssetId: values.asset,
+      BuySell: "B",
+      Amount: values.amount,
+      Price: assetPrice,
+      Date: date,
+      Cost: cost,
+    };
+    console.log(transaction);
+    // axios
+    //   .post("http://localhost:4200/assets", transaction)
+    //   .then((response) => console.log(response));
+
+    // Calculate balance after purchase
     const newBalance = Number(balance) - Number(cost);
+
+    setIsPurchased(true);
     setBalance(newBalance);
     console.log(values.assetAmount);
     console.log("Balance:" + balance);
@@ -57,6 +84,7 @@ function BuyForm({ balance, setBalance }) {
       const totalAsset = (Number(c) / Number(price)).toFixed(6);
       setAssetAmount(totalAsset);
       setAssetSymbol(symbol);
+      setAssetPrice(price);
       console.log(price);
       console.log(cost);
       console.log(totalAsset);
@@ -65,7 +93,7 @@ function BuyForm({ balance, setBalance }) {
     }
   }
 
-  // Whne component reders, call the fetchPrice function
+  // When component renders, call the fetchPrice function
   useEffect(() => {
     fetchPrice(cost);
   }, [selectedAsset, cost]);
