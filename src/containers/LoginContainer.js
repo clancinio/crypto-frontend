@@ -12,7 +12,7 @@ function LoginContainer({ setisLoggedIn }) {
     <div class="container">
       <div className="form-container  mt-5">
         <h1 className="text-center">Welcome back!</h1>
-        <p className="text-muted text-center">Login to acces your account</p>
+        <p className="text-muted text-center">Login to access your account</p>
         <Form className="login-form mt-3">
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label className="login-lable">Email address</Form.Label>
