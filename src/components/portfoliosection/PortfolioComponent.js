@@ -11,8 +11,8 @@ function PortfolioComponent() {
 
   useEffect(() => {
     async function getAssets() {
-      const response = await axios.get("http://localhost:4200/assets");
-      const requestedAssets = response.data.rows;
+      const response = await axios.get("http://localhost:8080/api/assets");
+      const requestedAssets = response.data;
       console.log(requestedAssets);
 
       Promise.all(
