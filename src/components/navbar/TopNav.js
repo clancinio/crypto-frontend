@@ -8,7 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import BuyForm from "../form/buyform/BuyForm";
 import "./navbar.css";
 
-function TopNav({ balance, setBalance }) {
+function TopNav({ balance, setBalance, isLoggedIn }) {
   // Buy Modal state
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -25,38 +25,40 @@ function TopNav({ balance, setBalance }) {
           <Navbar.Brand> <img src="./img/background.jpg" alt="logo" /> </Navbar.Brand>
           <Navbar.Brand href="#home">Crypto Trading Sim</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link activeclassname="active" as={NavLink} to="/">
-                Home
-              </Nav.Link>
-              <Nav.Link activeclassname="active" as={NavLink} to="/top">
-                Top 100
-              </Nav.Link>
-            </Nav>
-            <Button
-              className="button"
-              size="md"
-              variant="outline-success"
-              onClick={handleShow}
-              onclick="this.blur();"
-            >
-              Buy
-            </Button>
-            <Button
-              className="button"
-              size="md"
-              variant="outline-secondary"
-              onClick={handleShow2}
-            >
-              Sell
-            </Button>
-            <Navbar.Collapse className="justify-content-end">
-              <Navbar.Text>
-                Welcome: <a href="#login">Mark Otto</a>
-              </Navbar.Text>
+          {isLoggedIn && (
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link activeclassname="active" as={NavLink} to="/">
+                  Home
+                </Nav.Link>
+                <Nav.Link activeclassname="active" as={NavLink} to="/top">
+                  Top 100
+                </Nav.Link>
+              </Nav>
+              <Button
+                className="button"
+                size="md"
+                variant="outline-success"
+                onClick={handleShow}
+                onclick="this.blur();"
+              >
+                Buy
+              </Button>
+              <Button
+                className="button"
+                size="md"
+                variant="outline-secondary"
+                onClick={handleShow2}
+              >
+                Sell
+              </Button>
+              <Navbar.Collapse className="justify-content-end">
+                <Navbar.Text>
+                  Welcome: <a href="#login">John Doe</a>
+                </Navbar.Text>
+              </Navbar.Collapse>
             </Navbar.Collapse>
-          </Navbar.Collapse>
+          )}
         </Container>
       </Navbar>
       {/* Buy Modal */}
@@ -91,7 +93,6 @@ function TopNav({ balance, setBalance }) {
           <Button variant="primary">Sell</Button>
         </Modal.Footer>
       </Modal>
-      );
     </>
   );
 }
