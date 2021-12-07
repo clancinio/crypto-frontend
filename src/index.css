@@ -17,3 +17,22 @@ code {
   border-radius: 10px;
   padding: 25px;
 }
+
+/* Login Form */
+
+.form-container {
+}
+.login-form {
+  max-width: 450px;
+  margin: 0 auto;
+  background-color: #d3d3d3;
+  padding: 25px;
+  border-radius: 10px;
+}
+.login-lable {
+  font-weight: bold;
+}
+
+.login-form a {
+  text-decoration: none;
+}
