@@ -77,7 +77,9 @@ function PortfolioComponent() {
           </Table>
         </div>
       ) : (
-        <h1>You have no assets in your portfolio</h1>
+        <h1 className="text-center display-4">
+          You have no assets in your portfolio
+        </h1>
       )}
     </Col>
   );
