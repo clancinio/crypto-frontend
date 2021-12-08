@@ -37,43 +37,50 @@ function PortfolioComponent() {
           console.log(error);
         });
     }
-
-    getAssets();
-  }, []);
+    let interval = setTimeout(() => {
+      getAssets();
+    }, 3000);
+  }, [assets]);
 
   return (
     <Col className="section mt-5">
       <h1>Portfolio</h1>
       <p className="lead">{assets.length} Assests</p>
-      <div className="table-container">
-        <Table striped bordered>
-          <thead>
-            <tr>
-              <th>Asset</th>
-              <th>Symbol</th>
-              <th>Amount</th>
-              <th>Value</th>
-              {/* <th>Value Change (24h)</th> */}
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {assets.map((asset, index) => {
-              return (
-                <Asset
-                  key={index}
-                  name={asset.AssetName}
-                  symbol={asset.AssetSymbol}
-                  amount={asset.Amount}
-                  value={asset.value}
-                  value_change_24h={asset.value_change_24h}
-                  price={asset.price}
-                />
-              );
-            })}
-          </tbody>
-        </Table>
-      </div>
+      {assets.length > 0 ? (
+        <div className="table-container">
+          <Table striped bordered>
+            <thead>
+              <tr>
+                <th>Asset</th>
+                <th>Symbol</th>
+                <th>Amount</th>
+                <th>Value</th>
+                {/* <th>Value Change (24h)</th> */}
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {assets.map((asset, index) => {
+                return (
+                  <Asset
+                    key={index}
+                    name={asset.AssetName}
+                    symbol={asset.AssetSymbol}
+                    amount={asset.Amount}
+                    value={asset.value}
+                    value_change_24h={asset.value_change_24h}
+                    price={asset.price}
+                  />
+                );
+              })}
+            </tbody>
+          </Table>
+        </div>
+      ) : (
+        <h1 className="text-center display-4">
+          You have no assets in your portfolio
+        </h1>
+      )}
     </Col>
   );
 }
