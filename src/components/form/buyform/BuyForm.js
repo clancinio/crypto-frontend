@@ -17,6 +17,8 @@ function BuyForm({ balance, setBalance }) {
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
   const [assetPrice, setAssetPrice] = useState();
+  // Name of selected asset
+  const [assetName, setassetName] = useState();
   // Cost of purchase
   const [cost, setCost] = useState("");
   // Cost of purchase
@@ -53,12 +55,27 @@ function BuyForm({ balance, setBalance }) {
       Date: date,
       Cost: cost,
     };
+
+    // Create an asset object
+    const asset = {
+      AccountId: 1,
+      AssetId: values.asset,
+      AssetSymbol: assetSymbol,
+      Amount: values.amount,
+      AssetName: assetName,
+    };
     console.log(transaction);
+    console.log(asset);
     // axios
     //   .post("http://localhost:4200/assets", transaction)
     //   .then((response) => console.log(response));
 
-    // Calculate balance after purchase
+    // Post/Update asset
+    axios
+      .post("http://localhost:8080/api/assets", asset)
+      .then((response) => console.log(response));
+
+    //Calculate balance after purchase
     const newBalance = Number(balance) - Number(cost);
 
     setIsPurchased(true);
@@ -81,10 +98,12 @@ function BuyForm({ balance, setBalance }) {
       const response = await axios.get(assetData(selectedAsset));
       const price = response.data.market_data.current_price.eur;
       const symbol = response.data.symbol;
+      const name = response.data.name;
       const totalAsset = (Number(c) / Number(price)).toFixed(6);
       setAssetAmount(totalAsset);
       setAssetSymbol(symbol);
       setAssetPrice(price);
+      setassetName(name);
       console.log(price);
       console.log(cost);
       console.log(totalAsset);
