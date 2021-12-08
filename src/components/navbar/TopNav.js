@@ -22,7 +22,10 @@ function TopNav({ balance, setBalance, isLoggedIn }) {
     <>
       <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
         <Container>
-          <Navbar.Brand> <img src="./img/background.jpg" alt="logo" /> </Navbar.Brand>
+          <Navbar.Brand>
+            {" "}
+            <img src="./img/background.jpg" alt="logo" />{" "}
+          </Navbar.Brand>
           <Navbar.Brand href="#home">Crypto Trading Sim</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           {isLoggedIn && (
@@ -85,7 +88,9 @@ function TopNav({ balance, setBalance, isLoggedIn }) {
         <Modal.Header closeButton>
           <Modal.Title>Sell</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Form for selling cryto goes here</Modal.Body>
+        <Modal.Body className="text-center display-4">
+          Comming soon!!
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose2}>
             Close
