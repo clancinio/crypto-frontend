@@ -17,9 +17,18 @@ code {
 }
 
 .section {
-  background-color: #ffffffb4;
+  background-color: #2b2a2af3;
   border-radius: 10px;
   padding: 25px;
+}
+
+h1 {
+  color: #ffffff;
+}
+
+/* Balence assets transactions figure  */
+.lead {
+  color: rgb(247, 250, 76) !important;
 }
 
 /* Login Form */

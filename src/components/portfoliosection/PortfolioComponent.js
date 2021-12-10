@@ -48,7 +48,7 @@ function PortfolioComponent() {
       <p className="lead">{assets.length} Assests</p>
       {assets.length > 0 ? (
         <div className="table-container">
-          <Table striped bordered>
+          <Table className="table-dark" striped bordered>
             <thead>
               <tr>
                 <th>Asset</th>
