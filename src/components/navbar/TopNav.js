@@ -23,10 +23,10 @@ function TopNav({ balance, setBalance, isLoggedIn }) {
       <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
         <Container>
           <Navbar.Brand>
-            {" "}
-            <img src="./img/background.jpg" alt="logo" />{" "}
+            {/* {" "}
+            <img src="./img/background.jpg" alt="logo" />{" "} */}
           </Navbar.Brand>
-          <Navbar.Brand href="#home">Crypto Trading Sim</Navbar.Brand>
+          <Navbar.Brand href="#home">TRYPO.COM</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           {isLoggedIn && (
             <Navbar.Collapse id="basic-navbar-nav">

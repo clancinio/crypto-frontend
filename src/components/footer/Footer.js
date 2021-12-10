@@ -14,7 +14,7 @@ function Footer() {
               <Link to="/top">Top 100</Link>
             </li>
           </ul>
-          <p className="copyright">Company Name © 2018</p>
+          <p className="copyright">TRYPTO.COM © 2021</p>
         </div>
       </footer>
     </div>

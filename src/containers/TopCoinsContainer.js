@@ -25,9 +25,9 @@ function TopCoinsContainer() {
   return (
     <>
       <Container>
-        <h1>Top 100 Coins</h1>
+        {/* <h1>Top 100 Coins</h1> */}
 
-        <Table striped bordered>
+        <Table className="table-dark mt-5" striped bordered>
           <thead>
             <tr>
               <th>#</th>
