@@ -3,6 +3,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Transaction from "./transaction/Transaction";
+import "./transation.css";
 
 function TransactionComponent() {
   // State to mock assets
@@ -46,7 +47,7 @@ function TransactionComponent() {
       <h1>Transactions</h1>
       <p className="lead">27 Transactions</p>
       <div className="table-container">
-        <Table striped bordered>
+        <Table className="table-dark" striped bordered>
           <thead>
             <tr>
               <th>Asset</th>
