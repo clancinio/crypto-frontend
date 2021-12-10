@@ -12,40 +12,40 @@ function TransactionComponent() {
       symbol: "BTC",
       buy_sell: "B",
       amount: "2",
-      price: "$10",
+      price: 10,
       date: "27/09/2021",
-      cost: "$120.50",
+      cost: 120.5,
     },
     {
       symbol: "ETH",
       buy_sell: "S",
       amount: "25",
-      price: "$250.06",
+      price: 250.06,
       date: "27/09/2021",
-      cost: "$50.00",
+      cost: 50.0,
     },
     {
       symbol: "ADA",
       buy_sell: "B",
       amount: "987",
-      price: "$10.56",
+      price: 10.56,
       date: "27/09/2021",
-      cost: "$200.00",
+      cost: 200.0,
     },
     {
       symbol: "SOL",
       buy_sell: "S",
       amount: "1,005",
-      price: "$1.58",
+      price: 1.58,
       date: "27/09/2021",
-      cost: "$28.00",
+      cost: 28.0,
     },
   ]);
 
   return (
     <Col className="section mt-5">
       <h1>Transactions</h1>
-      <p className="lead">27 Transactions</p>
+      <p className="lead">{transactions.length} Transactions</p>
       <div className="table-container">
         <Table className="table-dark" striped bordered>
           <thead>

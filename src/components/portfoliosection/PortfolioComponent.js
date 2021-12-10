@@ -45,7 +45,7 @@ function PortfolioComponent() {
   return (
     <Col className="section mt-5">
       <h1>Portfolio</h1>
-      <p className="lead">{assets.length} Assests</p>
+      <p className="lead">{assets.length} Assets</p>
       {assets.length > 0 ? (
         <div className="table-container">
           <Table className="table-dark" striped bordered>

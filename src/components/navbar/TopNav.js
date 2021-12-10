@@ -26,7 +26,7 @@ function TopNav({ balance, setBalance, isLoggedIn }) {
             {/* {" "}
             <img src="./img/background.jpg" alt="logo" />{" "} */}
           </Navbar.Brand>
-          <Navbar.Brand href="#home">TRYPO.COM</Navbar.Brand>
+          <Navbar.Brand href="#home">TRYTPO.COM</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           {isLoggedIn && (
             <Navbar.Collapse id="basic-navbar-nav">
@@ -79,6 +79,7 @@ function TopNav({ balance, setBalance, isLoggedIn }) {
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
       </Modal>
+      {/* Sell Modal */}
       <Modal
         show={show2}
         onHide={handleClose2}
@@ -88,9 +89,7 @@ function TopNav({ balance, setBalance, isLoggedIn }) {
         <Modal.Header closeButton>
           <Modal.Title>Sell</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="text-center display-4">
-          Comming soon!!
-        </Modal.Body>
+        <Modal.Body className="text-center display-4">Coming soon!!</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose2}>
             Close
