@@ -8,7 +8,7 @@ function App() {
   // State for holding Total capital - temporary until the backend is ready
   const [balance, setBalance] = useState(1500);
   // Is user logged in
-  const [isLoggedIn, setisLoggedIn] = useState(false);
+  const [isLoggedIn, setisLoggedIn] = useState(true);
   return (
     <Router>
       <TopNav

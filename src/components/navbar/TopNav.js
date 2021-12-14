@@ -6,6 +6,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom/";
 import Modal from "react-bootstrap/Modal";
 import BuyForm from "../form/buyform/BuyForm";
+import SellForm from "../form/sellform/SellForm";
 import "./navbar.css";
 
 function TopNav({ balance, setBalance, isLoggedIn }) {
@@ -77,7 +78,6 @@ function TopNav({ balance, setBalance, isLoggedIn }) {
         <Modal.Body>
           <BuyForm balance={balance} setBalance={setBalance} />
         </Modal.Body>
-        <Modal.Footer></Modal.Footer>
       </Modal>
       {/* Sell Modal */}
       <Modal
@@ -89,13 +89,9 @@ function TopNav({ balance, setBalance, isLoggedIn }) {
         <Modal.Header closeButton>
           <Modal.Title>Sell</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="text-center display-4">Coming soon!!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose2}>
-            Close
-          </Button>
-          <Button variant="primary">Sell</Button>
-        </Modal.Footer>
+        <Modal.Body>
+          <SellForm balance={balance} />
+        </Modal.Body>
       </Modal>
     </>
   );

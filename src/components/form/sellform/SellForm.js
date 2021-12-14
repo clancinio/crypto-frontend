@@ -12,8 +12,8 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm({ balance, setBalance }) {
-  // Selected asset to buy
+function SellForm({ balance }) {
+  // Selected asset to sell
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
   const [assetPrice, setAssetPrice] = useState();
@@ -35,56 +35,7 @@ function BuyForm({ balance, setBalance }) {
   };
 
   // Formik
-  const onSubmit = (values) => {
-    // Get today's date
-    const today = new Date();
-    const date =
-      today.getDate() +
-      "/" +
-      (today.getMonth() + 1) +
-      "/" +
-      today.getFullYear();
-
-    // Create a transaction object
-    const transaction = {
-      AccountId: 1,
-      AssetId: values.asset,
-      BuySell: "B",
-      Amount: values.amount,
-      Price: assetPrice,
-      Date: date,
-      Cost: cost,
-    };
-
-    // Create an asset object
-    const asset = {
-      AccountId: 1,
-      AssetId: values.asset,
-      AssetSymbol: assetSymbol,
-      Amount: values.amount,
-      AssetName: assetName,
-    };
-    console.log(transaction);
-    console.log(asset);
-    // axios
-    //   .post("http://localhost:4200/transactions", transaction)
-    //   .then((response) => console.log(response));
-
-    // Post/Update asset
-    axios
-      .post("http://localhost:8080/api/assets", asset)
-      .then((response) => console.log(response));
-
-    //Calculate balance after purchase
-    const newBalance = Number(balance) - Number(cost);
-
-    setIsPurchased(true);
-    setBalance(newBalance);
-    console.log(values.assetAmount);
-    console.log("Balance:" + balance);
-    console.log(values.asset);
-    // console.log("Form Values: " + JSON.stringify(values));
-  };
+  const onSubmit = (values) => {};
 
   // Formik
   const validationSchema = Yup.object().shape({
@@ -116,7 +67,6 @@ function BuyForm({ balance, setBalance }) {
   useEffect(() => {
     fetchPrice(cost);
   }, [selectedAsset, cost]);
-
   return (
     <Formik
       initialValues={initialValues}
@@ -132,16 +82,8 @@ function BuyForm({ balance, setBalance }) {
         handleBlur,
       }) => (
         <Form onSubmit={handleSubmit}>
-          {setSelectedAsset(values.asset)}
-          {setCost(values.amount)}
-          {isPurchased && (
-            <Alert variant={"success"}>Your purchase was successful</Alert>
-          )}
-
           <h5>Balance: {formatter.format(balance)}</h5>
-          {isPurchased && (
-            <p className="text-danger lead">{"-" + formatter.format(cost)}</p>
-          )}
+
           <Form.Group className="mb-3" controlId="asset">
             <Form.Label>Select Asset</Form.Label>
             <Form.Select
@@ -169,7 +111,6 @@ function BuyForm({ balance, setBalance }) {
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup className="mb-2">
-              <InputGroup.Text>€</InputGroup.Text>
               <FormControl
                 type="number"
                 step="any"
@@ -177,22 +118,14 @@ function BuyForm({ balance, setBalance }) {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.amount}
-                disabled={isPurchased ? true : false}
               />
             </InputGroup>
             {touched.amount && errors.amount ? (
               <div className="error">{errors.amount}</div>
             ) : null}
-            {balance - cost < 0 && isPurchased == false ? (
-              <div className="error">
-                You do not have enough money to make this purchase
-              </div>
-            ) : null}
           </Form.Group>
           <div>
-            <h5>
-              Buying: {assetAmount} {assetSymbol.toUpperCase()}
-            </h5>
+            <h5>{/* Buying: {assetAmount} {assetSymbol.toUpperCase()} */}</h5>
             <h5>Cost: {formatter.format(values.amount)}</h5>
           </div>
           <hr />
@@ -203,7 +136,7 @@ function BuyForm({ balance, setBalance }) {
               size="lg"
               disabled={isPurchased || balance - cost < 0 ? true : false}
             >
-              {isPurchased ? <TiTick /> : "Buy"}
+              {isPurchased ? <TiTick /> : "Sell"}
             </Button>
           </div>
         </Form>
@@ -212,4 +145,4 @@ function BuyForm({ balance, setBalance }) {
   );
 }
 
-export default BuyForm;
+export default SellForm;
