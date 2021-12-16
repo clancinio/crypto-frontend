@@ -9,7 +9,7 @@ import BuyForm from "../form/buyform/BuyForm";
 import SellForm from "../form/sellform/SellForm";
 import "./navbar.css";
 
-function TopNav({ balance, setBalance, isLoggedIn }) {
+function TopNav({ balance, setBalance, isLoggedIn, assets }) {
   // Buy Modal state
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -90,7 +90,7 @@ function TopNav({ balance, setBalance, isLoggedIn }) {
           <Modal.Title>Sell</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <SellForm balance={balance} />
+          <SellForm balance={balance} assets={assets} />
         </Modal.Body>
       </Modal>
     </>
