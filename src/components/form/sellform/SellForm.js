@@ -12,26 +12,26 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function SellForm({ balance }) {
+function SellForm({ balance, assets }) {
   // Selected asset to sell
-  const [selectedAsset, setSelectedAsset] = useState("bitcoin");
+  const [selectedAsset, setSelectedAsset] = useState("");
   // Price of selected asset
   const [assetPrice, setAssetPrice] = useState();
   // Name of selected asset
   const [assetName, setassetName] = useState();
-  // Cost of purchase
-  const [cost, setCost] = useState("");
-  // Cost of purchase
-  const [assetAmount, setAssetAmount] = useState();
+  // Quantity to sell
+  const [quantity, setQuantity] = useState(0);
+  // Sell price
+  const [sellPrice, setSellPrice] = useState(0);
   // selected asset ID
-  const [assetSymbol, setAssetSymbol] = useState("btc");
+  const [assetSymbol, setAssetSymbol] = useState("");
   // Purchase state
   const [isPurchased, setIsPurchased] = useState(false);
 
   // Formik
   const initialValues = {
-    asset: "bitcoin",
-    amount: "0.00",
+    asset: "",
+    quantity: "0.00",
   };
 
   // Formik
@@ -40,24 +40,24 @@ function SellForm({ balance }) {
   // Formik
   const validationSchema = Yup.object().shape({
     asset: Yup.string().required("Required!"),
-    amount: Yup.number().min(5, "The minimum amount is €5.00").required(),
+    quantity: Yup.number()
+      .min(0.000001, "Quantity to sell must be greater than 0.000001")
+      .required(),
   });
 
   // This function makes a call to get the price of the selected asset
-  async function fetchPrice(c) {
+  async function fetchPrice(quantity) {
     try {
       const response = await axios.get(assetData(selectedAsset));
       const price = response.data.market_data.current_price.eur;
       const symbol = response.data.symbol;
       const name = response.data.name;
-      const totalAsset = (Number(c) / Number(price)).toFixed(6);
-      setAssetAmount(totalAsset);
+      const totalAsset = (Number(quantity) * Number(price)).toFixed(6);
+      console.log(totalAsset);
+      setSellPrice(totalAsset);
       setAssetSymbol(symbol);
       setAssetPrice(price);
       setassetName(name);
-      console.log(price);
-      console.log(cost);
-      console.log(totalAsset);
     } catch (error) {
       console.log(error.response.data.error);
     }
@@ -65,8 +65,11 @@ function SellForm({ balance }) {
 
   // When component renders, call the fetchPrice function
   useEffect(() => {
-    fetchPrice(cost);
-  }, [selectedAsset, cost]);
+    if (selectedAsset === "") {
+      return;
+    }
+    fetchPrice(quantity);
+  }, [selectedAsset, quantity]);
   return (
     <Formik
       initialValues={initialValues}
@@ -82,6 +85,8 @@ function SellForm({ balance }) {
         handleBlur,
       }) => (
         <Form onSubmit={handleSubmit}>
+          {setSelectedAsset(values.asset)}
+          {setQuantity(values.quantity)}
           <h5>Balance: {formatter.format(balance)}</h5>
 
           <Form.Group className="mb-3" controlId="asset">
@@ -109,24 +114,27 @@ function SellForm({ balance }) {
               <div className="error">{errors.asset}</div>
             ) : null}
           </Form.Group>
+          <Form.Label>Quantity</Form.Label>
           <Form.Group className="mb-3">
             <InputGroup className="mb-2">
               <FormControl
                 type="number"
                 step="any"
-                name="amount"
+                name="quantity"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.amount}
+                value={values.quantity}
               />
             </InputGroup>
-            {touched.amount && errors.amount ? (
-              <div className="error">{errors.amount}</div>
+            {touched.quantity && errors.quantity ? (
+              <div className="error">{errors.quantity}</div>
             ) : null}
           </Form.Group>
           <div>
-            <h5>{/* Buying: {assetAmount} {assetSymbol.toUpperCase()} */}</h5>
-            <h5>Cost: {formatter.format(values.amount)}</h5>
+            <h5>
+              Sell {Number(values.quantity).toFixed(2)}{" "}
+              {assetSymbol.toUpperCase()} for {formatter.format(sellPrice)}
+            </h5>
           </div>
           <hr />
           <div className="d-grid gap-2">
@@ -134,7 +142,7 @@ function SellForm({ balance }) {
               type="submit"
               variant="success"
               size="lg"
-              disabled={isPurchased || balance - cost < 0 ? true : false}
+              // disabled={isPurchased || balance - cost < 0 ? true : false}
             >
               {isPurchased ? <TiTick /> : "Sell"}
             </Button>
