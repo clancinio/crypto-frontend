@@ -99,16 +99,10 @@ function SellForm({ balance, assets }) {
               value={values.asset}
               disabled={isPurchased ? true : false}
             >
-              <option value="bitcoin">Bitcoin</option>
-              <option value="ethereum">Ethereum</option>
-              <option value="binancecoin">Binance Coin</option>
-              <option value="tether">Tether </option>
-              <option value="solana">Solana </option>
-              <option value="cardano">Cardano</option>
-              <option value="ripple">Ripple</option>
-              <option value="polkadot">Polkadot</option>
-              <option value="dogecoin">Dogecoin </option>
-              <option value="avalanche-2">Avalanche</option>
+              <option value=""></option>
+              {assets.map((asset) => {
+                return <option value={asset.AssetId}>{asset.AssetName}</option>;
+              })}
             </Form.Select>
             {touched.asset && errors.asset ? (
               <div className="error">{errors.asset}</div>
@@ -131,10 +125,12 @@ function SellForm({ balance, assets }) {
             ) : null}
           </Form.Group>
           <div>
-            <h5>
-              Sell {Number(values.quantity).toFixed(2)}{" "}
-              {assetSymbol.toUpperCase()} for {formatter.format(sellPrice)}
-            </h5>
+            {selectedAsset != "" && (
+              <h5>
+                Sell {Number(values.quantity).toFixed(6)}{" "}
+                {assetSymbol.toUpperCase()} for {formatter.format(sellPrice)}
+              </h5>
+            )}
           </div>
           <hr />
           <div className="d-grid gap-2">

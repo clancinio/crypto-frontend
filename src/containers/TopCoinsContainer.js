@@ -4,7 +4,6 @@ import Table from "react-bootstrap/Table";
 import axios from "axios";
 import { top100 } from "../api";
 import Coin from "../components/coin/Coin";
-import TopNav from "../components/navbar/TopNav";
 import Footer from "../components/footer/Footer";
 
 function TopCoinsContainer() {
