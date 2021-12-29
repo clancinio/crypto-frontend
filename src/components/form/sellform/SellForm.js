@@ -26,7 +26,9 @@ function SellForm({ balance, assets }) {
   // selected asset ID
   const [assetSymbol, setAssetSymbol] = useState("");
   // Purchase state
-  const [isPurchased, setIsPurchased] = useState(false);
+  const [isSold, setIsSold] = useState(false);
+  // Selected asset total amount owmed
+  const [assetAmount, setAssetAmount] = useState(0);
 
   // Formik
   const initialValues = {
@@ -54,6 +56,8 @@ function SellForm({ balance, assets }) {
       const name = response.data.name;
       const totalAsset = (Number(quantity) * Number(price)).toFixed(6);
       console.log(totalAsset);
+      let obj = assets.find((o) => o.AssetSymbol === symbol);
+      setAssetAmount(obj.Amount);
       setSellPrice(totalAsset);
       setAssetSymbol(symbol);
       setAssetPrice(price);
@@ -70,6 +74,7 @@ function SellForm({ balance, assets }) {
     }
     fetchPrice(quantity);
   }, [selectedAsset, quantity]);
+
   return (
     <Formik
       initialValues={initialValues}
@@ -92,12 +97,12 @@ function SellForm({ balance, assets }) {
           <Form.Group className="mb-3" controlId="asset">
             <Form.Label>Select Asset</Form.Label>
             <Form.Select
-              aria-label="Deslect asser to buy"
+              aria-label="Select asset to buy"
               name="asset"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.asset}
-              disabled={isPurchased ? true : false}
+              disabled={isSold ? true : false}
             >
               <option value=""></option>
               {assets.map((asset) => {
@@ -123,13 +128,24 @@ function SellForm({ balance, assets }) {
             {touched.quantity && errors.quantity ? (
               <div className="error">{errors.quantity}</div>
             ) : null}
+            {quantity > assetAmount && (
+              <div className="error">
+                The maximum amount you can sell is {assetAmount}{" "}
+                {assetSymbol.toUpperCase()}
+              </div>
+            )}
           </Form.Group>
           <div>
             {selectedAsset != "" && (
-              <h5>
-                Sell {Number(values.quantity).toFixed(6)}{" "}
-                {assetSymbol.toUpperCase()} for {formatter.format(sellPrice)}
-              </h5>
+              <>
+                <h5>
+                  Total {assetSymbol.toUpperCase()}: {assetAmount}
+                </h5>
+                <h5>
+                  Sell {Number(values.quantity).toFixed(6)}{" "}
+                  {assetSymbol.toUpperCase()} for {formatter.format(sellPrice)}
+                </h5>
+              </>
             )}
           </div>
           <hr />
@@ -138,9 +154,9 @@ function SellForm({ balance, assets }) {
               type="submit"
               variant="success"
               size="lg"
-              // disabled={isPurchased || balance - cost < 0 ? true : false}
+              disabled={isSold || quantity > assetAmount ? true : false}
             >
-              {isPurchased ? <TiTick /> : "Sell"}
+              {isSold ? <TiTick /> : "Sell"}
             </Button>
           </div>
         </Form>
