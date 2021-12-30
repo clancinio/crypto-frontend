@@ -90,7 +90,7 @@ function TopNav({ balance, setBalance, isLoggedIn, assets }) {
           <Modal.Title>Sell</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <SellForm balance={balance} assets={assets} />
+          <SellForm balance={balance} setBalance={setBalance} assets={assets} />
         </Modal.Body>
       </Modal>
     </>

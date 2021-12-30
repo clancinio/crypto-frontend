@@ -12,7 +12,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function SellForm({ balance, assets }) {
+function SellForm({ balance, assets, setBalance }) {
   // Selected asset to sell
   const [selectedAsset, setSelectedAsset] = useState("");
   // Price of selected asset
@@ -37,7 +37,13 @@ function SellForm({ balance, assets }) {
   };
 
   // Formik
-  const onSubmit = (values) => {};
+  const onSubmit = (values) => {
+    //Calculate balance after purchase
+    const newBalance = Number(balance) + Number(sellPrice);
+
+    setIsSold(true);
+    setBalance(newBalance);
+  };
 
   // Formik
   const validationSchema = Yup.object().shape({
@@ -92,8 +98,18 @@ function SellForm({ balance, assets }) {
         <Form onSubmit={handleSubmit}>
           {setSelectedAsset(values.asset)}
           {setQuantity(values.quantity)}
+          {isSold && (
+            <Alert variant={"success"}>
+              Success!! You sold {quantity} {assetSymbol.toUpperCase()} for{" "}
+              {formatter.format(sellPrice)}
+            </Alert>
+          )}
           <h5>Balance: {formatter.format(balance)}</h5>
-
+          {isSold && (
+            <p className="text-success lead">
+              {"+" + formatter.format(sellPrice)}
+            </p>
+          )}
           <Form.Group className="mb-3" controlId="asset">
             <Form.Label>Select Asset</Form.Label>
             <Form.Select

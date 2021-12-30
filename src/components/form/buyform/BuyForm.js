@@ -61,7 +61,7 @@ function BuyForm({ balance, setBalance }) {
       AccountId: 1,
       AssetId: values.asset,
       AssetSymbol: assetSymbol,
-      Amount: values.amount,
+      Amount: assetAmount,
       AssetName: assetName,
     };
     console.log(transaction);
