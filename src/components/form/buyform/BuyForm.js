@@ -61,13 +61,13 @@ function BuyForm({ balance, setBalance }) {
       AccountId: 1,
       AssetId: values.asset,
       AssetSymbol: assetSymbol,
-      Amount: values.amount,
+      Amount: assetAmount,
       AssetName: assetName,
     };
     console.log(transaction);
     console.log(asset);
     // axios
-    //   .post("http://localhost:4200/assets", transaction)
+    //   .post("http://localhost:4200/transactions", transaction)
     //   .then((response) => console.log(response));
 
     // Post/Update asset
