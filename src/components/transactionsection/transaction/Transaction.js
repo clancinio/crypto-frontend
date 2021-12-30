@@ -1,8 +1,9 @@
 import { formatter } from "../../../helpers";
 
-function Transaction({ symbol, amount, buy_sell, price, date, cost }) {
+function Transaction({ index, symbol, amount, buy_sell, price, date, cost }) {
   return (
     <tr>
+      <td>{index + 1}</td>
       <td>{symbol.toUpperCase()}</td>
       <td>{buy_sell}</td>
       <td>{amount}</td>

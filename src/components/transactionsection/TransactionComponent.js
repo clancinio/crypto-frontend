@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Transaction from "./transaction/Transaction";
+import Pagination from "../Pagination";
 import "./transation.css";
+import axios from "axios";
 
 function TransactionComponent() {
+  const [loading, setLoading] = useState(false);
+
   // State to mock assets
   const [transactions, setTransactions] = useState([
     {
@@ -40,8 +44,78 @@ function TransactionComponent() {
       date: "27/09/2021",
       cost: 28.0,
     },
+    {
+      symbol: "ADA",
+      buy_sell: "B",
+      amount: "987",
+      price: 10.56,
+      date: "27/09/2021",
+      cost: 200.0,
+    },
+    {
+      symbol: "SOL",
+      buy_sell: "S",
+      amount: "1,005",
+      price: 1.58,
+      date: "27/09/2021",
+      cost: 28.0,
+    },
+    {
+      symbol: "ADA",
+      buy_sell: "B",
+      amount: "987",
+      price: 10.56,
+      date: "27/09/2021",
+      cost: 200.0,
+    },
+    {
+      symbol: "SOL",
+      buy_sell: "S",
+      amount: "1,005",
+      price: 1.58,
+      date: "27/09/2021",
+      cost: 28.0,
+    },
+    {
+      symbol: "ADA",
+      buy_sell: "B",
+      amount: "987",
+      price: 10.56,
+      date: "27/09/2021",
+      cost: 200.0,
+    },
+    {
+      symbol: "SOL",
+      buy_sell: "S",
+      amount: "1,005",
+      price: 1.58,
+      date: "27/09/2021",
+      cost: 28.0,
+    },
   ]);
 
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [transPerPage, setTransPerPage] = useState(5);
+
+  // useEffect(() => {
+  //   const fetchTransactions = async () => {
+  //     setLoading(true);
+  //     const response = await axios.get("URL");
+  //     setTransactions(response.data);
+  //     setLoading(false);
+  //   };
+
+  //   fetchTransactions();
+  // }, []);
+
+  // Get current transations
+  const indexOfLastTrans = currentPage * transPerPage;
+  const indexOfFirstTrans = indexOfLastTrans - transPerPage;
+  const currentTrans = transactions.slice(indexOfFirstTrans, indexOfLastTrans);
+  if (loading) {
+    return <h1 className="text-center display-4">Loading...</h1>;
+  }
   return (
     <Col className="section mt-5">
       <h1>Transactions</h1>
@@ -50,6 +124,7 @@ function TransactionComponent() {
         <Table className="table-dark" striped bordered>
           <thead>
             <tr>
+              <th></th>
               <th>Asset</th>
               <th>Buy/Sell</th>
               <th>Amount</th>
@@ -59,10 +134,11 @@ function TransactionComponent() {
             </tr>
           </thead>
           <tbody>
-            {transactions.map((transaction, index) => {
+            {currentTrans.map((transaction, index) => {
               return (
                 <Transaction
                   key={index}
+                  index={index}
                   symbol={transaction.symbol}
                   buy_sell={transaction.buy_sell}
                   amount={transaction.amount}
@@ -74,10 +150,14 @@ function TransactionComponent() {
             })}
           </tbody>
         </Table>
+        <Pagination
+          transPerPage={transPerPage}
+          totalTrans={transactions.length}
+        />
       </div>
-      <Button variant="secondary" size="md">
+      {/* <Button variant="secondary" size="md">
         View All
-      </Button>
+      </Button> */}
     </Col>
   );
 }
