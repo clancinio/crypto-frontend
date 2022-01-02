@@ -96,7 +96,7 @@ function TransactionComponent() {
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [transPerPage, setTransPerPage] = useState(5);
+  const [transPerPage] = useState(5);
 
   // useEffect(() => {
   //   const fetchTransactions = async () => {
@@ -113,6 +113,14 @@ function TransactionComponent() {
   const indexOfLastTrans = currentPage * transPerPage;
   const indexOfFirstTrans = indexOfLastTrans - transPerPage;
   const currentTrans = transactions.slice(indexOfFirstTrans, indexOfLastTrans);
+
+  // Change page
+  function paginate(e, pageNumber) {
+    e.preventDefault();
+
+    setCurrentPage(pageNumber);
+  }
+
   if (loading) {
     return <h1 className="text-center display-4">Loading...</h1>;
   }
@@ -124,7 +132,6 @@ function TransactionComponent() {
         <Table className="table-dark" striped bordered>
           <thead>
             <tr>
-              <th></th>
               <th>Asset</th>
               <th>Buy/Sell</th>
               <th>Amount</th>
@@ -138,7 +145,6 @@ function TransactionComponent() {
               return (
                 <Transaction
                   key={index}
-                  index={index}
                   symbol={transaction.symbol}
                   buy_sell={transaction.buy_sell}
                   amount={transaction.amount}
@@ -153,6 +159,8 @@ function TransactionComponent() {
         <Pagination
           transPerPage={transPerPage}
           totalTrans={transactions.length}
+          currentPage={currentPage}
+          paginate={paginate}
         />
       </div>
       {/* <Button variant="secondary" size="md">

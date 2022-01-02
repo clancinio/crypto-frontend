@@ -1,6 +1,6 @@
 import React from "react";
 
-function Pagination({ transPerPage, totalTrans }) {
+function Pagination({ transPerPage, totalTrans, currentPage, paginate }) {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalTrans / transPerPage); i++) {
@@ -10,8 +10,15 @@ function Pagination({ transPerPage, totalTrans }) {
     <nav>
       <ul className="pagination">
         {pageNumbers.map((number) => (
-          <li key={number} className="page-item">
-            <a href="#" className="page-link">
+          <li
+            key={number}
+            className={`page-item ${currentPage === number ? "active" : ""}`}
+          >
+            <a
+              onClick={(e) => paginate(e, number)}
+              href=""
+              className="page-link "
+            >
               {number}
             </a>
           </li>
