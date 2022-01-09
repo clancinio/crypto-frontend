@@ -17,7 +17,13 @@ function App() {
 
   useEffect(() => {
     async function getAssets() {
-      const response = await axios.get("http://localhost:8080/api/assets");
+      const response = await axios.post(
+        "http://localhost:8080/api/assets/all",
+        {
+          accountId: 1,
+        }
+      );
+
       const requestedAssets = response.data;
       console.log(requestedAssets);
 
