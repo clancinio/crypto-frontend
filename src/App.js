@@ -6,6 +6,7 @@ import LoginContainer from "./containers/LoginContainer";
 import { assetData } from "./api";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import SignUp from "./components/SignUp";
 
 function App() {
   // State for holding Total capital - temporary until the backend is ready
