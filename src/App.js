@@ -6,7 +6,7 @@ import LoginContainer from "./containers/LoginContainer";
 import { assetData } from "./api";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import SignUp from "./components/SignUp";
+import SignupContainer from "./containers/SignUpContainer";
 
 function App() {
   // State for holding Total capital - temporary until the backend is ready
@@ -75,6 +75,7 @@ function App() {
           path="/login"
           element={<LoginContainer setisLoggedIn={setisLoggedIn} />}
         />
+        <Route exact path="/signup" element={<SignupContainer />} />
       </Routes>
     </Router>
   );
