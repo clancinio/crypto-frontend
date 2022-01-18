@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import UserPool from "../UserPool";
 
 const SignUpContainer = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -13,8 +15,10 @@ const SignUpContainer = () => {
     UserPool.signUp(email, password, [], null, (err, data) => {
       if (err) {
         console.error(err);
+      } else {
+        console.log(data);
+        setIsRegistered(true);
       }
-      console.log(data);
     });
   };
 
@@ -56,6 +60,11 @@ const SignUpContainer = () => {
               Sign Up
             </Button>{" "}
           </div>
+          {isRegistered && (
+            <Alert variant={"success mt-3"}>
+              Success! Please check your email to verify your account.
+            </Alert>
+          )}
         </Form>
       </div>
     </div>
