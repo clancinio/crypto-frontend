@@ -39,11 +39,12 @@ h1 {
 }
 
 .login-form {
+  color: white !important;
   max-width: 450px;
   margin: 0 auto;
-  background-color: #d3d3d3;
-  padding: 25px;
+  background-color: #2b2a2af3;
   border-radius: 10px;
+  padding: 25px;
 }
 
 .login-lable {
