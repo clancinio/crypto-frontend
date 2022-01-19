@@ -1,16 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import UserPool from "../UserPool";
 
-function LoginContainer({ setisLoggedIn }) {
+function LoginContainer({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const onSubmit = (event) => {
     event.preventDefault();
+
+    // Temporary
+    setIsLoggedIn(true);
+    navigate("/");
 
     const user = new CognitoUser({
       Username: email,
@@ -25,7 +31,7 @@ function LoginContainer({ setisLoggedIn }) {
     user.authenticateUser(authDetails, {
       onSuccess: (data) => {
         console.log("onSuccess: ", data);
-        setisLoggedIn(true);
+        setIsLoggedIn(true);
       },
       onFailure: (err) => {
         console.error("onFailure: ", err);

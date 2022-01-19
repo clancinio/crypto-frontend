@@ -14,7 +14,7 @@ function App() {
   // User#s Assets
   const [assets, setAssets] = useState([]);
   // Is user logged in
-  const [isLoggedIn, setisLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     async function getAssets() {
@@ -73,7 +73,7 @@ function App() {
         <Route
           exact
           path="/login"
-          element={<LoginContainer setisLoggedIn={setisLoggedIn} />}
+          element={<LoginContainer setIsLoggedIn={setIsLoggedIn} />}
         />
         <Route exact path="/signup" element={<SignupContainer />} />
       </Routes>
