@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
-import UserPool from "../UserPool";
+import UserPool from "../cognito/UserPool";
 
 function LoginContainer({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
