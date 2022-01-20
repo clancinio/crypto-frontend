@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import { Link } from "react-router-dom";
+
 import UserPool from "../cognito/UserPool";
 
 const SignUpContainer = () => {
@@ -65,6 +67,9 @@ const SignUpContainer = () => {
               Success! Please check your email to verify your account.
             </Alert>
           )}
+          <p className="text-muted text-center mt-2">
+            Have an account? <Link to="/login">Login</Link>
+          </p>
         </Form>
       </div>
     </div>

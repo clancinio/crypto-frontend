@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useHistory } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AccountContext } from "../cognito/Account";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
-import UserPool from "../cognito/UserPool";
 
 function LoginContainer({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
@@ -11,35 +10,20 @@ function LoginContainer({ setIsLoggedIn }) {
 
   const navigate = useNavigate();
 
+  const { authenticate } = useContext(AccountContext);
+
   const onSubmit = (event) => {
     event.preventDefault();
 
-    // Temporary
-    setIsLoggedIn(true);
-    navigate("/");
-
-    const user = new CognitoUser({
-      Username: email,
-      Pool: UserPool,
-    });
-
-    const authDetails = new AuthenticationDetails({
-      Username: email,
-      Password: password,
-    });
-
-    user.authenticateUser(authDetails, {
-      onSuccess: (data) => {
-        console.log("onSuccess: ", data);
-        setIsLoggedIn(true);
-      },
-      onFailure: (err) => {
-        console.error("onFailure: ", err);
-      },
-      newPasswordRequired: (data) => {
-        console.log("newPasswordRequired: ", data);
-      },
-    });
+    authenticate(email, password)
+      .then((data) => {
+        console.log("Logged in!", data);
+        navigate("/");
+        window.location.reload(false);
+      })
+      .catch((err) => {
+        console.error("Failed to login", err);
+      });
   };
 
   return (
@@ -81,6 +65,9 @@ function LoginContainer({ setIsLoggedIn }) {
               </Button>{" "}
             </div>
           </Link>
+          <p className="text-muted text-center mt-2">
+            Don't have an account? <Link to="/signup">Sign up </Link>
+          </p>
         </Form>
       </div>
     </div>
