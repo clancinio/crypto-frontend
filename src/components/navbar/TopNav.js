@@ -2,14 +2,15 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
-import { NavLink } from "react-router-dom/";
+import { useState, useEffect, useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom/";
 import Modal from "react-bootstrap/Modal";
 import BuyForm from "../form/buyform/BuyForm";
 import SellForm from "../form/sellform/SellForm";
+import { AccountContext } from "../../cognito/Account";
 import "./navbar.css";
 
-function TopNav({ balance, setBalance, isLoggedIn, assets }) {
+function TopNav({ balance, setBalance, isLoggedIn, assets, setIsLoggedIn }) {
   // Buy Modal state
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -19,6 +20,23 @@ function TopNav({ balance, setBalance, isLoggedIn, assets }) {
   const [show2, setShow2] = useState(false);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
+
+  const [status, setStatus] = useState(false);
+  const navigate = useNavigate();
+  const { getSession, logout } = useContext(AccountContext);
+
+  function logoutUser() {
+    logout();
+    navigate("/login");
+    window.location.reload(false);
+  }
+
+  useEffect(() => {
+    getSession().then((session) => {
+      console.log("Session: ", session);
+      setStatus(true);
+    });
+  }, []);
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
@@ -28,8 +46,9 @@ function TopNav({ balance, setBalance, isLoggedIn, assets }) {
             <img src="./img/background.jpg" alt="logo" />{" "} */}
           </Navbar.Brand>
           <Navbar.Brand href="#home">TRYTPO.COM</Navbar.Brand>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          {isLoggedIn && (
+          {status && (
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
                 <Nav.Link activeclassname="active" as={NavLink} to="/">
@@ -57,9 +76,13 @@ function TopNav({ balance, setBalance, isLoggedIn, assets }) {
                 Sell
               </Button>
               <Navbar.Collapse className="justify-content-end">
-                <Navbar.Text>
-                  Welcome: <a href="#login">John Doe</a>
-                </Navbar.Text>
+                <Navbar.Text>Welcome: John Doe | </Navbar.Text>
+
+                <Nav>
+                  <Nav.Link to="/login" onClick={logoutUser}>
+                    Logout
+                  </Nav.Link>
+                </Nav>
               </Navbar.Collapse>
             </Navbar.Collapse>
           )}
