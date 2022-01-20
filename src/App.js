@@ -5,8 +5,9 @@ import TopNav from "./components/navbar/TopNav";
 import LoginContainer from "./containers/LoginContainer";
 import { assetData } from "./api";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import SignupContainer from "./containers/SignUpContainer";
+import { Account } from "./cognito/Account";
 
 function App() {
   // State for holding Total capital - temporary until the backend is ready
@@ -56,28 +57,31 @@ function App() {
   }, [assets]);
 
   return (
-    <Router>
-      <TopNav
-        balance={balance}
-        assets={assets}
-        setBalance={setBalance}
-        isLoggedIn={isLoggedIn}
-      />
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={<HomeContainer balance={balance} assets={assets} />}
+    <Account>
+      <Router>
+        <TopNav
+          balance={balance}
+          assets={assets}
+          setBalance={setBalance}
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
         />
-        <Route exact path="/top" element={<TopCoinsContainer />} />
-        <Route
-          exact
-          path="/login"
-          element={<LoginContainer setIsLoggedIn={setIsLoggedIn} />}
-        />
-        <Route exact path="/signup" element={<SignupContainer />} />
-      </Routes>
-    </Router>
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={<HomeContainer balance={balance} assets={assets} />}
+          />
+          <Route exact path="/top" element={<TopCoinsContainer />} />
+          <Route
+            exact
+            path="/login"
+            element={<LoginContainer setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route exact path="/signup" element={<SignupContainer />} />
+        </Routes>
+      </Router>
+    </Account>
   );
 }
 
