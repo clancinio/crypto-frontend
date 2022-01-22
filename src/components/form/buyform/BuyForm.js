@@ -12,7 +12,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm({ balance, setBalance }) {
+function BuyForm({ userBalance, setBalance }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
@@ -76,12 +76,12 @@ function BuyForm({ balance, setBalance }) {
       .then((response) => console.log(response));
 
     //Calculate balance after purchase
-    const newBalance = Number(balance) - Number(cost);
+    const newBalance = Number(userBalance) - Number(cost);
 
     setIsPurchased(true);
     setBalance(newBalance);
     console.log(values.assetAmount);
-    console.log("Balance:" + balance);
+    console.log("Balance:" + userBalance);
     console.log(values.asset);
     // console.log("Form Values: " + JSON.stringify(values));
   };
@@ -138,7 +138,7 @@ function BuyForm({ balance, setBalance }) {
             <Alert variant={"success"}>Your purchase was successful</Alert>
           )}
 
-          <h5>Balance: {formatter.format(balance)}</h5>
+          <h5>Balance: {formatter.format(userBalance)}</h5>
           {isPurchased && (
             <p className="text-danger lead">{"-" + formatter.format(cost)}</p>
           )}
@@ -183,7 +183,7 @@ function BuyForm({ balance, setBalance }) {
             {touched.amount && errors.amount ? (
               <div className="error">{errors.amount}</div>
             ) : null}
-            {balance - cost < 0 && isPurchased == false ? (
+            {userBalance - cost < 0 && isPurchased == false ? (
               <div className="error">
                 You do not have enough money to make this purchase
               </div>
@@ -201,7 +201,7 @@ function BuyForm({ balance, setBalance }) {
               type="submit"
               variant="success"
               size="lg"
-              disabled={isPurchased || balance - cost < 0 ? true : false}
+              disabled={isPurchased || userBalance - cost < 0 ? true : false}
             >
               {isPurchased ? <TiTick /> : "Buy"}
             </Button>

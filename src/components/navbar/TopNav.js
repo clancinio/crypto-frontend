@@ -11,7 +11,7 @@ import { AccountContext } from "../../cognito/Account";
 import "./navbar.css";
 
 function TopNav({
-  balance,
+  userBalance,
   setBalance,
   assets,
   setUserEmail,
@@ -104,7 +104,7 @@ function TopNav({
           <Modal.Title>Buy</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <BuyForm balance={balance} setBalance={setBalance} />
+          <BuyForm userBalance={userBalance} setBalance={setBalance} />
         </Modal.Body>
       </Modal>
       {/* Sell Modal */}
@@ -118,7 +118,11 @@ function TopNav({
           <Modal.Title>Sell</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <SellForm balance={balance} setBalance={setBalance} assets={assets} />
+          <SellForm
+            userBalance={userBalance}
+            setBalance={setBalance}
+            assets={assets}
+          />
         </Modal.Body>
       </Modal>
     </>

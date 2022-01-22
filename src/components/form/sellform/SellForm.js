@@ -12,7 +12,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function SellForm({ balance, assets, setBalance }) {
+function SellForm({ userBalance, assets, setBalance }) {
   // Selected asset to sell
   const [selectedAsset, setSelectedAsset] = useState("");
   // Price of selected asset
@@ -39,7 +39,7 @@ function SellForm({ balance, assets, setBalance }) {
   // Formik
   const onSubmit = (values) => {
     //Calculate balance after purchase
-    const newBalance = Number(balance) + Number(sellPrice);
+    const newBalance = Number(userBalance) + Number(sellPrice);
 
     setIsSold(true);
     setBalance(newBalance);
@@ -104,7 +104,7 @@ function SellForm({ balance, assets, setBalance }) {
               {formatter.format(sellPrice)}
             </Alert>
           )}
-          <h5>Balance: {formatter.format(balance)}</h5>
+          <h5>Balance: {formatter.format(userBalance)}</h5>
           {isSold && (
             <p className="text-success lead">
               {"+" + formatter.format(sellPrice)}

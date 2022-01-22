@@ -5,7 +5,7 @@ import ProgressGraph from "./progressgraph/ProgressGraph";
 function TopSection({ balance, userBalance }) {
   return (
     <Row className="mt-5">
-      <TotalMoneyComponent balance={balance} userBalance={userBalance} />
+      <TotalMoneyComponent userBalance={userBalance} />
       <ProgressGraph />
     </Row>
   );

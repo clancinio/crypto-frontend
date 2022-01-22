@@ -2,7 +2,7 @@ import { Col } from "react-bootstrap";
 import { formatter } from "../../../helpers";
 import "./totalmoney.css";
 
-function TotalMoneyComponent({ balance, userBalance }) {
+function TotalMoneyComponent({ userBalance }) {
   return (
     <Col md={6}>
       <div className="section">

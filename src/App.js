@@ -77,7 +77,7 @@ function App() {
     <Account>
       <Router>
         <TopNav
-          balance={balance}
+          userBalance={userBalance}
           assets={assets}
           setBalance={setBalance}
           isLoggedIn={isLoggedIn}
