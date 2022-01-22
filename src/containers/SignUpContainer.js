@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 import UserPool from "../cognito/UserPool";
 
 const SignUpContainer = () => {
@@ -18,8 +18,17 @@ const SignUpContainer = () => {
       if (err) {
         console.error(err);
       } else {
-        console.log(data);
+        //console.log(data);
         setIsRegistered(true);
+        axios
+          .post("http://localhost:8080/api/account/create", {
+            AccountId: data.userSub,
+            Email: email,
+            Balance: 1500.0,
+          })
+          .then((response) => {
+            console.log(response);
+          });
       }
     });
   };
