@@ -10,7 +10,14 @@ import SellForm from "../form/sellform/SellForm";
 import { AccountContext } from "../../cognito/Account";
 import "./navbar.css";
 
-function TopNav({ balance, setBalance, assets, setUserEmail, userEmail }) {
+function TopNav({
+  balance,
+  setBalance,
+  assets,
+  setUserEmail,
+  userEmail,
+  setUserSub,
+}) {
   // Buy Modal state
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -34,8 +41,8 @@ function TopNav({ balance, setBalance, assets, setUserEmail, userEmail }) {
   useEffect(() => {
     getSession().then((session) => {
       console.log("Session: ", session);
-      console.log(session.accessToken.payload.email);
       setUserEmail(session.idToken.payload.email);
+      setUserSub(session.accessToken.payload.sub);
       setStatus(true);
     });
   }, []);
