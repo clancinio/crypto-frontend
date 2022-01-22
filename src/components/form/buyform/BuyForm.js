@@ -12,7 +12,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm({ userBalance, setBalance }) {
+function BuyForm({ userBalance, setBalance, userSub }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
@@ -47,7 +47,7 @@ function BuyForm({ userBalance, setBalance }) {
 
     // Create a transaction object
     const transaction = {
-      AccountId: 1,
+      AccountId: userSub,
       AssetId: values.asset,
       BuySell: "B",
       Amount: values.amount,
@@ -58,7 +58,7 @@ function BuyForm({ userBalance, setBalance }) {
 
     // Create an asset object
     const asset = {
-      AccountId: 1,
+      AccountId: userSub,
       AssetId: values.asset,
       AssetSymbol: assetSymbol,
       Amount: assetAmount,

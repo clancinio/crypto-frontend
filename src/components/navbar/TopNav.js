@@ -17,6 +17,7 @@ function TopNav({
   setUserEmail,
   userEmail,
   setUserSub,
+  userSub,
 }) {
   // Buy Modal state
   const [show, setShow] = useState(false);
@@ -104,7 +105,11 @@ function TopNav({
           <Modal.Title>Buy</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <BuyForm userBalance={userBalance} setBalance={setBalance} />
+          <BuyForm
+            userBalance={userBalance}
+            setBalance={setBalance}
+            userSub={userSub}
+          />
         </Modal.Body>
       </Modal>
       {/* Sell Modal */}

@@ -28,7 +28,7 @@ function App() {
       const response = await axios.post(
         "http://localhost:8080/api/assets/all",
         {
-          accountId: userSub,
+          AccountId: userSub,
         }
       );
 
@@ -83,6 +83,7 @@ function App() {
           isLoggedIn={isLoggedIn}
           userEmail={userEmail}
           setUserEmail={setUserEmail}
+          userSub={userSub}
           setUserSub={setUserSub}
         />
         <Routes>
