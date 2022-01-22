@@ -10,7 +10,7 @@ import SellForm from "../form/sellform/SellForm";
 import { AccountContext } from "../../cognito/Account";
 import "./navbar.css";
 
-function TopNav({ balance, setBalance, isLoggedIn, assets, setIsLoggedIn }) {
+function TopNav({ balance, setBalance, assets, setUserEmail, userEmail }) {
   // Buy Modal state
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -34,6 +34,8 @@ function TopNav({ balance, setBalance, isLoggedIn, assets, setIsLoggedIn }) {
   useEffect(() => {
     getSession().then((session) => {
       console.log("Session: ", session);
+      console.log(session.accessToken.payload.email);
+      setUserEmail(session.idToken.payload.email);
       setStatus(true);
     });
   }, []);
@@ -41,12 +43,8 @@ function TopNav({ balance, setBalance, isLoggedIn, assets, setIsLoggedIn }) {
     <>
       <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
         <Container>
-          <Navbar.Brand>
-            {/* {" "}
-            <img src="./img/background.jpg" alt="logo" />{" "} */}
-          </Navbar.Brand>
+          <Navbar.Brand></Navbar.Brand>
           <Navbar.Brand href="#home">TRYTPO.COM</Navbar.Brand>
-
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           {status && (
             <Navbar.Collapse id="basic-navbar-nav">
@@ -76,7 +74,7 @@ function TopNav({ balance, setBalance, isLoggedIn, assets, setIsLoggedIn }) {
                 Sell
               </Button>
               <Navbar.Collapse className="justify-content-end">
-                <Navbar.Text>Welcome: John Doe | </Navbar.Text>
+                <Navbar.Text>Welcome: {userEmail} | </Navbar.Text>
 
                 <Nav>
                   <Nav.Link to="/login" onClick={logoutUser}>

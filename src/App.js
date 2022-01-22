@@ -16,6 +16,10 @@ function App() {
   const [assets, setAssets] = useState([]);
   // Is user logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // User email
+  const [userEmail, setUserEmail] = useState("");
+  //User Balance
+  const [userBalance, setUserBalance] = useState("");
 
   useEffect(() => {
     async function getAssets() {
@@ -64,7 +68,8 @@ function App() {
           assets={assets}
           setBalance={setBalance}
           isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
+          userEmail={userEmail}
+          setUserEmail={setUserEmail}
         />
         <Routes>
           <Route
