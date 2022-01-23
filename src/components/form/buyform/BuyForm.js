@@ -66,9 +66,9 @@ function BuyForm({ userBalance, setBalance, userSub }) {
     };
     console.log(transaction);
     console.log(asset);
-    // axios
-    //   .post("http://localhost:4200/transactions", transaction)
-    //   .then((response) => console.log(response));
+    axios
+      .post("http://localhost:8080/api/transaction/create", transaction)
+      .then((response) => console.log(response));
 
     // Post/Update asset
     axios
