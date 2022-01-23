@@ -4,7 +4,7 @@ import { AccountContext } from "../cognito/Account";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-function LoginContainer({ setIsLoggedIn }) {
+function LoginContainer() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,6 +18,7 @@ function LoginContainer({ setIsLoggedIn }) {
     authenticate(email, password)
       .then((data) => {
         console.log("Logged in!", data);
+
         navigate("/");
         window.location.reload(false);
       })

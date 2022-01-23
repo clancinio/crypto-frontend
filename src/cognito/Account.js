@@ -1,6 +1,7 @@
 import React, { createContext } from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import Pool from "./UserPool";
+import axios from "axios";
 
 const AccountContext = createContext();
 
@@ -51,8 +52,12 @@ const Account = (props) => {
       user.signOut();
     }
   };
+
+  const getUser = () => {};
   return (
-    <AccountContext.Provider value={{ authenticate, getSession, logout }}>
+    <AccountContext.Provider
+      value={{ authenticate, getSession, logout, getUser }}
+    >
       {props.children}
     </AccountContext.Provider>
   );

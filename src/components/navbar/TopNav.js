@@ -10,7 +10,15 @@ import SellForm from "../form/sellform/SellForm";
 import { AccountContext } from "../../cognito/Account";
 import "./navbar.css";
 
-function TopNav({ balance, setBalance, isLoggedIn, assets, setIsLoggedIn }) {
+function TopNav({
+  userBalance,
+  setBalance,
+  assets,
+  setUserEmail,
+  userEmail,
+  setUserSub,
+  userSub,
+}) {
   // Buy Modal state
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -34,6 +42,8 @@ function TopNav({ balance, setBalance, isLoggedIn, assets, setIsLoggedIn }) {
   useEffect(() => {
     getSession().then((session) => {
       console.log("Session: ", session);
+      setUserEmail(session.idToken.payload.email);
+      setUserSub(session.accessToken.payload.sub);
       setStatus(true);
     });
   }, []);
@@ -41,12 +51,8 @@ function TopNav({ balance, setBalance, isLoggedIn, assets, setIsLoggedIn }) {
     <>
       <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
         <Container>
-          <Navbar.Brand>
-            {/* {" "}
-            <img src="./img/background.jpg" alt="logo" />{" "} */}
-          </Navbar.Brand>
+          <Navbar.Brand></Navbar.Brand>
           <Navbar.Brand href="#home">TRYTPO.COM</Navbar.Brand>
-
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           {status && (
             <Navbar.Collapse id="basic-navbar-nav">
@@ -76,7 +82,7 @@ function TopNav({ balance, setBalance, isLoggedIn, assets, setIsLoggedIn }) {
                 Sell
               </Button>
               <Navbar.Collapse className="justify-content-end">
-                <Navbar.Text>Welcome: John Doe | </Navbar.Text>
+                <Navbar.Text>Welcome: {userEmail} | </Navbar.Text>
 
                 <Nav>
                   <Nav.Link to="/login" onClick={logoutUser}>
@@ -99,7 +105,11 @@ function TopNav({ balance, setBalance, isLoggedIn, assets, setIsLoggedIn }) {
           <Modal.Title>Buy</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <BuyForm balance={balance} setBalance={setBalance} />
+          <BuyForm
+            userBalance={userBalance}
+            setBalance={setBalance}
+            userSub={userSub}
+          />
         </Modal.Body>
       </Modal>
       {/* Sell Modal */}
@@ -113,7 +123,11 @@ function TopNav({ balance, setBalance, isLoggedIn, assets, setIsLoggedIn }) {
           <Modal.Title>Sell</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <SellForm balance={balance} setBalance={setBalance} assets={assets} />
+          <SellForm
+            userBalance={userBalance}
+            setBalance={setBalance}
+            assets={assets}
+          />
         </Modal.Body>
       </Modal>
     </>

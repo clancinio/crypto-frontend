@@ -5,7 +5,7 @@ import TopNav from "./components/navbar/TopNav";
 import LoginContainer from "./containers/LoginContainer";
 import { assetData } from "./api";
 import axios from "axios";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import SignupContainer from "./containers/SignUpContainer";
 import { Account } from "./cognito/Account";
 
@@ -16,15 +16,32 @@ function App() {
   const [assets, setAssets] = useState([]);
   // Is user logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // User email
+  const [userEmail, setUserEmail] = useState("");
+  //User sub (cognito ID)
+  const [userSub, setUserSub] = useState("");
+  //User Balance
+  const [userBalance, setUserBalance] = useState("");
 
   useEffect(() => {
     async function getAssets() {
       const response = await axios.post(
         "http://localhost:8080/api/assets/all",
         {
-          accountId: 1,
+          AccountId: userSub,
         }
       );
+
+      async function getBalance() {
+        await axios
+          .get(`http://localhost:8080/api/account/${userSub}`)
+          .then((response) => {
+            setUserBalance(response.data.Balance);
+            console.log("Balance:" + response.data.Balance);
+          });
+      }
+
+      getBalance();
 
       const requestedAssets = response.data;
       console.log(requestedAssets);
@@ -60,17 +77,26 @@ function App() {
     <Account>
       <Router>
         <TopNav
-          balance={balance}
+          userBalance={userBalance}
           assets={assets}
           setBalance={setBalance}
           isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
+          userEmail={userEmail}
+          setUserEmail={setUserEmail}
+          userSub={userSub}
+          setUserSub={setUserSub}
         />
         <Routes>
           <Route
             exact
             path="/"
-            element={<HomeContainer balance={balance} assets={assets} />}
+            element={
+              <HomeContainer
+                balance={balance}
+                assets={assets}
+                userBalance={userBalance}
+              />
+            }
           />
           <Route exact path="/top" element={<TopCoinsContainer />} />
           <Route
