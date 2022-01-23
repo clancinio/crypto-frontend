@@ -29,6 +29,8 @@ function SellForm({ userBalance, assets, setBalance, userSub }) {
   const [isSold, setIsSold] = useState(false);
   // Selected asset total amount owmed
   const [assetAmount, setAssetAmount] = useState(0);
+  // Selected asset total amount owmed
+  const [assetId, setAssetId] = useState("");
 
   // Formik
   const initialValues = {
@@ -50,6 +52,9 @@ function SellForm({ userBalance, assets, setBalance, userSub }) {
     // Calculate new Balance
     const newBalance = userBalance - Number(sellPrice);
 
+    // Calculate new Amount
+    const newQuantity = assetAmount - values.quantity;
+
     // Create a transaction object
     const transaction = {
       AccountId: userSub,
@@ -67,6 +72,14 @@ function SellForm({ userBalance, assets, setBalance, userSub }) {
       Balance: newBalance,
     };
 
+    const asset = {
+      AccountId: userSub,
+      AssetId: assetId,
+      AssetSymbol: assetSymbol,
+      Amount: newQuantity,
+      AssetName: assetName,
+    };
+
     // Update balance
     axios
       .put("http://localhost:8080/api/account", account)
@@ -77,7 +90,10 @@ function SellForm({ userBalance, assets, setBalance, userSub }) {
       .post("http://localhost:8080/api/transaction/create", transaction)
       .then((response) => console.log(response));
 
-    const newQuantity = assetAmount - values.quantity;
+    // Post a transaction
+    axios
+      .put("http://localhost:8080/api/assets/", asset)
+      .then((response) => console.log(response));
 
     setIsSold(true);
     setBalance(newBalance);
@@ -137,6 +153,7 @@ function SellForm({ userBalance, assets, setBalance, userSub }) {
         <Form onSubmit={handleSubmit}>
           {setSelectedAsset(values.asset)}
           {setQuantity(values.quantity)}
+          {setAssetId(values.asset)}
           {isSold && (
             <Alert variant={"success"}>
               Success!! You sold {quantity} {assetSymbol.toUpperCase()} for{" "}
