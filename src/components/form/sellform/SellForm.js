@@ -46,8 +46,9 @@ function SellForm({ userBalance, assets, setBalance, userSub }) {
       (today.getMonth() + 1) +
       "/" +
       today.getFullYear();
-    //Calculate balance after purchase
-    const newBalance = Number(userBalance) + Number(sellPrice);
+
+    // Calculate new Balance
+    const newBalance = userBalance - Number(sellPrice);
 
     // Create a transaction object
     const transaction = {
@@ -60,13 +61,27 @@ function SellForm({ userBalance, assets, setBalance, userSub }) {
       Cost: sellPrice,
     };
 
+    // Create an account object
+    const account = {
+      AccountId: userSub,
+      Balance: newBalance,
+    };
+
+    // Update balance
+    axios
+      .put("http://localhost:8080/api/account", account)
+      .then((response) => console.log(response));
+
     // Post a transaction
     axios
       .post("http://localhost:8080/api/transaction/create", transaction)
       .then((response) => console.log(response));
 
+    const newQuantity = assetAmount - values.quantity;
+
     setIsSold(true);
     setBalance(newBalance);
+    setAssetAmount(newQuantity);
   };
 
   // Formik

@@ -72,7 +72,7 @@ function BuyForm({ userBalance, setBalance, userSub }) {
 
     // Create an account object
     const account = {
-      AccountId: "8f625af7-45cf-43f7-91ec-c6561c8c2b69",
+      AccountId: userSub,
       Balance: newBalance,
     };
 
