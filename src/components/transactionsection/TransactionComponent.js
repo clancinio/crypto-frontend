@@ -59,7 +59,7 @@ function TransactionComponent({ userSub, transactions, setTransactions }) {
               <th>Amount</th>
               <th>Price</th>
               <th>Date</th>
-              <th>Cost</th>
+              <th>Buy/Sell Price</th>
             </tr>
           </thead>
           <tbody>

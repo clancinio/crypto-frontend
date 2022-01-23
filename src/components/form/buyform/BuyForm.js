@@ -45,6 +45,9 @@ function BuyForm({ userBalance, setBalance, userSub }) {
       "/" +
       today.getFullYear();
 
+    // Calculate new Balance
+    const newBalance = userBalance - Number(cost);
+
     // Create a transaction object
     const transaction = {
       AccountId: userSub,
@@ -67,6 +70,12 @@ function BuyForm({ userBalance, setBalance, userSub }) {
     console.log(transaction);
     console.log(asset);
 
+    // Create an account object
+    const account = {
+      AccountId: "8f625af7-45cf-43f7-91ec-c6561c8c2b69",
+      Balance: newBalance,
+    };
+
     // Post a transaction
     axios
       .post("http://localhost:8080/api/transaction/create", transaction)
@@ -77,8 +86,10 @@ function BuyForm({ userBalance, setBalance, userSub }) {
       .post("http://localhost:8080/api/assets", asset)
       .then((response) => console.log(response));
 
-    //Calculate balance after purchase
-    const newBalance = Number(userBalance) - Number(cost);
+    // Update balance
+    axios
+      .put("http://localhost:8080/api/account", account)
+      .then((response) => console.log(response));
 
     setIsPurchased(true);
     setBalance(newBalance);
@@ -117,7 +128,7 @@ function BuyForm({ userBalance, setBalance, userSub }) {
   // When component renders, call the fetchPrice function
   useEffect(() => {
     fetchPrice(cost);
-  }, [selectedAsset, cost]);
+  }, [selectedAsset, cost, userBalance]);
 
   return (
     <Formik

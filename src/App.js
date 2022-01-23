@@ -35,26 +35,6 @@ function App() {
         }
       );
 
-      async function getBalance() {
-        await axios
-          .get(`http://localhost:8080/api/account/${userSub}`)
-          .then((response) => {
-            setUserBalance(response.data.Balance);
-            console.log("Balance:" + response.data.Balance);
-          });
-      }
-
-      async function fetchTransactions() {
-        //setLoading(true);
-        await axios
-          .get(`http://localhost:8080/api/transaction/${userSub}`)
-          .then((response) => {
-            setTransactions(response.data);
-            console.log("TRANSACTIONS" + response.data);
-            //setLoading(false);
-          });
-      }
-
       fetchTransactions();
       getBalance();
 
@@ -83,9 +63,31 @@ function App() {
           console.log(error);
         });
     }
+
+    async function getBalance() {
+      await axios
+        .get(`http://localhost:8080/api/account/${userSub}`)
+        .then((response) => {
+          setUserBalance(response.data.Balance);
+          console.log("Balance:" + response.data.Balance);
+        });
+    }
+
+    async function fetchTransactions() {
+      //setLoading(true);
+      await axios
+        .get(`http://localhost:8080/api/transaction/${userSub}`)
+        .then((response) => {
+          setTransactions(response.data);
+          console.log("TRANSACTIONS" + response.data);
+          //setLoading(false);
+        });
+    }
+
     let interval = setTimeout(() => {
       getAssets();
-    }, 3000);
+      getBalance();
+    }, 2000);
   }, [assets]);
 
   return (
