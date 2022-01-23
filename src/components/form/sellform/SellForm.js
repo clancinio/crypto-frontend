@@ -12,7 +12,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function SellForm({ userBalance, assets, setBalance }) {
+function SellForm({ userBalance, assets, setBalance, userSub }) {
   // Selected asset to sell
   const [selectedAsset, setSelectedAsset] = useState("");
   // Price of selected asset
@@ -38,8 +38,32 @@ function SellForm({ userBalance, assets, setBalance }) {
 
   // Formik
   const onSubmit = (values) => {
+    // Get today's date
+    const today = new Date();
+    const date =
+      today.getDate() +
+      "/" +
+      (today.getMonth() + 1) +
+      "/" +
+      today.getFullYear();
     //Calculate balance after purchase
     const newBalance = Number(userBalance) + Number(sellPrice);
+
+    // Create a transaction object
+    const transaction = {
+      AccountId: userSub,
+      AssetId: values.asset,
+      BuySell: "S",
+      Amount: values.quantity,
+      Price: assetPrice,
+      Date: date,
+      Cost: sellPrice,
+    };
+
+    // Post a transaction
+    axios
+      .post("http://localhost:8080/api/transaction/create", transaction)
+      .then((response) => console.log(response));
 
     setIsSold(true);
     setBalance(newBalance);

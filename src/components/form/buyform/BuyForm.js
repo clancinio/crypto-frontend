@@ -50,7 +50,7 @@ function BuyForm({ userBalance, setBalance, userSub }) {
       AccountId: userSub,
       AssetId: values.asset,
       BuySell: "B",
-      Amount: values.amount,
+      Amount: assetAmount,
       Price: assetPrice,
       Date: date,
       Cost: cost,
@@ -66,6 +66,8 @@ function BuyForm({ userBalance, setBalance, userSub }) {
     };
     console.log(transaction);
     console.log(asset);
+
+    // Post a transaction
     axios
       .post("http://localhost:8080/api/transaction/create", transaction)
       .then((response) => console.log(response));

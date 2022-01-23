@@ -127,6 +127,7 @@ function TopNav({
             userBalance={userBalance}
             setBalance={setBalance}
             assets={assets}
+            userSub={userSub}
           />
         </Modal.Body>
       </Modal>
