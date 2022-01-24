@@ -96,7 +96,7 @@ function App() {
         <TopNav
           userBalance={userBalance}
           assets={assets}
-          setBalance={setBalance}
+          setUserBalance={setUserBalance}
           isLoggedIn={isLoggedIn}
           userEmail={userEmail}
           setUserEmail={setUserEmail}
@@ -109,7 +109,7 @@ function App() {
             path="/"
             element={
               <HomeContainer
-                balance={balance}
+                userBalance={userBalance}
                 assets={assets}
                 userBalance={userBalance}
                 userSub={userSub}

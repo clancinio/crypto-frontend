@@ -12,7 +12,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm({ userBalance, setBalance, userSub }) {
+function BuyForm({ userBalance, setUserBalance, userSub }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
@@ -92,7 +92,7 @@ function BuyForm({ userBalance, setBalance, userSub }) {
       .then((response) => console.log(response));
 
     setIsPurchased(true);
-    setBalance(newBalance);
+    setUserBalance(newBalance);
     console.log(values.assetAmount);
     console.log("Balance:" + userBalance);
     console.log(values.asset);
@@ -113,6 +113,7 @@ function BuyForm({ userBalance, setBalance, userSub }) {
       const symbol = response.data.symbol;
       const name = response.data.name;
       const totalAsset = (Number(c) / Number(price)).toFixed(6);
+      console.log();
       setAssetAmount(totalAsset);
       setAssetSymbol(symbol);
       setAssetPrice(price);

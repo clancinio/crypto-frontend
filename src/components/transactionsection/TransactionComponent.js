@@ -50,44 +50,47 @@ function TransactionComponent({ userSub, transactions, setTransactions }) {
     <Col className="section mt-5">
       <h1>Transactions</h1>
       <p className="lead">{transactions.length} Transactions</p>
-      <div className="table-container">
-        <Table className="table-dark" striped bordered>
-          <thead>
-            <tr>
-              <th>Asset</th>
-              <th>Buy/Sell</th>
-              <th>Amount</th>
-              <th>Price</th>
-              <th>Date</th>
-              <th>Buy/Sell Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentTrans.map((transaction, index) => {
-              return (
-                <Transaction
-                  key={index}
-                  asset={transaction.AssetId}
-                  buy_sell={transaction.BuySell}
-                  amount={transaction.Amount}
-                  price={transaction.Price}
-                  date={transaction.Date}
-                  cost={transaction.Cost}
-                />
-              );
-            })}
-          </tbody>
-        </Table>
-        <Pagination
-          transPerPage={transPerPage}
-          totalTrans={transactions.length}
-          currentPage={currentPage}
-          paginate={paginate}
-        />
-      </div>
-      {/* <Button variant="secondary" size="md">
-        View All
-      </Button> */}
+      {transactions.length > 0 ? (
+        <div className="table-container">
+          <Table className="table-dark" striped bordered>
+            <thead>
+              <tr>
+                <th>Asset</th>
+                <th>Buy/Sell</th>
+                <th>Amount</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th>Buy/Sell Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentTrans.map((transaction, index) => {
+                return (
+                  <Transaction
+                    key={index}
+                    asset={transaction.AssetId}
+                    buy_sell={transaction.BuySell}
+                    amount={transaction.Amount}
+                    price={transaction.Price}
+                    date={transaction.Date}
+                    cost={transaction.Cost}
+                  />
+                );
+              })}
+            </tbody>
+          </Table>
+          <Pagination
+            transPerPage={transPerPage}
+            totalTrans={transactions.length}
+            currentPage={currentPage}
+            paginate={paginate}
+          />
+        </div>
+      ) : (
+        <h1 className="text-center display-4">
+          You have not made any transactions
+        </h1>
+      )}
     </Col>
   );
 }

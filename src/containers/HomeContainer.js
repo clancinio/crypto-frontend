@@ -7,7 +7,6 @@ import Footer from "../components/footer/Footer";
 import TransactionComponent from "../components/transactionsection/TransactionComponent";
 
 function HomeContainer({
-  balance,
   assets,
   userBalance,
   userSub,
@@ -17,7 +16,7 @@ function HomeContainer({
   return (
     <>
       <Container>
-        <TopSection balance={balance} userBalance={userBalance} />
+        <TopSection userBalance={userBalance} />
         <PortfolioComponent assets={assets} />
         <TransactionComponent
           userSub={userSub}

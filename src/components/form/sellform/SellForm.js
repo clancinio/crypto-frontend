@@ -12,7 +12,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function SellForm({ userBalance, assets, setBalance, userSub }) {
+function SellForm({ userBalance, assets, setUserBalance, userSub }) {
   // Selected asset to sell
   const [selectedAsset, setSelectedAsset] = useState("");
   // Price of selected asset
@@ -50,10 +50,13 @@ function SellForm({ userBalance, assets, setBalance, userSub }) {
       today.getFullYear();
 
     // Calculate new Balance
-    const newBalance = userBalance - Number(sellPrice);
-
+    const newBalance = Number(userBalance) + sellPrice;
+    console.log("NEW BALANCE!!!!!!!!");
+    console.log(userBalance);
+    console.log(newBalance);
+    console.log(sellPrice);
     // Calculate new Amount
-    const newQuantity = assetAmount - values.quantity;
+    const newQuantity = assetAmount - quantity.toFixed(6);
 
     // Create a transaction object
     const transaction = {
@@ -80,6 +83,10 @@ function SellForm({ userBalance, assets, setBalance, userSub }) {
       AssetName: assetName,
     };
 
+    setIsSold(true);
+    setUserBalance(newBalance);
+    setAssetAmount(newQuantity);
+
     // Update balance
     axios
       .put("http://localhost:8080/api/account", account)
@@ -90,13 +97,13 @@ function SellForm({ userBalance, assets, setBalance, userSub }) {
       .post("http://localhost:8080/api/transaction/create", transaction)
       .then((response) => console.log(response));
 
-    // Post a transaction
+    // Update amount transaction
     axios
       .put("http://localhost:8080/api/assets/", asset)
-      .then((response) => console.log(response));
+      .then((response) => console.log("SOLD!!!!!!!!!!!"));
 
     setIsSold(true);
-    setBalance(newBalance);
+    setUserBalance(newBalance);
     setAssetAmount(newQuantity);
   };
 
@@ -115,7 +122,7 @@ function SellForm({ userBalance, assets, setBalance, userSub }) {
       const price = response.data.market_data.current_price.eur;
       const symbol = response.data.symbol;
       const name = response.data.name;
-      const totalAsset = (Number(quantity) * Number(price)).toFixed(6);
+      const totalAsset = Number(quantity) * Number(price);
       console.log(totalAsset);
       let obj = assets.find((o) => o.AssetSymbol === symbol);
       setAssetAmount(obj.Amount);
