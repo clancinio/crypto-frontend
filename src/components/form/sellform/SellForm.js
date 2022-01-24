@@ -12,7 +12,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function SellForm({ userBalance, assets, setBalance }) {
+function SellForm({ userBalance, assets, setUserBalance, userSub }) {
   // Selected asset to sell
   const [selectedAsset, setSelectedAsset] = useState("");
   // Price of selected asset
@@ -29,6 +29,8 @@ function SellForm({ userBalance, assets, setBalance }) {
   const [isSold, setIsSold] = useState(false);
   // Selected asset total amount owmed
   const [assetAmount, setAssetAmount] = useState(0);
+  // Selected asset total amount owmed
+  const [assetId, setAssetId] = useState("");
 
   // Formik
   const initialValues = {
@@ -38,11 +40,71 @@ function SellForm({ userBalance, assets, setBalance }) {
 
   // Formik
   const onSubmit = (values) => {
-    //Calculate balance after purchase
-    const newBalance = Number(userBalance) + Number(sellPrice);
+    // Get today's date
+    const today = new Date();
+    const date =
+      today.getDate() +
+      "/" +
+      (today.getMonth() + 1) +
+      "/" +
+      today.getFullYear();
+
+    // Calculate new Balance
+    const newBalance = Number(userBalance) + sellPrice;
+    console.log("NEW BALANCE!!!!!!!!");
+    console.log(userBalance);
+    console.log(newBalance);
+    console.log(sellPrice);
+    // Calculate new Amount
+    const newQuantity = assetAmount - quantity.toFixed(6);
+
+    // Create a transaction object
+    const transaction = {
+      AccountId: userSub,
+      AssetId: values.asset,
+      BuySell: "S",
+      Amount: values.quantity,
+      Price: assetPrice,
+      Date: date,
+      Cost: sellPrice,
+    };
+
+    // Create an account object
+    const account = {
+      AccountId: userSub,
+      Balance: newBalance,
+    };
+
+    const asset = {
+      AccountId: userSub,
+      AssetId: assetId,
+      AssetSymbol: assetSymbol,
+      Amount: newQuantity,
+      AssetName: assetName,
+    };
 
     setIsSold(true);
-    setBalance(newBalance);
+    setUserBalance(newBalance);
+    setAssetAmount(newQuantity);
+
+    // Update balance
+    axios
+      .put("http://localhost:8080/api/account", account)
+      .then((response) => console.log(response));
+
+    // Post a transaction
+    axios
+      .post("http://localhost:8080/api/transaction/create", transaction)
+      .then((response) => console.log(response));
+
+    // Update amount transaction
+    axios
+      .put("http://localhost:8080/api/assets/", asset)
+      .then((response) => console.log("SOLD!!!!!!!!!!!"));
+
+    setIsSold(true);
+    setUserBalance(newBalance);
+    setAssetAmount(newQuantity);
   };
 
   // Formik
@@ -60,7 +122,7 @@ function SellForm({ userBalance, assets, setBalance }) {
       const price = response.data.market_data.current_price.eur;
       const symbol = response.data.symbol;
       const name = response.data.name;
-      const totalAsset = (Number(quantity) * Number(price)).toFixed(6);
+      const totalAsset = Number(quantity) * Number(price);
       console.log(totalAsset);
       let obj = assets.find((o) => o.AssetSymbol === symbol);
       setAssetAmount(obj.Amount);
@@ -98,6 +160,7 @@ function SellForm({ userBalance, assets, setBalance }) {
         <Form onSubmit={handleSubmit}>
           {setSelectedAsset(values.asset)}
           {setQuantity(values.quantity)}
+          {setAssetId(values.asset)}
           {isSold && (
             <Alert variant={"success"}>
               Success!! You sold {quantity} {assetSymbol.toUpperCase()} for{" "}

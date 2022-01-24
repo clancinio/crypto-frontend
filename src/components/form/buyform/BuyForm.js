@@ -12,7 +12,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm({ userBalance, setBalance, userSub }) {
+function BuyForm({ userBalance, setUserBalance, userSub }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
@@ -45,12 +45,15 @@ function BuyForm({ userBalance, setBalance, userSub }) {
       "/" +
       today.getFullYear();
 
+    // Calculate new Balance
+    const newBalance = userBalance - Number(cost);
+
     // Create a transaction object
     const transaction = {
       AccountId: userSub,
       AssetId: values.asset,
       BuySell: "B",
-      Amount: values.amount,
+      Amount: assetAmount,
       Price: assetPrice,
       Date: date,
       Cost: cost,
@@ -66,20 +69,30 @@ function BuyForm({ userBalance, setBalance, userSub }) {
     };
     console.log(transaction);
     console.log(asset);
-    // axios
-    //   .post("http://localhost:4200/transactions", transaction)
-    //   .then((response) => console.log(response));
+
+    // Create an account object
+    const account = {
+      AccountId: userSub,
+      Balance: newBalance,
+    };
+
+    // Post a transaction
+    axios
+      .post("http://localhost:8080/api/transaction/create", transaction)
+      .then((response) => console.log(response));
 
     // Post/Update asset
     axios
       .post("http://localhost:8080/api/assets", asset)
       .then((response) => console.log(response));
 
-    //Calculate balance after purchase
-    const newBalance = Number(userBalance) - Number(cost);
+    // Update balance
+    axios
+      .put("http://localhost:8080/api/account", account)
+      .then((response) => console.log(response));
 
     setIsPurchased(true);
-    setBalance(newBalance);
+    setUserBalance(newBalance);
     console.log(values.assetAmount);
     console.log("Balance:" + userBalance);
     console.log(values.asset);
@@ -100,6 +113,7 @@ function BuyForm({ userBalance, setBalance, userSub }) {
       const symbol = response.data.symbol;
       const name = response.data.name;
       const totalAsset = (Number(c) / Number(price)).toFixed(6);
+      console.log();
       setAssetAmount(totalAsset);
       setAssetSymbol(symbol);
       setAssetPrice(price);
@@ -115,7 +129,7 @@ function BuyForm({ userBalance, setBalance, userSub }) {
   // When component renders, call the fetchPrice function
   useEffect(() => {
     fetchPrice(cost);
-  }, [selectedAsset, cost]);
+  }, [selectedAsset, cost, userBalance]);
 
   return (
     <Formik

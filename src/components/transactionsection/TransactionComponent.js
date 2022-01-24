@@ -7,107 +7,29 @@ import Pagination from "../Pagination";
 import "./transation.css";
 import axios from "axios";
 
-function TransactionComponent() {
+function TransactionComponent({ userSub, transactions, setTransactions }) {
   const [loading, setLoading] = useState(false);
-
-  // State to mock assets
-  const [transactions, setTransactions] = useState([
-    {
-      symbol: "BTC",
-      buy_sell: "B",
-      amount: "2",
-      price: 10,
-      date: "27/09/2021",
-      cost: 120.5,
-    },
-    {
-      symbol: "ETH",
-      buy_sell: "S",
-      amount: "25",
-      price: 250.06,
-      date: "27/09/2021",
-      cost: 50.0,
-    },
-    {
-      symbol: "ADA",
-      buy_sell: "B",
-      amount: "987",
-      price: 10.56,
-      date: "27/09/2021",
-      cost: 200.0,
-    },
-    {
-      symbol: "SOL",
-      buy_sell: "S",
-      amount: "1,005",
-      price: 1.58,
-      date: "27/09/2021",
-      cost: 28.0,
-    },
-    {
-      symbol: "ADA",
-      buy_sell: "B",
-      amount: "987",
-      price: 10.56,
-      date: "27/09/2021",
-      cost: 200.0,
-    },
-    {
-      symbol: "SOL",
-      buy_sell: "S",
-      amount: "1,005",
-      price: 1.58,
-      date: "27/09/2021",
-      cost: 28.0,
-    },
-    {
-      symbol: "ADA",
-      buy_sell: "B",
-      amount: "987",
-      price: 10.56,
-      date: "27/09/2021",
-      cost: 200.0,
-    },
-    {
-      symbol: "SOL",
-      buy_sell: "S",
-      amount: "1,005",
-      price: 1.58,
-      date: "27/09/2021",
-      cost: 28.0,
-    },
-    {
-      symbol: "ADA",
-      buy_sell: "B",
-      amount: "987",
-      price: 10.56,
-      date: "27/09/2021",
-      cost: 200.0,
-    },
-    {
-      symbol: "SOL",
-      buy_sell: "S",
-      amount: "1,005",
-      price: 1.58,
-      date: "27/09/2021",
-      cost: 28.0,
-    },
-  ]);
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [transPerPage] = useState(5);
 
   // useEffect(() => {
-  //   const fetchTransactions = async () => {
-  //     setLoading(true);
-  //     const response = await axios.get("URL");
-  //     setTransactions(response.data);
-  //     setLoading(false);
-  //   };
+  //   async function fetchTransactions() {
+  //     //setLoading(true);
+  //     await axios
+  //       .get(`http://localhost:8080/api/transaction/${userSub}`)
+  //       .then((response) => {
+  //         setTransactions(response.data);
+  //         console.log("TRANSACTIONS" + response.data);
+  //         //setLoading(false);
+  //       });
+  //   }
 
-  //   fetchTransactions();
-  // }, []);
+  //   let interval = setTimeout(() => {
+  //     fetchTransactions();
+  //   }, 3000);
+  // }, [transactions]);
 
   // Get current transations
   const indexOfLastTrans = currentPage * transPerPage;
@@ -128,44 +50,47 @@ function TransactionComponent() {
     <Col className="section mt-5">
       <h1>Transactions</h1>
       <p className="lead">{transactions.length} Transactions</p>
-      <div className="table-container">
-        <Table className="table-dark" striped bordered>
-          <thead>
-            <tr>
-              <th>Asset</th>
-              <th>Buy/Sell</th>
-              <th>Amount</th>
-              <th>Price</th>
-              <th>Date</th>
-              <th>Cost</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentTrans.map((transaction, index) => {
-              return (
-                <Transaction
-                  key={index}
-                  symbol={transaction.symbol}
-                  buy_sell={transaction.buy_sell}
-                  amount={transaction.amount}
-                  price={transaction.price}
-                  date={transaction.date}
-                  cost={transaction.cost}
-                />
-              );
-            })}
-          </tbody>
-        </Table>
-        <Pagination
-          transPerPage={transPerPage}
-          totalTrans={transactions.length}
-          currentPage={currentPage}
-          paginate={paginate}
-        />
-      </div>
-      {/* <Button variant="secondary" size="md">
-        View All
-      </Button> */}
+      {transactions.length > 0 ? (
+        <div className="table-container">
+          <Table className="table-dark" striped bordered>
+            <thead>
+              <tr>
+                <th>Asset</th>
+                <th>Buy/Sell</th>
+                <th>Amount</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th>Buy/Sell Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentTrans.map((transaction, index) => {
+                return (
+                  <Transaction
+                    key={index}
+                    asset={transaction.AssetId}
+                    buy_sell={transaction.BuySell}
+                    amount={transaction.Amount}
+                    price={transaction.Price}
+                    date={transaction.Date}
+                    cost={transaction.Cost}
+                  />
+                );
+              })}
+            </tbody>
+          </Table>
+          <Pagination
+            transPerPage={transPerPage}
+            totalTrans={transactions.length}
+            currentPage={currentPage}
+            paginate={paginate}
+          />
+        </div>
+      ) : (
+        <h1 className="text-center display-4">
+          You have not made any transactions
+        </h1>
+      )}
     </Col>
   );
 }

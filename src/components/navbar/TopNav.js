@@ -12,7 +12,7 @@ import "./navbar.css";
 
 function TopNav({
   userBalance,
-  setBalance,
+  setUserBalance,
   assets,
   setUserEmail,
   userEmail,
@@ -107,7 +107,7 @@ function TopNav({
         <Modal.Body>
           <BuyForm
             userBalance={userBalance}
-            setBalance={setBalance}
+            setUserBalance={setUserBalance}
             userSub={userSub}
           />
         </Modal.Body>
@@ -125,8 +125,9 @@ function TopNav({
         <Modal.Body>
           <SellForm
             userBalance={userBalance}
-            setBalance={setBalance}
+            setUserBalance={setUserBalance}
             assets={assets}
+            userSub={userSub}
           />
         </Modal.Body>
       </Modal>

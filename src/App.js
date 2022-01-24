@@ -22,6 +22,9 @@ function App() {
   const [userSub, setUserSub] = useState("");
   //User Balance
   const [userBalance, setUserBalance] = useState("");
+  //const [loading, setLoading] = useState(false);
+  // State to hold transactions
+  const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
     async function getAssets() {
@@ -32,15 +35,7 @@ function App() {
         }
       );
 
-      async function getBalance() {
-        await axios
-          .get(`http://localhost:8080/api/account/${userSub}`)
-          .then((response) => {
-            setUserBalance(response.data.Balance);
-            console.log("Balance:" + response.data.Balance);
-          });
-      }
-
+      fetchTransactions();
       getBalance();
 
       const requestedAssets = response.data;
@@ -68,9 +63,31 @@ function App() {
           console.log(error);
         });
     }
+
+    async function getBalance() {
+      await axios
+        .get(`http://localhost:8080/api/account/${userSub}`)
+        .then((response) => {
+          setUserBalance(response.data.Balance);
+          console.log("Balance:" + response.data.Balance);
+        });
+    }
+
+    async function fetchTransactions() {
+      //setLoading(true);
+      await axios
+        .get(`http://localhost:8080/api/transaction/${userSub}`)
+        .then((response) => {
+          setTransactions(response.data);
+          console.log("TRANSACTIONS" + response.data);
+          //setLoading(false);
+        });
+    }
+
     let interval = setTimeout(() => {
       getAssets();
-    }, 3000);
+      getBalance();
+    }, 2000);
   }, [assets]);
 
   return (
@@ -79,7 +96,7 @@ function App() {
         <TopNav
           userBalance={userBalance}
           assets={assets}
-          setBalance={setBalance}
+          setUserBalance={setUserBalance}
           isLoggedIn={isLoggedIn}
           userEmail={userEmail}
           setUserEmail={setUserEmail}
@@ -92,9 +109,12 @@ function App() {
             path="/"
             element={
               <HomeContainer
-                balance={balance}
+                userBalance={userBalance}
                 assets={assets}
                 userBalance={userBalance}
+                userSub={userSub}
+                transactions={transactions}
+                setTransactions={setTransactions}
               />
             }
           />

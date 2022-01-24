@@ -6,13 +6,23 @@ import PortfolioComponent from "../components/portfoliosection/PortfolioComponen
 import Footer from "../components/footer/Footer";
 import TransactionComponent from "../components/transactionsection/TransactionComponent";
 
-function HomeContainer({ balance, assets, userBalance }) {
+function HomeContainer({
+  assets,
+  userBalance,
+  userSub,
+  transactions,
+  setTransactions,
+}) {
   return (
     <>
       <Container>
-        <TopSection balance={balance} userBalance={userBalance} />
+        <TopSection userBalance={userBalance} />
         <PortfolioComponent assets={assets} />
-        <TransactionComponent />
+        <TransactionComponent
+          userSub={userSub}
+          transactions={transactions}
+          setTransactions={setTransactions}
+        />
       </Container>
       <Footer />
     </>
