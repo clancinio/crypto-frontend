@@ -1,6 +1,15 @@
 import { formatter } from "../../../helpers";
 
-function Transaction({ asset, amount, buy_sell, price, date, cost }) {
+function Transaction({
+  asset,
+  amount,
+  buy_sell,
+  price,
+  date,
+  cost,
+  colour,
+  sign,
+}) {
   return (
     <tr>
       <td>{asset.toUpperCase()}</td>
@@ -8,7 +17,7 @@ function Transaction({ asset, amount, buy_sell, price, date, cost }) {
       <td>{amount}</td>
       <td>{formatter.format(price)}</td>
       <td>{date}</td>
-      <td>{formatter.format(cost)}</td>
+      <td className={`${colour}`}>{sign + " " + formatter.format(cost)}</td>
     </tr>
   );
 }

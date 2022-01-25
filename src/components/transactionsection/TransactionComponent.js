@@ -65,6 +65,12 @@ function TransactionComponent({ userSub, transactions, setTransactions }) {
             </thead>
             <tbody>
               {currentTrans.map((transaction, index) => {
+                var colour = "text-success";
+                var sign = "+";
+                if (transaction.BuySell === "B") {
+                  colour = "text-danger";
+                  sign = "-";
+                }
                 return (
                   <Transaction
                     key={index}
@@ -74,6 +80,8 @@ function TransactionComponent({ userSub, transactions, setTransactions }) {
                     price={transaction.Price}
                     date={transaction.Date}
                     cost={transaction.Cost}
+                    colour={colour}
+                    sign={sign}
                   />
                 );
               })}
