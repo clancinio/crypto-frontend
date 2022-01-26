@@ -8,6 +8,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import SignupContainer from "./containers/SignUpContainer";
 import { Account } from "./cognito/Account";
+import LeaderBoardContainer from "./containers/LeaderBoardContainer";
+import AdminContainer from "./containers/AdminContainer";
 
 function App() {
   // State for holding Total capital - temporary until the backend is ready
@@ -121,6 +123,8 @@ function App() {
             element={<LoginContainer setIsLoggedIn={setIsLoggedIn} />}
           />
           <Route exact path="/signup" element={<SignupContainer />} />
+          <Route exact path="/leaderboard" element={<LeaderBoardContainer />} />
+          <Route exact path="/admin" element={<AdminContainer />} />
         </Routes>
       </Router>
     </Account>
