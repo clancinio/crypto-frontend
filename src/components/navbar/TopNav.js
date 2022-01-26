@@ -43,7 +43,9 @@ function TopNav({
     getSession().then((session) => {
       console.log("Session: ", session);
       setUserEmail(session.idToken.payload.email);
-      setUserSub(session.accessToken.payload.sub);
+      console.log(session.idToken.payload.email);
+      setUserSub(session.idToken.payload.sub);
+      console.log(session.idToken.payload.sub);
       setStatus(true);
     });
   }, []);

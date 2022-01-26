@@ -28,18 +28,12 @@ function App() {
 
   useEffect(() => {
     async function getAssets() {
-      console.log("user:" + userSub);
-      const response = await axios.post(
-        "http://localhost:8080/api/assets/allByUser",
-        {
-          AccountId: userSub,
-        }
+      const response = await axios.get(
+        `http://localhost:8080/api/assets/getAll/${userSub}`
       );
 
-      fetchTransactions();
-      getBalance();
-
       const requestedAssets = response.data;
+      console.log("requestedAssets");
       console.log(requestedAssets);
 
       Promise.all(
@@ -86,10 +80,11 @@ function App() {
     }
 
     let interval = setTimeout(() => {
+      fetchTransactions();
       getAssets();
       getBalance();
     }, 2000);
-  }, [assets]);
+  }, [assets, userSub]);
 
   return (
     <Account>
