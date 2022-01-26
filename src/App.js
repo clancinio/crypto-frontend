@@ -28,8 +28,9 @@ function App() {
 
   useEffect(() => {
     async function getAssets() {
+      console.log("user:" + userSub);
       const response = await axios.post(
-        "http://localhost:8080/api/assets/all",
+        "http://localhost:8080/api/assets/allByUser",
         {
           AccountId: userSub,
         }

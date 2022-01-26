@@ -19,12 +19,14 @@ const SignUpContainer = () => {
         console.error(err);
       } else {
         console.log(data);
+        console.log("Email: " + email);
         setIsRegistered(true);
         axios
           .post("http://localhost:8080/api/account/create", {
             AccountId: data.userSub,
             Email: email,
             Balance: 1500.0,
+            Role: "user",
           })
           .then((response) => {
             console.log(response);
