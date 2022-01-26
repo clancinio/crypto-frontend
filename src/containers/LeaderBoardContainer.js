@@ -1,7 +1,11 @@
 import React from "react";
 
 function LeaderBoardContainer() {
-  return <div>Leader Board Page</div>;
+  return (
+    <div>
+      <h1>Leader Board Page</h1>
+    </div>
+  );
 }
 
 export default LeaderBoardContainer;

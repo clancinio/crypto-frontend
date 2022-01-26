@@ -1,7 +1,11 @@
 import React from "react";
 
 function AdminContainer() {
-  return <div>Admin Page</div>;
+  return (
+    <div>
+      <h1>AdminPage</h1>
+    </div>
+  );
 }
 
 export default AdminContainer;
