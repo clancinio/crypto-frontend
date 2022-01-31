@@ -86,7 +86,7 @@ function App() {
       getAssets();
       getBalance();
     }, 2000);
-  }, [assets, userSub]);
+  }, [assets, userSub, userBalance]);
 
   return (
     <Account>
