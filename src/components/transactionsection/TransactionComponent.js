@@ -1,40 +1,24 @@
 import { useState, useEffect } from "react";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import Transaction from "./transaction/Transaction";
 import Pagination from "../Pagination";
 import "./transation.css";
-import axios from "axios";
 
-function TransactionComponent({ userSub, transactions, setTransactions }) {
+function TransactionComponent({ transactions }) {
   const [loading, setLoading] = useState(false);
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [transPerPage] = useState(5);
 
-  // useEffect(() => {
-  //   async function fetchTransactions() {
-  //     //setLoading(true);
-  //     await axios
-  //       .get(`http://localhost:8080/api/transaction/${userSub}`)
-  //       .then((response) => {
-  //         setTransactions(response.data);
-  //         console.log("TRANSACTIONS" + response.data);
-  //         //setLoading(false);
-  //       });
-  //   }
-
-  //   let interval = setTimeout(() => {
-  //     fetchTransactions();
-  //   }, 3000);
-  // }, [transactions]);
+  // Reverse transactions (so the transactions list shows the latest first)
+  var reversedTrans = [...transactions].reverse();
 
   // Get current transations
   const indexOfLastTrans = currentPage * transPerPage;
   const indexOfFirstTrans = indexOfLastTrans - transPerPage;
-  const currentTrans = transactions.slice(indexOfFirstTrans, indexOfLastTrans);
+  const currentTrans = reversedTrans.slice(indexOfFirstTrans, indexOfLastTrans);
 
   // Change page
   function paginate(e, pageNumber) {
