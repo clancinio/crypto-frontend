@@ -22,12 +22,15 @@ const SignUpContainer = () => {
         console.log("Email: " + email);
         setIsRegistered(true);
         axios
-          .post("http://localhost:8080/api/account/create", {
-            AccountId: data.userSub,
-            Email: email,
-            Balance: 1500.0,
-            Role: "user",
-          })
+          .post(
+            "https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/account/create",
+            {
+              AccountId: data.userSub,
+              Email: email,
+              Balance: 1500.0,
+              Role: "user",
+            }
+          )
           .then((response) => {
             console.log(response);
           });

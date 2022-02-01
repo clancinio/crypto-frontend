@@ -31,7 +31,7 @@ function App() {
   useEffect(() => {
     async function getAssets() {
       const response = await axios.get(
-        `http://localhost:8080/api/assets/getAll/${userSub}`
+        `https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/assets/getAll/${userSub}`
       );
 
       const requestedAssets = response.data;
@@ -63,7 +63,9 @@ function App() {
 
     async function getBalance() {
       await axios
-        .get(`http://localhost:8080/api/account/${userSub}`)
+        .get(
+          `https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/account/${userSub}`
+        )
         .then((response) => {
           setUserBalance(response.data.Balance);
           console.log("Balance:" + response.data.Balance);
@@ -73,7 +75,9 @@ function App() {
     async function fetchTransactions() {
       //setLoading(true);
       await axios
-        .get(`http://localhost:8080/api/transaction/${userSub}`)
+        .get(
+          `https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/transaction/${userSub}`
+        )
         .then((response) => {
           setTransactions(response.data);
           console.log("TRANSACTIONS" + response.data);
