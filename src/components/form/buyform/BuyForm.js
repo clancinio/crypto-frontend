@@ -12,7 +12,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm({ /*userBalance*/ setUserBalance, userSub }) {
+function BuyForm({ userSub }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
@@ -30,20 +30,38 @@ function BuyForm({ /*userBalance*/ setUserBalance, userSub }) {
   // Purchase state
   const [isPurchased, setIsPurchased] = useState(false);
 
-  
-  function sendEmail(){
-    Email.send({
-     Host : "smtp.elasticemail.com",
-     Username : "coreymcrann@gmail.com",
-     Password : "DAF65673A6D888CDD08CEAED906A0AA4C8FD",
-     To : 'coreymcrann@gmail.com',
-     From : document.getElementById("email").value,
-     Subject : "Test Email",
-     Body : "Hopefully this fricking works",
-    }).then(
-    message => alert(message)
-);
-}
+  function sendEmail() {
+    // var client = elasticemail.createClient({
+    //   username: "coreymcrann@gmail.com",
+    //   apiKey: "DAF65673A6D888CDD08CEAED906A0AA4C8FD",
+    // });
+
+    // var msg = {
+    //   from: "coreymcrann",
+    //   from_name: "Test test",
+    //   to: "coreymcrann@gmail.com",
+    //   subject: "Hello from Trypto",
+    //   body_text: "Hello World!",
+    // };
+
+    // client.mailer.send(msg, function (err, result) {
+    //   if (err) {
+    //     return console.error(err);
+    //   }
+
+    //   console.log(result);
+    // });
+
+    window.Email.send({
+      Host: "smtp.elasticemail.com",
+      Username: "coreymcrann@gmail.com",
+      Password: "DAF65673A6D888CDD08CEAED906A0AA4C8FD",
+      To: "coreymcrann@gmail.com",
+      From: "coreymcrann@gmail.com",
+      Subject: "Test Email",
+      Body: "Hopefully this fricking works",
+    }).then((message) => alert(message));
+  }
 
   // Formik
   const initialValues = {
@@ -95,26 +113,17 @@ function BuyForm({ /*userBalance*/ setUserBalance, userSub }) {
 
     // Post a transaction
     axios
-      .post(
-        "http://localhost:8080/api/transaction/create",
-        transaction
-      )
+      .post("http://localhost:8080/api/transaction/create", transaction)
       .then((response) => console.log(response));
 
     // Post/Update asset
     axios
-      .post(
-        "http://localhost:8080/api/assets",
-        asset
-      )
+      .post("http://localhost:8080/api/assets", asset)
       .then((response) => console.log(response));
 
     // Update balance
     axios
-      .put(
-        "http://localhost:8080/api/account",
-        account
-      )
+      .put("http://localhost:8080/api/account", account)
       .then((response) => console.log(response));
 
     setIsPurchased(true);
@@ -124,9 +133,7 @@ function BuyForm({ /*userBalance*/ setUserBalance, userSub }) {
     console.log(values.asset);
     // console.log("Form Values: " + JSON.stringify(values));
 
-
     sendEmail();
-
   };
 
   // Formik
