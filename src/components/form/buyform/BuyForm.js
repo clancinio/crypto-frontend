@@ -12,13 +12,15 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm({ userBalance, setUserBalance, userSub }) {
+function BuyForm({ /*userBalance*/ setUserBalance, userSub }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
   const [assetPrice, setAssetPrice] = useState();
   // Name of selected asset
   const [assetName, setassetName] = useState();
+
+  const [userBalance, setUserBalance] = useState(1500);
   // Cost of purchase
   const [cost, setCost] = useState("");
   // Cost of purchase
@@ -27,6 +29,21 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
   const [assetSymbol, setAssetSymbol] = useState("btc");
   // Purchase state
   const [isPurchased, setIsPurchased] = useState(false);
+
+  
+  function sendEmail(){
+    Email.send({
+     Host : "smtp.elasticemail.com",
+     Username : "coreymcrann@gmail.com",
+     Password : "DAF65673A6D888CDD08CEAED906A0AA4C8FD",
+     To : 'coreymcrann@gmail.com',
+     From : document.getElementById("email").value,
+     Subject : "Test Email",
+     Body : "Hopefully this fricking works",
+    }).then(
+    message => alert(message)
+);
+}
 
   // Formik
   const initialValues = {
@@ -79,7 +96,7 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
     // Post a transaction
     axios
       .post(
-        "https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/transaction/create",
+        "http://localhost:8080/api/transaction/create",
         transaction
       )
       .then((response) => console.log(response));
@@ -87,7 +104,7 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
     // Post/Update asset
     axios
       .post(
-        "https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/assets",
+        "http://localhost:8080/api/assets",
         asset
       )
       .then((response) => console.log(response));
@@ -95,7 +112,7 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
     // Update balance
     axios
       .put(
-        "https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/account",
+        "http://localhost:8080/api/account",
         account
       )
       .then((response) => console.log(response));
@@ -106,6 +123,10 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
     console.log("Balance:" + userBalance);
     console.log(values.asset);
     // console.log("Form Values: " + JSON.stringify(values));
+
+
+    sendEmail();
+
   };
 
   // Formik
