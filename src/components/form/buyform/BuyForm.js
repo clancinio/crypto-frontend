@@ -12,15 +12,13 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm({ userSub }) {
+function BuyForm({ userBalance, setUserBalance, userSub }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
   const [assetPrice, setAssetPrice] = useState();
   // Name of selected asset
   const [assetName, setassetName] = useState();
-
-  const [userBalance, setUserBalance] = useState(1500);
   // Cost of purchase
   const [cost, setCost] = useState("");
   // Cost of purchase
@@ -31,27 +29,6 @@ function BuyForm({ userSub }) {
   const [isPurchased, setIsPurchased] = useState(false);
 
   function sendEmail() {
-    // var client = elasticemail.createClient({
-    //   username: "coreymcrann@gmail.com",
-    //   apiKey: "DAF65673A6D888CDD08CEAED906A0AA4C8FD",
-    // });
-
-    // var msg = {
-    //   from: "coreymcrann",
-    //   from_name: "Test test",
-    //   to: "coreymcrann@gmail.com",
-    //   subject: "Hello from Trypto",
-    //   body_text: "Hello World!",
-    // };
-
-    // client.mailer.send(msg, function (err, result) {
-    //   if (err) {
-    //     return console.error(err);
-    //   }
-
-    //   console.log(result);
-    // });
-
     window.Email.send({
       Host: "smtp.elasticemail.com",
       Username: "coreymcrann@gmail.com",
