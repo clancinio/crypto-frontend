@@ -23,7 +23,7 @@ const SignUpContainer = () => {
         setIsRegistered(true);
         axios
           .post(
-            "https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/account/create",
+            "http://localhost:8080/api/account/create",
             {
               AccountId: data.userSub,
               Email: email,

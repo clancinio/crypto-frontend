@@ -90,7 +90,7 @@ function SellForm({ userBalance, assets, setUserBalance, userSub }) {
     // Update balance
     axios
       .put(
-        "https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/account",
+        "http://localhost:8080/api/account",
         account
       )
       .then((response) => console.log(response));
@@ -98,7 +98,7 @@ function SellForm({ userBalance, assets, setUserBalance, userSub }) {
     // Post a transaction
     axios
       .post(
-        "https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/transaction/create",
+        "http://localhost:8080/api/transaction/create",
         transaction
       )
       .then((response) => console.log(response));
@@ -106,7 +106,7 @@ function SellForm({ userBalance, assets, setUserBalance, userSub }) {
     // Update amount transaction
     axios
       .put(
-        "https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/assets/",
+        "http://localhost:8080/api/assets/",
         asset
       )
       .then((response) => console.log("SOLD!!!!!!!!!!!"));

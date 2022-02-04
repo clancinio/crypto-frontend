@@ -28,6 +28,18 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
   // Purchase state
   const [isPurchased, setIsPurchased] = useState(false);
 
+  function sendEmail() {
+    window.Email.send({
+      Host: "smtp.elasticemail.com",
+      Username: "coreymcrann@gmail.com",
+      Password: "DAF65673A6D888CDD08CEAED906A0AA4C8FD",
+      To: "coreymcrann@gmail.com",
+      From: "coreymcrann@gmail.com",
+      Subject: "Test Email",
+      Body: "Hopefully this fricking works",
+    }).then((message) => alert(message));
+  }
+
   // Formik
   const initialValues = {
     asset: "bitcoin",
@@ -78,26 +90,17 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
 
     // Post a transaction
     axios
-      .post(
-        "https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/transaction/create",
-        transaction
-      )
+      .post("http://localhost:8080/api/transaction/create", transaction)
       .then((response) => console.log(response));
 
     // Post/Update asset
     axios
-      .post(
-        "https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/assets",
-        asset
-      )
+      .post("http://localhost:8080/api/assets", asset)
       .then((response) => console.log(response));
 
     // Update balance
     axios
-      .put(
-        "https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/account",
-        account
-      )
+      .put("http://localhost:8080/api/account", account)
       .then((response) => console.log(response));
 
     setIsPurchased(true);
@@ -106,6 +109,8 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
     console.log("Balance:" + userBalance);
     console.log(values.asset);
     // console.log("Form Values: " + JSON.stringify(values));
+
+    sendEmail();
   };
 
   // Formik
