@@ -12,9 +12,7 @@ import LeaderBoardContainer from "./containers/LeaderBoardContainer";
 import AdminContainer from "./containers/AdminContainer";
 
 function App() {
-  // State for holding Total capital - temporary until the backend is ready
-  const [balance, setBalance] = useState(1500);
-  // User#s Assets
+  // Users Assets
   const [assets, setAssets] = useState([]);
   // Is user logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,7 +21,7 @@ function App() {
   //User sub (cognito ID)
   const [userSub, setUserSub] = useState("");
   //User Balance
-  const [userBalance, setUserBalance] = useState("");
+  const [userBalance, setUserBalance] = useState();
   //const [loading, setLoading] = useState(false);
   // State to hold transactions
   const [transactions, setTransactions] = useState([]);
@@ -63,9 +61,7 @@ function App() {
 
     async function getBalance() {
       await axios
-        .get(
-          `http://localhost:8080/api/account/${userSub}`
-        )
+        .get(`http://localhost:8080/api/account/${userSub}`)
         .then((response) => {
           setUserBalance(response.data.Balance);
           console.log("Balance:" + response.data.Balance);
@@ -75,9 +71,7 @@ function App() {
     async function fetchTransactions() {
       //setLoading(true);
       await axios
-        .get(
-          `http://localhost:8080/api/transaction/${userSub}`
-        )
+        .get(`http://localhost:8080/api/transaction/${userSub}`)
         .then((response) => {
           setTransactions(response.data);
           console.log("TRANSACTIONS" + response.data);
@@ -117,6 +111,7 @@ function App() {
                 userSub={userSub}
                 transactions={transactions}
                 setTransactions={setTransactions}
+                userEmail={userEmail}
               />
             }
           />
