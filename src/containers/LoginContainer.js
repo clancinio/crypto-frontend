@@ -7,6 +7,14 @@ import Button from "react-bootstrap/Button";
 function LoginContainer() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, seterrorMessage] = useState("");
+
+  let errorDiv;
+  if (errorMessage != "") {
+    errorDiv = <div className="error mb-2">{errorMessage}</div>;
+  } else {
+    errorDiv = "";
+  }
 
   const navigate = useNavigate();
 
@@ -14,6 +22,13 @@ function LoginContainer() {
 
   const onSubmit = (event) => {
     event.preventDefault();
+
+    if (email === "") {
+      seterrorMessage("Please enter an email address");
+    }
+    if (password === "") {
+      seterrorMessage("Please enter a password");
+    }
 
     authenticate(email, password)
       .then((data) => {
@@ -24,6 +39,15 @@ function LoginContainer() {
       })
       .catch((err) => {
         console.error("Failed to login", err);
+        if (err) {
+          console.error(err.message);
+          if (err.message === "Incorrect username or password.") {
+            seterrorMessage("Incorrect email or password");
+          }
+          if (err.message === "Missing required parameter USERNAME") {
+            seterrorMessage("Please enter your email address");
+          }
+        }
       });
   };
 
@@ -53,6 +77,7 @@ function LoginContainer() {
               onChange={(event) => setPassword(event.target.value)}
             />
           </Form.Group>
+          {errorDiv}
 
           <Link to="/">
             <div className="d-grid gap-2">
