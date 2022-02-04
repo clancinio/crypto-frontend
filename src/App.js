@@ -63,9 +63,7 @@ function App() {
 
     async function getBalance() {
       await axios
-        .get(
-          `http://localhost:8080/api/account/${userSub}`
-        )
+        .get(`http://localhost:8080/api/account/${userSub}`)
         .then((response) => {
           setUserBalance(response.data.Balance);
           console.log("Balance:" + response.data.Balance);
@@ -75,9 +73,7 @@ function App() {
     async function fetchTransactions() {
       //setLoading(true);
       await axios
-        .get(
-          `http://localhost:8080/api/transaction/${userSub}`
-        )
+        .get(`http://localhost:8080/api/transaction/${userSub}`)
         .then((response) => {
           setTransactions(response.data);
           console.log("TRANSACTIONS" + response.data);
@@ -117,6 +113,7 @@ function App() {
                 userSub={userSub}
                 transactions={transactions}
                 setTransactions={setTransactions}
+                userEmail={userEmail}
               />
             }
           />

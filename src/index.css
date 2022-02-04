@@ -22,7 +22,15 @@ code {
   padding: 25px;
 }
 
-h1 {
+.sub-section {
+  background-color: #212529;
+  border-radius: 10px;
+  padding: 25px;
+  margin-top: 25px;
+}
+
+h1,
+h2 {
   color: #ffffff;
 }
 
@@ -53,4 +61,16 @@ h1 {
 
 .login-form a {
   text-decoration: none;
+}
+
+.profile-image {
+  width: 300px;
+  height: 300px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+.image-div {
+  margin: 0 auto;
 }

@@ -12,11 +12,12 @@ function HomeContainer({
   userSub,
   transactions,
   setTransactions,
+  userEmail,
 }) {
   return (
     <>
       <Container>
-        <TopSection userBalance={userBalance} />
+        <TopSection userBalance={userBalance} userEmail={userEmail} />
         <PortfolioComponent assets={assets} />
         <TransactionComponent
           userSub={userSub}

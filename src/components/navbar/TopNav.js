@@ -84,7 +84,7 @@ function TopNav({
                 Sell
               </Button>
               <Navbar.Collapse className="justify-content-end">
-                <Navbar.Text>Welcome: {userEmail} | </Navbar.Text>
+                <Navbar.Text>{userEmail} | </Navbar.Text>
 
                 <Nav>
                   <Nav.Link to="/login" onClick={logoutUser}>
