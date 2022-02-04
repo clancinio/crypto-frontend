@@ -12,9 +12,7 @@ import LeaderBoardContainer from "./containers/LeaderBoardContainer";
 import AdminContainer from "./containers/AdminContainer";
 
 function App() {
-  // State for holding Total capital - temporary until the backend is ready
-  const [balance, setBalance] = useState(1500);
-  // User#s Assets
+  // Users Assets
   const [assets, setAssets] = useState([]);
   // Is user logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,7 +21,7 @@ function App() {
   //User sub (cognito ID)
   const [userSub, setUserSub] = useState("");
   //User Balance
-  const [userBalance, setUserBalance] = useState("");
+  const [userBalance, setUserBalance] = useState();
   //const [loading, setLoading] = useState(false);
   // State to hold transactions
   const [transactions, setTransactions] = useState([]);
