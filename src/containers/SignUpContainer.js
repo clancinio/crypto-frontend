@@ -10,27 +10,58 @@ const SignUpContainer = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
+  const [errorMessage, seterrorMessage] = useState();
+
+  let errorDiv;
+  if (errorMessage != "") {
+    errorDiv = <div className="error mb-2">{errorMessage}</div>;
+  } else {
+    errorDiv = "";
+  }
 
   const onSubmit = (event) => {
     event.preventDefault();
 
+    if (email === "") {
+      seterrorMessage("Please enter an email address");
+    }
+    if (password === "") {
+      seterrorMessage("Please enter a password");
+    }
+
     UserPool.signUp(email, password, [], null, (err, data) => {
       if (err) {
-        console.error(err);
+        console.error(err.message);
+        if (err.message === "An account with the given email already exists.") {
+          seterrorMessage(err.message);
+        }
+        if (
+          err.message ===
+          "Password did not conform with policy: Password not long enough"
+        ) {
+          seterrorMessage("Password not long enough");
+        }
+        if (
+          err.message ===
+          "Password did not conform with policy: Password must have uppercase characters"
+        ) {
+          seterrorMessage("Password must have uppercase characterss");
+        }
+        if (
+          err.message ===
+          "Password did not conform with policy: Password must have numeric characters"
+        ) {
+          seterrorMessage("Password must have numeric characters");
+        }
       } else {
-        console.log(data);
-        console.log("Email: " + email);
         setIsRegistered(true);
         axios
-          .post(
-            "http://localhost:8080/api/account/create",
-            {
-              AccountId: data.userSub,
-              Email: email,
-              Balance: 1500.0,
-              Role: "user",
-            }
-          )
+          .post("http://localhost:8080/api/account/create", {
+            AccountId: data.userSub,
+            Email: email,
+            Balance: 1500.0,
+            Role: "user",
+          })
           .then((response) => {
             console.log(response);
           });
@@ -66,6 +97,7 @@ const SignUpContainer = () => {
               onChange={(event) => setPassword(event.target.value)}
             />
           </Form.Group>
+          {errorDiv}
           <div className="d-grid gap-2">
             <Button
               className="btn"

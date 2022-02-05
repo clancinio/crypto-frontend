@@ -20,11 +20,8 @@ function TotalMoneyComponent({ userBalance, userEmail }) {
       setProfitLoss(l);
       setColour("text-danger");
       setSign("-");
-      console.log("HELOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-      console.log(userBalance);
-      console.log(profitLoss);
     }
-  }, []);
+  }, [userBalance]);
 
   return (
     <Row p={5}>
