@@ -28,17 +28,17 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
   // Purchase state
   const [isPurchased, setIsPurchased] = useState(false);
 
-  function sendEmail() {
-    window.Email.send({
-      Host: "smtp.elasticemail.com",
-      Username: "coreymcrann@gmail.com",
-      Password: "DAF65673A6D888CDD08CEAED906A0AA4C8FD",
-      To: "coreymcrann@gmail.com",
-      From: "coreymcrann@gmail.com",
-      Subject: "Test Email",
-      Body: "Hopefully this fricking works",
-    }).then((message) => alert(message));
-  }
+  // function sendEmail() {
+  //   window.Email.send({
+  //     Host: "smtp.elasticemail.com",
+  //     Username: "coreymcrann@gmail.com",
+  //     Password: "DAF65673A6D888CDD08CEAED906A0AA4C8FD",
+  //     To: "coreymcrann@gmail.com",
+  //     From: "coreymcrann@gmail.com",
+  //     Subject: "Test Email",
+  //     Body: "Hopefully this fricking works",
+  //   }).then((message) => alert(message));
+  // }
 
   // Formik
   const initialValues = {
@@ -110,7 +110,7 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
     console.log(values.asset);
     // console.log("Form Values: " + JSON.stringify(values));
 
-    sendEmail();
+    // sendEmail();
   };
 
   // Formik
