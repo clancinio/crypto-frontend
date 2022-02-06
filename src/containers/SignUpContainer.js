@@ -10,7 +10,7 @@ import { AccountContext } from "../cognito/Account";
 const SignUpContainer = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [preferred_username, setUsername] = useState("");
+  const [custom_username, setUsername] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [errorMessage, seterrorMessage] = useState();
 
@@ -43,54 +43,52 @@ const SignUpContainer = () => {
       seterrorMessage("Please enter a password");
     }
 
-    UserPool.signUp(
-      preferred_username,
-      email,
-      password,
-      [],
-      null,
-      (err, data) => {
-        if (err) {
-          console.error(err.message);
-          if (
-            err.message === "An account with the given email already exists."
-          ) {
-            seterrorMessage(err.message);
-          }
-          if (
-            err.message ===
-            "Password did not conform with policy: Password not long enough"
-          ) {
-            seterrorMessage("Password not long enough");
-          }
-          if (
-            err.message ===
-            "Password did not conform with policy: Password must have uppercase characters"
-          ) {
-            seterrorMessage("Password must have uppercase characterss");
-          }
-          if (
-            err.message ===
-            "Password did not conform with policy: Password must have numeric characters"
-          ) {
-            seterrorMessage("Password must have numeric characters");
-          }
-        } else {
-          setIsRegistered(true);
-          axios
-            .post("http://localhost:8080/api/account/create", {
-              AccountId: data.userSub,
-              Email: email,
-              Balance: 1500.0,
-              Role: "user",
-              Username: preferred_username,
-            })
-            .then((response) => {
-              console.log(response);
-            });
+    // let attributeList = [
+    //   new AmazonCognitoIdentity.CognitoUserAttribute({
+    //     Name: "custom:custom_name",
+    //     value: custom_username,
+    //   }),
+    // ];
+
+    UserPool.signUp(email, password, [], null, (err, data) => {
+      if (err) {
+        console.error(err.message);
+        if (err.message === "An account with the given email already exists.") {
+          seterrorMessage(err.message);
         }
+        if (
+          err.message ===
+          "Password did not conform with policy: Password not long enough"
+        ) {
+          seterrorMessage("Password not long enough");
+        }
+        if (
+          err.message ===
+          "Password did not conform with policy: Password must have uppercase characters"
+        ) {
+          seterrorMessage("Password must have uppercase characterss");
+        }
+        if (
+          err.message ===
+          "Password did not conform with policy: Password must have numeric characters"
+        ) {
+          seterrorMessage("Password must have numeric characters");
+        }
+      } else {
+        setIsRegistered(true);
+        axios
+          .post("http://localhost:8080/api/account/create", {
+            AccountId: data.userSub,
+            Email: email,
+            Balance: 1500.0,
+            Role: "user",
+            Username: custom_username,
+          })
+          .then((response) => {
+            console.log(response);
+          });
       }
-    );
+    });
   };
 
   return (
@@ -103,12 +101,12 @@ const SignUpContainer = () => {
             Please create an account to gain access to Trypto.com
           </p>
           <hr />
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" controlId="formBasicUsername">
             <Form.Label className="login-lable">Username</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter a username"
-              value={preferred_username}
+              value={custom_username}
               onChange={(event) => setUsername(event.target.value)}
             />
           </Form.Group>

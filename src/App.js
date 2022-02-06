@@ -20,6 +20,8 @@ function App() {
   const [userEmail, setUserEmail] = useState("");
   //User sub (cognito ID)
   const [userSub, setUserSub] = useState("");
+  // Username
+  const [userName, setUserName] = useState("");
   //User Balance
   const [userBalance, setUserBalance] = useState();
   //const [loading, setLoading] = useState(false);
@@ -64,6 +66,7 @@ function App() {
         .get(`http://localhost:8080/api/account/${userSub}`)
         .then((response) => {
           setUserBalance(response.data.Balance);
+          setUserName(response.data.Username);
           console.log("Balance:" + response.data.Balance);
         });
     }
@@ -94,7 +97,7 @@ function App() {
           assets={assets}
           setUserBalance={setUserBalance}
           isLoggedIn={isLoggedIn}
-          userEmail={userEmail}
+          userName={userName}
           setUserEmail={setUserEmail}
           userSub={userSub}
           setUserSub={setUserSub}
@@ -111,7 +114,7 @@ function App() {
                 userSub={userSub}
                 transactions={transactions}
                 setTransactions={setTransactions}
-                userEmail={userEmail}
+                userName={userName}
                 isLoggedIn={isLoggedIn}
               />
             }
