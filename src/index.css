@@ -40,7 +40,10 @@ h2 {
 }
 
 /* Login Form */
-
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
 .form-container h1,
 .form-container p {
   color: white !important;
