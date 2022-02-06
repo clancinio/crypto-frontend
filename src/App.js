@@ -112,6 +112,7 @@ function App() {
                 transactions={transactions}
                 setTransactions={setTransactions}
                 userEmail={userEmail}
+                isLoggedIn={isLoggedIn}
               />
             }
           />
@@ -119,7 +120,9 @@ function App() {
           <Route
             exact
             path="/login"
-            element={<LoginContainer setIsLoggedIn={setIsLoggedIn} />}
+            element={
+              <LoginContainer setIsLoggedIn={setIsLoggedIn} userSub={userSub} />
+            }
           />
           <Route exact path="/signup" element={<SignupContainer />} />
           <Route exact path="/leaderboard" element={<LeaderBoardContainer />} />

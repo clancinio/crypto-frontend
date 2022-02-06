@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Spinner from "react-bootstrap/Spinner";
 import TopSection from "../components/topsection/TopSection";
 import PortfolioComponent from "../components/portfoliosection/PortfolioComponent";
 import Footer from "../components/footer/Footer";
 import TransactionComponent from "../components/transactionsection/TransactionComponent";
+import LoginContainer from "./LoginContainer";
+import { AccountContext } from "../cognito/Account";
+import { useState, useEffect, useContext } from "react";
 
 function HomeContainer({
   assets,
@@ -14,10 +17,22 @@ function HomeContainer({
   setTransactions,
   userEmail,
 }) {
+  const navigate = useNavigate();
+
+  const [isSession, setisSession] = useState(false);
+  const { getSession, logout } = useContext(AccountContext);
+
+  useEffect(() => {
+    getSession().then((session) => {
+      setisSession(true);
+    });
+  }, []);
+
   if (userBalance && transactions && assets) {
     return (
       <>
         <Container>
+          {!isSession && <Navigate to="/login" />}
           <TopSection userBalance={userBalance} userEmail={userEmail} />
           <PortfolioComponent assets={assets} />
           <TransactionComponent

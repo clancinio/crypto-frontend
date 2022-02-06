@@ -1,5 +1,6 @@
-import React, { useState, useContext, useHistory } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { AccountContext } from "../cognito/Account";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -19,6 +20,15 @@ function LoginContainer() {
   const navigate = useNavigate();
 
   const { authenticate } = useContext(AccountContext);
+
+  const { getSession, logout } = useContext(AccountContext);
+
+  const [isSession, setisSession] = useState(false);
+  useEffect(() => {
+    getSession().then((session) => {
+      setisSession(true);
+    });
+  }, []);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -53,6 +63,7 @@ function LoginContainer() {
 
   return (
     <div class="container">
+      {isSession && <Navigate to="/" />}
       <div className="form-container  mt-5">
         <Form className="login-form mt-3">
           <h1 className="text-center">Welcome back!</h1>
@@ -99,4 +110,5 @@ function LoginContainer() {
     </div>
   );
 }
+
 export default LoginContainer;
