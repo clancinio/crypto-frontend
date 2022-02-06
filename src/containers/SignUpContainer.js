@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import UserPool from "../cognito/UserPool";
+import { AccountContext } from "../cognito/Account";
 
 const SignUpContainer = () => {
   const [email, setEmail] = useState("");
@@ -18,6 +19,15 @@ const SignUpContainer = () => {
   } else {
     errorDiv = "";
   }
+
+  const [isSession, setisSession] = useState(false);
+  const { getSession } = useContext(AccountContext);
+
+  useEffect(() => {
+    getSession().then((session) => {
+      setisSession(true);
+    });
+  }, []);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -71,6 +81,7 @@ const SignUpContainer = () => {
 
   return (
     <div class="container">
+      {isSession && <Navigate to="/" />}
       <div className="form-container  mt-5">
         <Form className="login-form mt-3 section">
           <h1 className="text-center">Hello. It's nice to meet you.</h1>

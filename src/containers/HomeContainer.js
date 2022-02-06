@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Spinner from "react-bootstrap/Spinner";
 import TopSection from "../components/topsection/TopSection";
@@ -17,22 +17,27 @@ function HomeContainer({
   setTransactions,
   userEmail,
 }) {
-  const navigate = useNavigate();
-
   const [isSession, setisSession] = useState(false);
-  const { getSession, logout } = useContext(AccountContext);
-
+  const { getSession } = useContext(AccountContext);
+  const navigate = useNavigate();
   useEffect(() => {
     getSession().then((session) => {
       setisSession(true);
     });
   }, []);
 
+  if (!isSession) {
+    return (
+      <p>
+        Please login <Link to="/login">Here</Link>
+      </p>
+    );
+  }
+
   if (userBalance && transactions && assets) {
     return (
       <>
         <Container>
-          {!isSession && <Navigate to="/login" />}
           <TopSection userBalance={userBalance} userEmail={userEmail} />
           <PortfolioComponent assets={assets} />
           <TransactionComponent
