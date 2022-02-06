@@ -4,7 +4,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { formatter } from "../../../helpers";
 import "./totalmoney.css";
 
-function TotalMoneyComponent({ userBalance, userEmail }) {
+function TotalMoneyComponent({ userBalance, userName }) {
   // Calculate profite/loss
   const [profitLoss, setProfitLoss] = useState(0);
   const [sign, setSign] = useState("");
@@ -27,7 +27,7 @@ function TotalMoneyComponent({ userBalance, userEmail }) {
   if (userBalance) {
     return (
       <Row p={5}>
-        <h1>Welcome, {userEmail}!</h1>
+        <h1>Welcome, {userName}!</h1>
         <Col>
           <div class="sub-section" mt={3}>
             <h2>Spending Balance:</h2>

@@ -10,6 +10,7 @@ import { AccountContext } from "../cognito/Account";
 const SignUpContainer = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [custom_username, setUsername] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [errorMessage, seterrorMessage] = useState();
 
@@ -33,11 +34,21 @@ const SignUpContainer = () => {
     event.preventDefault();
 
     if (email === "") {
+      seterrorMessage("Please enter a username");
+    }
+    if (email === "") {
       seterrorMessage("Please enter an email address");
     }
     if (password === "") {
       seterrorMessage("Please enter a password");
     }
+
+    // let attributeList = [
+    //   new AmazonCognitoIdentity.CognitoUserAttribute({
+    //     Name: "custom:custom_name",
+    //     value: custom_username,
+    //   }),
+    // ];
 
     UserPool.signUp(email, password, [], null, (err, data) => {
       if (err) {
@@ -71,6 +82,7 @@ const SignUpContainer = () => {
             Email: email,
             Balance: 1500.0,
             Role: "user",
+            Username: custom_username,
           })
           .then((response) => {
             console.log(response);
@@ -82,13 +94,23 @@ const SignUpContainer = () => {
   return (
     <div class="container">
       {isSession && <Navigate to="/" />}
-      <div className="form-container  mt-5">
+      <div className="form-container mt-5">
         <Form className="login-form mt-3 section">
-          <h1 className="text-center">Hello. It's nice to meet you.</h1>
+          <h2 className="text-center">Hello. It's nice to meet you.</h2>
           <p className="text-muted text-center">
             Please create an account to gain access to Trypto.com
           </p>
           <hr />
+          <Form.Group className="mb-3" controlId="formBasicUsername">
+            <Form.Label className="login-lable">Username</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter a username"
+              value={custom_username}
+              onChange={(event) => setUsername(event.target.value)}
+            />
+          </Form.Group>
+
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label className="login-lable">Email address</Form.Label>
             <Form.Control
