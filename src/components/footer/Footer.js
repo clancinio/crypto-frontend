@@ -13,6 +13,9 @@ function Footer() {
             <li className="list-inline-item">
               <Link to="/top">Top 100</Link>
             </li>
+            <li className="list-inline-item">
+              <Link to="/leader">Leaderboard</Link>
+            </li>
           </ul>
           <p className="copyright">TRYPTO.COM © 2021</p>
         </div>

@@ -65,6 +65,9 @@ function TopNav({
                 <Nav.Link activeclassname="active" as={NavLink} to="/top">
                   Top 100
                 </Nav.Link>
+                <Nav.Link activeclassname="active" as={NavLink} to="/leader">
+                  Leaderboard
+                </Nav.Link>
               </Nav>
               <Button
                 className="button"
