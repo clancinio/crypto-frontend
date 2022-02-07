@@ -143,7 +143,8 @@ const SignUpContainer = () => {
           </div>
           {isRegistered && (
             <Alert variant={"success mt-3"}>
-              Success! Please check your email to verify your account.
+              Success! Click <Link to="/login">here</Link> to login to your
+              account.
             </Alert>
           )}
           <p className="text-muted text-center mt-2">

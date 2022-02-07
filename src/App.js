@@ -35,8 +35,6 @@ function App() {
       );
 
       const requestedAssets = response.data;
-      console.log("requestedAssets");
-      console.log(requestedAssets);
 
       Promise.all(
         requestedAssets.map(async function (asset) {
@@ -53,8 +51,6 @@ function App() {
       )
         .then((newAssetArray) => {
           setAssets(newAssetArray);
-          console.log(newAssetArray);
-          console.log(assets);
         })
         .catch((error) => {
           console.log(error);
@@ -67,7 +63,6 @@ function App() {
         .then((response) => {
           setUserBalance(response.data.Balance);
           setUserName(response.data.Username);
-          console.log("Balance:" + response.data.Balance);
         });
     }
 
@@ -77,8 +72,6 @@ function App() {
         .get(`http://localhost:8080/api/transaction/${userSub}`)
         .then((response) => {
           setTransactions(response.data);
-          console.log("TRANSACTIONS" + response.data);
-          //setLoading(false);
         });
     }
 

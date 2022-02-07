@@ -20,7 +20,6 @@ function TotalMoneyComponent({ userBalance, userName }) {
       var l = userBalance - 1500.0;
       setProfitLoss(l);
       setColour("text-danger");
-      setSign("-");
     }
   }, [userBalance]);
 
