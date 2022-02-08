@@ -12,9 +12,7 @@ import LeaderBoardContainer from "./containers/LeaderBoardContainer";
 import AdminContainer from "./containers/AdminContainer";
 
 function App() {
-  // State for holding Total capital - temporary until the backend is ready
-  const [balance, setBalance] = useState(1500);
-  // User#s Assets
+  // Users Assets
   const [assets, setAssets] = useState([]);
   // Is user logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,8 +20,10 @@ function App() {
   const [userEmail, setUserEmail] = useState("");
   //User sub (cognito ID)
   const [userSub, setUserSub] = useState("");
+  // Username
+  const [userName, setUserName] = useState("");
   //User Balance
-  const [userBalance, setUserBalance] = useState("");
+  const [userBalance, setUserBalance] = useState();
   //const [loading, setLoading] = useState(false);
   // State to hold transactions
   const [transactions, setTransactions] = useState([]);
@@ -31,12 +31,10 @@ function App() {
   useEffect(() => {
     async function getAssets() {
       const response = await axios.get(
-        `https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/assets/getAll/${userSub}`
+        `http://localhost:8080/api/assets/getAll/${userSub}`
       );
 
       const requestedAssets = response.data;
-      console.log("requestedAssets");
-      console.log(requestedAssets);
 
       Promise.all(
         requestedAssets.map(async function (asset) {
@@ -53,8 +51,6 @@ function App() {
       )
         .then((newAssetArray) => {
           setAssets(newAssetArray);
-          console.log(newAssetArray);
-          console.log(assets);
         })
         .catch((error) => {
           console.log(error);
@@ -63,25 +59,19 @@ function App() {
 
     async function getBalance() {
       await axios
-        .get(
-          `https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/account/${userSub}`
-        )
+        .get(`http://localhost:8080/api/account/${userSub}`)
         .then((response) => {
           setUserBalance(response.data.Balance);
-          console.log("Balance:" + response.data.Balance);
+          setUserName(response.data.Username);
         });
     }
 
     async function fetchTransactions() {
       //setLoading(true);
       await axios
-        .get(
-          `https://project300-env.eba-4j33mmhe.eu-west-1.elasticbeanstalk.com/api/transaction/${userSub}`
-        )
+        .get(`http://localhost:8080/api/transaction/${userSub}`)
         .then((response) => {
           setTransactions(response.data);
-          console.log("TRANSACTIONS" + response.data);
-          //setLoading(false);
         });
     }
 
@@ -100,7 +90,7 @@ function App() {
           assets={assets}
           setUserBalance={setUserBalance}
           isLoggedIn={isLoggedIn}
-          userEmail={userEmail}
+          userName={userName}
           setUserEmail={setUserEmail}
           userSub={userSub}
           setUserSub={setUserSub}
@@ -117,6 +107,8 @@ function App() {
                 userSub={userSub}
                 transactions={transactions}
                 setTransactions={setTransactions}
+                userName={userName}
+                isLoggedIn={isLoggedIn}
               />
             }
           />
@@ -125,7 +117,9 @@ function App() {
           <Route
             exact
             path="/login"
-            element={<LoginContainer setIsLoggedIn={setIsLoggedIn} />}
+            element={
+              <LoginContainer setIsLoggedIn={setIsLoggedIn} userSub={userSub} />
+            }
           />
           <Route exact path="/signup" element={<SignupContainer />} />
           <Route exact path="/leaderboard" element={<LeaderBoardContainer />} />

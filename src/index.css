@@ -22,7 +22,15 @@ code {
   padding: 25px;
 }
 
-h1 {
+.sub-section {
+  background-color: #212529;
+  border-radius: 10px;
+  padding: 25px;
+  margin-top: 25px;
+}
+
+h1,
+h2 {
   color: #ffffff;
 }
 
@@ -32,7 +40,10 @@ h1 {
 }
 
 /* Login Form */
-
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
 .form-container h1,
 .form-container p {
   color: white !important;
@@ -53,4 +64,25 @@ h1 {
 
 .login-form a {
   text-decoration: none;
+}
+
+.profile-image {
+  width: 300px;
+  height: 300px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+.image-div {
+  margin: 0 auto;
+}
+
+/* Spinner */
+.spinner-border {
+  height: 250px !important;
+  width: 250px !important;
+  border: 1em solid currentColor;
+  display: block !important;
+  margin: 100px auto;
 }

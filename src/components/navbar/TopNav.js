@@ -15,7 +15,7 @@ function TopNav({
   setUserBalance,
   assets,
   setUserEmail,
-  userEmail,
+  userName,
   setUserSub,
   userSub,
 }) {
@@ -87,7 +87,7 @@ function TopNav({
                 Sell
               </Button>
               <Navbar.Collapse className="justify-content-end">
-                <Navbar.Text>Welcome: {userEmail} | </Navbar.Text>
+                <Navbar.Text>{userName} | </Navbar.Text>
 
                 <Nav>
                   <Nav.Link to="/login" onClick={logoutUser}>
