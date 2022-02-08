@@ -14,7 +14,6 @@ function TopNav({
   userBalance,
   setUserBalance,
   assets,
-  setUserEmail,
   userName,
   setUserSub,
   userSub,
@@ -42,7 +41,6 @@ function TopNav({
   useEffect(() => {
     getSession().then((session) => {
       console.log("Session: ", session);
-      setUserEmail(session.idToken.payload.email);
       console.log(session.idToken.payload.email);
       setUserSub(session.idToken.payload.sub);
       console.log(session.idToken.payload.sub);
@@ -62,11 +60,11 @@ function TopNav({
                 <Nav.Link activeclassname="active" as={NavLink} to="/">
                   Home
                 </Nav.Link>
-                <Nav.Link activeclassname="active" as={NavLink} to="/top">
-                  Top 100
-                </Nav.Link>
                 <Nav.Link activeclassname="active" as={NavLink} to="/leader">
                   Leaderboard
+                </Nav.Link>
+                <Nav.Link activeclassname="active" as={NavLink} to="/top">
+                  Top Coins
                 </Nav.Link>
               </Nav>
               <Button
