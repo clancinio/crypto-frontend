@@ -10,7 +10,7 @@ import { AccountContext } from "../cognito/Account";
 const SignUpContainer = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [custom_username, setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [errorMessage, seterrorMessage] = useState();
 
@@ -33,22 +33,22 @@ const SignUpContainer = () => {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    if (email === "") {
+    if (username === "") {
       seterrorMessage("Please enter a username");
+      return;
+    }
+    if (username.length < 4) {
+      seterrorMessage("Username must be at least 4 characters long");
+      return;
     }
     if (email === "") {
       seterrorMessage("Please enter an email address");
+      return;
     }
     if (password === "") {
       seterrorMessage("Please enter a password");
+      return;
     }
-
-    // let attributeList = [
-    //   new AmazonCognitoIdentity.CognitoUserAttribute({
-    //     Name: "custom:custom_name",
-    //     value: custom_username,
-    //   }),
-    // ];
 
     UserPool.signUp(email, password, [], null, (err, data) => {
       if (err) {
@@ -74,15 +74,19 @@ const SignUpContainer = () => {
         ) {
           seterrorMessage("Password must have numeric characters");
         }
+        if (err.message === "Username should be an email.") {
+          seterrorMessage("Please enter a valid email address");
+        }
       } else {
         setIsRegistered(true);
+        seterrorMessage("");
         axios
           .post("http://localhost:8080/api/account/create", {
             AccountId: data.userSub,
             Email: email,
             Balance: 1500.0,
             Role: "user",
-            Username: custom_username,
+            Username: username,
           })
           .then((response) => {
             console.log(response);
@@ -106,7 +110,7 @@ const SignUpContainer = () => {
             <Form.Control
               type="text"
               placeholder="Enter a username"
-              value={custom_username}
+              value={username}
               onChange={(event) => setUsername(event.target.value)}
             />
           </Form.Group>

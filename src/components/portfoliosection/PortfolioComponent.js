@@ -15,7 +15,7 @@ function PortfolioComponent({ assets }) {
               <tr>
                 <th>Asset</th>
                 <th>Symbol</th>
-                <th>Amount</th>
+                <th>Quantity</th>
                 <th>Value</th>
                 {/* <th>Value Change (24h)</th> */}
                 <th>Price</th>

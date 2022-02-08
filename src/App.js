@@ -16,8 +16,6 @@ function App() {
   const [assets, setAssets] = useState([]);
   // Is user logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // User email
-  const [userEmail, setUserEmail] = useState("");
   //User sub (cognito ID)
   const [userSub, setUserSub] = useState("");
   // Username
@@ -75,7 +73,7 @@ function App() {
         });
     }
 
-    let interval = setTimeout(() => {
+    setTimeout(() => {
       fetchTransactions();
       getAssets();
       getBalance();
@@ -91,7 +89,6 @@ function App() {
           setUserBalance={setUserBalance}
           isLoggedIn={isLoggedIn}
           userName={userName}
-          setUserEmail={setUserEmail}
           userSub={userSub}
           setUserSub={setUserSub}
         />

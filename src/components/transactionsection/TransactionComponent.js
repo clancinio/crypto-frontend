@@ -41,10 +41,10 @@ function TransactionComponent({ transactions }) {
               <tr>
                 <th>Asset</th>
                 <th>Buy/Sell</th>
-                <th>Amount</th>
-                <th>Price</th>
-                <th>Date</th>
+                <th>Quantity</th>
                 <th>Buy/Sell Price</th>
+                <th>Date</th>
+                <th>Buy/Sell Amount</th>
               </tr>
             </thead>
             <tbody>
