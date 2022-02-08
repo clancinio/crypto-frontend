@@ -113,6 +113,7 @@ function App() {
             }
           />
           <Route exact path="/top" element={<TopCoinsContainer />} />
+          <Route exact path="/leader" element={<LeaderBoardContainer />} />
           <Route
             exact
             path="/login"
