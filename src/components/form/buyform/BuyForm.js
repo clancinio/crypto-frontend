@@ -12,6 +12,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
+
 function BuyForm({ userBalance, setUserBalance, userSub }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
@@ -28,17 +29,18 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
   // Purchase state
   const [isPurchased, setIsPurchased] = useState(false);
 
-  // function sendEmail() {
-  //   window.Email.send({
-  //     Host: "smtp.elasticemail.com",
-  //     Username: "coreymcrann@gmail.com",
-  //     Password: "DAF65673A6D888CDD08CEAED906A0AA4C8FD",
-  //     To: "coreymcrann@gmail.com",
-  //     From: "coreymcrann@gmail.com",
-  //     Subject: "Test Email",
-  //     Body: "Hopefully this fricking works",
-  //   }).then((message) => alert(message));
-  // }
+
+  function sendEmail() {
+    window.Email.send({
+      Host: "smtp.elasticemail.com",
+      Username: "TryptoCryptoCurrencyTrading@gmail.com",
+      Password: "CEC17BF627210E74C573D689894B9108AA71",
+      To: "coreymcrann@gmail.com",
+      From: "TryptoCryptoCurrencyTrading@gmail.com",
+      Subject: "Test Email",
+      Body: "Thank you for using our app! This is a email to confirm you have sold " +assetAmount+" " +selectedAsset+ "on our site. Best of luck!",
+   }).then((message) => alert("Thank you for your purchase of " +assetAmount+ " " +selectedAsset));
+  }
 
   // Formik
   const initialValues = {
@@ -110,7 +112,8 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
     console.log(values.asset);
     // console.log("Form Values: " + JSON.stringify(values));
 
-    // sendEmail();
+   
+    sendEmail();
   };
 
   // Formik
