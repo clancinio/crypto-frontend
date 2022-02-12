@@ -3,6 +3,8 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import Alert from "react-bootstrap/Alert";
 import { TiTick } from "react-icons/ti/";
 import { Formik } from "formik";
@@ -12,7 +14,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm({ userBalance, setUserBalance, userSub }) {
+function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
@@ -28,17 +30,9 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
   // Purchase state
   const [isPurchased, setIsPurchased] = useState(false);
 
-  // function sendEmail() {
-  //   window.Email.send({
-  //     Host: "smtp.elasticemail.com",
-  //     Username: "coreymcrann@gmail.com",
-  //     Password: "DAF65673A6D888CDD08CEAED906A0AA4C8FD",
-  //     To: "coreymcrann@gmail.com",
-  //     From: "coreymcrann@gmail.com",
-  //     Subject: "Test Email",
-  //     Body: "Hopefully this fricking works",
-  //   }).then((message) => alert(message));
-  // }
+  const [show1, setShow1] = useState(false);
+
+  const handleShow1 = () => setShow1(true);
 
   // Formik
   const initialValues = {
@@ -145,99 +139,128 @@ function BuyForm({ userBalance, setUserBalance, userSub }) {
     fetchPrice(cost);
   }, [selectedAsset, cost, userBalance]);
 
-  return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleSubmit,
-        handleBlur,
-      }) => (
-        <Form onSubmit={handleSubmit}>
-          {setSelectedAsset(values.asset)}
-          {setCost(values.amount)}
-          {isPurchased && (
-            <Alert variant={"success"}>Your purchase was successful</Alert>
-          )}
+  if (!isPurchased) {
+    return (
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+        handleClose={handleClose}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleSubmit,
+          handleBlur,
+        }) => (
+          <Form onSubmit={handleSubmit}>
+            {setSelectedAsset(values.asset)}
+            {setCost(values.amount)}
 
-          <h5>Balance: {formatter.format(userBalance)}</h5>
-          {isPurchased && (
-            <p className="text-danger lead">{"-" + formatter.format(cost)}</p>
-          )}
-          <Form.Group className="mb-3" controlId="asset">
-            <Form.Label>Select Asset</Form.Label>
-            <Form.Select
-              aria-label="Deslect asser to buy"
-              name="asset"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.asset}
-              disabled={isPurchased ? true : false}
-            >
-              <option value="bitcoin">Bitcoin</option>
-              <option value="ethereum">Ethereum</option>
-              <option value="binancecoin">Binance Coin</option>
-              <option value="tether">Tether </option>
-              <option value="solana">Solana </option>
-              <option value="cardano">Cardano</option>
-              <option value="ripple">Ripple</option>
-              <option value="polkadot">Polkadot</option>
-              <option value="dogecoin">Dogecoin </option>
-              <option value="avalanche-2">Avalanche</option>
-            </Form.Select>
-            {touched.asset && errors.asset ? (
-              <div className="error">{errors.asset}</div>
-            ) : null}
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <InputGroup className="mb-2">
-              <InputGroup.Text>€</InputGroup.Text>
-              <FormControl
-                type="number"
-                step="any"
-                name="amount"
+            <Form.Group className="mb-3" controlId="asset">
+              <Form.Label>Select Asset</Form.Label>
+              <Form.Select
+                aria-label="Deslect asser to buy"
+                name="asset"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.amount}
+                value={values.asset}
                 disabled={isPurchased ? true : false}
-              />
-            </InputGroup>
-            {touched.amount && errors.amount ? (
-              <div className="error">{errors.amount}</div>
-            ) : null}
-            {userBalance - cost < 0 && isPurchased == false ? (
-              <div className="error">
-                You do not have enough money to make this purchase
-              </div>
-            ) : null}
-          </Form.Group>
-          <div>
-            <h5>
-              Buying: {assetAmount} {assetSymbol.toUpperCase()}
-            </h5>
-            <h5>Cost: {formatter.format(values.amount)}</h5>
-          </div>
-          <hr />
-          <div className="d-grid gap-2">
-            <Button
-              type="submit"
-              variant="success"
-              size="lg"
-              disabled={isPurchased || userBalance - cost < 0 ? true : false}
-            >
-              {isPurchased ? <TiTick /> : "Buy"}
-            </Button>
-          </div>
-        </Form>
-      )}
-    </Formik>
-  );
+              >
+                <option value="bitcoin">Bitcoin</option>
+                <option value="ethereum">Ethereum</option>
+                <option value="binancecoin">Binance Coin</option>
+                <option value="tether">Tether </option>
+                <option value="solana">Solana </option>
+                <option value="cardano">Cardano</option>
+                <option value="ripple">Ripple</option>
+                <option value="polkadot">Polkadot</option>
+                <option value="dogecoin">Dogecoin </option>
+                <option value="avalanche-2">Avalanche</option>
+              </Form.Select>
+              {touched.asset && errors.asset ? (
+                <div className="error">{errors.asset}</div>
+              ) : null}
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <InputGroup className="mb-2">
+                <InputGroup.Text>€</InputGroup.Text>
+                <FormControl
+                  type="number"
+                  step="any"
+                  name="amount"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.amount}
+                  disabled={isPurchased ? true : false}
+                />
+              </InputGroup>
+              {touched.amount && errors.amount ? (
+                <div className="error">{errors.amount}</div>
+              ) : null}
+              {userBalance - cost < 0 && isPurchased == false ? (
+                <div className="error">
+                  You do not have enough money to make this purchase
+                </div>
+              ) : null}
+            </Form.Group>
+            <div>
+              <h5>
+                Buying: {assetAmount} {assetSymbol.toUpperCase()}
+              </h5>
+              <h5>Cost: {formatter.format(values.amount)}</h5>
+            </div>
+            <hr />
+            <Row className="d-flex">
+              <Col>
+                <Button
+                  variant="danger"
+                  size="md"
+                  className="btn-full"
+                  onClick={handleClose}
+                >
+                  Cancel
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  type="submit"
+                  variant="success"
+                  size="md"
+                  className="btn-full"
+                  disabled={userBalance - cost < 0 ? true : false}
+                >
+                  Buy
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        )}
+      </Formik>
+    );
+  } else {
+    return (
+      <>
+        <Alert variant={"success"}>Your purchase was successful</Alert>
+        <h5>
+          You purchased {assetAmount} {assetSymbol.toUpperCase()}
+        </h5>
+        <h5 className="text-danger">Cost: {"-" + formatter.format(cost)}</h5>
+        <h5>New Balance: {formatter.format(userBalance)}</h5>
+        <Button
+          type="submit"
+          variant="success"
+          size="md"
+          className="btn-full mt-3"
+          onClick={handleClose}
+        >
+          Continue
+        </Button>
+      </>
+    );
+  }
 }
 
 export default BuyForm;
