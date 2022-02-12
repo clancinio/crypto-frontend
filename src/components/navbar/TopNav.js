@@ -113,6 +113,7 @@ function TopNav({
             userBalance={userBalance}
             setUserBalance={setUserBalance}
             userSub={userSub}
+            handleClose={handleClose}
           />
         </Modal.Body>
       </Modal>

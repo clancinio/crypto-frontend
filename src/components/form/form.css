@@ -5,3 +5,7 @@
 .amount-hint {
   font-weight: bold;
 }
+
+.btn-full {
+  width: 100%;
+}
