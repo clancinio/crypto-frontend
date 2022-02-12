@@ -16,6 +16,7 @@ function HomeContainer({
   transactions,
   setTransactions,
   userName,
+  worth,
 }) {
   const [isSession, setisSession] = useState(false);
   const { getSession } = useContext(AccountContext);
@@ -38,7 +39,12 @@ function HomeContainer({
     return (
       <>
         <Container>
-          <TopSection userBalance={userBalance} userName={userName} />
+          <TopSection
+            userBalance={userBalance}
+            userName={userName}
+            worth={worth}
+            assets={assets}
+          />
           <PortfolioComponent assets={assets} />
           <TransactionComponent
             userSub={userSub}
