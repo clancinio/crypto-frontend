@@ -10,15 +10,27 @@ import { AccountContext } from "../cognito/Account";
 const SignUpContainer = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm_password, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [errorMessage, seterrorMessage] = useState();
+  const [matchMessage, setMatchMessage] = useState("");
+  const [matchColour, setMatchColour] = useState("");
 
   let errorDiv;
   if (errorMessage != "") {
     errorDiv = <div className="error mb-2">{errorMessage}</div>;
   } else {
     errorDiv = "";
+  }
+
+  let matchDiv;
+  if (matchMessage != "") {
+    matchDiv = (
+      <div className={`${matchColour}  error mb-2`}>{matchMessage}</div>
+    );
+  } else {
+    matchDiv = "";
   }
 
   const [isSession, setisSession] = useState(false);
@@ -30,6 +42,16 @@ const SignUpContainer = () => {
     });
   }, []);
 
+  const validatePassword = () => {
+    if (password === confirm_password) {
+      setMatchMessage("Passwords match!");
+      setMatchColour("text-success");
+    }
+    if (password !== confirm_password) {
+      setMatchMessage("Passwords don't match!");
+      setMatchColour("text-danger");
+    }
+  };
   const onSubmit = (event) => {
     event.preventDefault();
 
@@ -47,6 +69,10 @@ const SignUpContainer = () => {
     }
     if (password === "") {
       seterrorMessage("Please enter a password");
+      return;
+    }
+    if (password != confirm_password) {
+      seterrorMessage("Passwords do not match");
       return;
     }
 
@@ -134,7 +160,23 @@ const SignUpContainer = () => {
               onChange={(event) => setPassword(event.target.value)}
             />
           </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
+            <Form.Label className="login-lable">Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Re-type password"
+              value={confirm_password}
+              onChange={(event) => {
+                setConfirmPassword(event.target.value);
+              }}
+              onKeyUp={(event) => {
+                validatePassword(event.target.value);
+              }}
+            />
+          </Form.Group>
           {errorDiv}
+          {matchDiv}
           <div className="d-grid gap-2">
             <Button
               className="btn"
