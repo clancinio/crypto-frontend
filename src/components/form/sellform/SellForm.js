@@ -11,6 +11,7 @@ import * as Yup from "yup";
 import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
+import { string } from "yup";
 
 function SellForm({ userBalance, assets, setUserBalance, userSub }) {
   // Selected asset to sell
@@ -31,6 +32,18 @@ function SellForm({ userBalance, assets, setUserBalance, userSub }) {
   const [assetAmount, setAssetAmount] = useState(0);
   // Selected asset total amount owmed
   const [assetId, setAssetId] = useState("");
+
+  function sendEmail() {
+    window.Email.send({
+      Host: "smtp.elasticemail.com",
+      Username: "TryptoCryptoCurrencyTrading@gmail.com",
+      Password: "CEC17BF627210E74C573D689894B9108AA71",
+      To: "coreymcrann@gmail.com", 
+      From: "TryptoCryptoCurrencyTrading@gmail.com",
+      Subject: "Test Email",
+      Body: "Thank you for using our app! This is a email to confirm you have sold " +assetAmount+" " +selectedAsset+ "on our site. Best of luck!",
+   }).then((message) => alert("Thank you for your sale of " +assetAmount+ " " +selectedAsset));
+  }
 
   // Formik
   const initialValues = {
@@ -86,6 +99,7 @@ function SellForm({ userBalance, assets, setUserBalance, userSub }) {
     setIsSold(true);
     setUserBalance(newBalance);
     setAssetAmount(newQuantity);
+    sendEmail();
 
     // Update balance
     axios
