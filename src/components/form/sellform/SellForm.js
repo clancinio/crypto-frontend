@@ -13,7 +13,7 @@ import { formatter } from "../../../helpers";
 import "../form.css";
 import { string } from "yup";
 
-function SellForm({ userBalance, assets, setUserBalance, userSub }) {
+function SellForm({ userBalance, assets, setUserBalance, userSub, email }) {
   // Selected asset to sell
   const [selectedAsset, setSelectedAsset] = useState("");
   // Price of selected asset
@@ -38,11 +38,12 @@ function SellForm({ userBalance, assets, setUserBalance, userSub }) {
       Host: "smtp.elasticemail.com",
       Username: "TryptoCryptoCurrencyTrading@gmail.com",
       Password: "CEC17BF627210E74C573D689894B9108AA71",
-      To: "coreymcrann@gmail.com", 
-      From: "TryptoCryptoCurrencyTrading@gmail.com",
-      Subject: "Test Email",
+      To: email, 
+      From: "tryptocryptocurrencytrading@gmail.com",
+      Subject: "Thank you!",
       Body: "Thank you for using our app! This is a email to confirm you have sold " +assetAmount+" " +selectedAsset+ "on our site. Best of luck!",
-   }).then((message) => alert("Thank you for your sale of " +assetAmount+ " " +selectedAsset));
+   }).then((message) => alert("sending a email to" +email));
+   
   }
 
   // Formik

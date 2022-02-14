@@ -17,6 +17,7 @@ function TopNav({
   userName,
   setUserSub,
   userSub,
+  email
 }) {
   // Buy Modal state
   const [show, setShow] = useState(false);
@@ -114,6 +115,7 @@ function TopNav({
             setUserBalance={setUserBalance}
             userSub={userSub}
             handleClose={handleClose}
+            email={email}
           />
         </Modal.Body>
       </Modal>
@@ -133,6 +135,7 @@ function TopNav({
             setUserBalance={setUserBalance}
             assets={assets}
             userSub={userSub}
+            email={email}
           />
         </Modal.Body>
       </Modal>

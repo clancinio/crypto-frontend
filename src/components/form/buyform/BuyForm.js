@@ -14,7 +14,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
+function BuyForm({ userBalance, setUserBalance, userSub, handleClose, email }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
@@ -38,11 +38,12 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
       Host: "smtp.elasticemail.com",
       Username: "TryptoCryptoCurrencyTrading@gmail.com",
       Password: "CEC17BF627210E74C573D689894B9108AA71",
-      To: "coreymcrann@gmail.com",
-      From: "TryptoCryptoCurrencyTrading@gmail.com",
-      Subject: "Test Email",
+      To: email,
+      From: "tryptocryptocurrencytrading@gmail.com",
+      Subject: "Thank You!",
       Body: "Thank you for using our app! This is a email to confirm you have sold " +assetAmount+" " +selectedAsset+ "on our site. Best of luck!",
-   });
+   }).then((message) => alert("sending a email to" +email));
+   
   }
 
   // Formik

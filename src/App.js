@@ -14,6 +14,8 @@ import AdminContainer from "./containers/AdminContainer";
 function App() {
   // Users Assets
   const [assets, setAssets] = useState([]);
+  //User Email
+  const [email, setEmail] = useState("");
   // Is user logged in
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   //User sub (cognito ID)
@@ -60,6 +62,7 @@ function App() {
         .get(`http://localhost:8080/api/account/${userSub}`)
         .then((response) => {
           setUserBalance(response.data.Balance);
+          setEmail(response.data.Email);
           setUserName(response.data.Username);
         });
     }
@@ -91,6 +94,7 @@ function App() {
           userName={userName}
           userSub={userSub}
           setUserSub={setUserSub}
+          email={email}
         />
         <Routes>
           <Route
