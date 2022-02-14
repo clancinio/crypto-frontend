@@ -32,7 +32,7 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
   // Modal Show state
   const [show1, setShow1] = useState(false);
   const handleShow1 = () => setShow1(true);
-  
+
   function sendEmail() {
     window.Email.send({
       Host: "smtp.elasticemail.com",
@@ -41,8 +41,13 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
       To: "coreymcrann@gmail.com",
       From: "TryptoCryptoCurrencyTrading@gmail.com",
       Subject: "Test Email",
-      Body: "Thank you for using our app! This is a email to confirm you have sold " +assetAmount+" " +selectedAsset+ "on our site. Best of luck!",
-   });
+      Body:
+        "Thank you for using our app! This is a email to confirm you have sold " +
+        assetAmount +
+        " " +
+        selectedAsset +
+        "on our site. Best of luck!",
+    });
   }
 
   // Formik
@@ -115,7 +120,6 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
     console.log(values.asset);
     // console.log("Form Values: " + JSON.stringify(values));
 
-   
     sendEmail();
   };
 
@@ -219,6 +223,7 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
               ) : null}
             </Form.Group>
             <div>
+              <h5>Spending Balance: {formatter.format(userBalance)}</h5>
               <h5>
                 Buying: {assetAmount} {assetSymbol.toUpperCase()}
               </h5>

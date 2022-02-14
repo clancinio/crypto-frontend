@@ -5,7 +5,6 @@ import TopSection from "../components/topsection/TopSection";
 import PortfolioComponent from "../components/portfoliosection/PortfolioComponent";
 import Footer from "../components/footer/Footer";
 import TransactionComponent from "../components/transactionsection/TransactionComponent";
-import LoginContainer from "./LoginContainer";
 import { AccountContext } from "../cognito/Account";
 import { useState, useEffect, useContext } from "react";
 

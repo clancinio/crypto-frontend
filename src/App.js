@@ -77,8 +77,8 @@ function App() {
       fetchTransactions();
       getAssets();
       getBalance();
-    }, 2000);
-  }, [assets, userSub, userBalance]);
+    }, 5000);
+  }, [userSub, userBalance]);
 
   return (
     <Account>
