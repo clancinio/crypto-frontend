@@ -81,6 +81,7 @@ function TopNav({
                 size="md"
                 variant="outline-secondary"
                 onClick={handleShow2}
+                disabled={assets.length === 0 ? true : false}
               >
                 Sell
               </Button>
@@ -112,6 +113,7 @@ function TopNav({
             userBalance={userBalance}
             setUserBalance={setUserBalance}
             userSub={userSub}
+            handleClose={handleClose}
           />
         </Modal.Body>
       </Modal>

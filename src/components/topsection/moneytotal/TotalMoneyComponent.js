@@ -28,13 +28,13 @@ function TotalMoneyComponent({ userBalance, userName }) {
       <Row p={5}>
         <h1>Welcome, {userName}!</h1>
         <Col>
-          <div class="sub-section" mt={3}>
+          <div class="sub-section" mt={3} md={6} sm={12}>
             <h2>Spending Balance:</h2>
             <p className="lead">{formatter.format(userBalance)}</p>
           </div>
         </Col>
         <Col>
-          <div class="sub-section" mt={3}>
+          <div class="sub-section" mt={3} md={6} sm={12}>
             <h2>Profit/Loss:</h2>
             <p className={`lead ${color}`}>
               {sign + formatter.format(profitLoss)}
