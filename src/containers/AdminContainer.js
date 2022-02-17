@@ -3,8 +3,23 @@ import Container from "react-bootstrap/Container";
 import { Col, Row, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function AdminContainer() {
+
+  const [users, setUsers] = useState();
+  
+  // This hood will call the api once on render to fetch all users
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/account/")
+      .then((response) => {
+        setUsers((response.data).length);
+      })
+      .catch((error) => console.log(error.response.data.error));
+  }, []);
+
   return (
     <Container>
       <Col className={"mt-5 section"}>
@@ -20,7 +35,7 @@ function AdminContainer() {
           <div class="sub-section" mt={3} md={6} sm={12}>
             <h2>Total Users</h2>
             <p className={`lead`}>
-              500
+              {users}
             </p>
           </div>
         </Col>
