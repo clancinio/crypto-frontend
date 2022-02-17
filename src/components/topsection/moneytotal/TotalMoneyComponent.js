@@ -4,11 +4,13 @@ import Spinner from "react-bootstrap/Spinner";
 import { formatter } from "../../../helpers";
 import "./totalmoney.css";
 
-function TotalMoneyComponent({ userBalance, userName, assets }) {
+function TotalMoneyComponent({
+  userBalance,
+  userName,
+  assets,
+  currentInvestment,
+}) {
   // Calculate profite/loss
-  const [profitLoss, setProfitLoss] = useState(0);
-  const [sign, setSign] = useState("");
-  const [color, setColour] = useState("");
   const [worth, setWorth] = useState("");
 
   useEffect(() => {
@@ -17,16 +19,6 @@ function TotalMoneyComponent({ userBalance, userName, assets }) {
       totalVal += a.value;
     });
     setWorth(totalVal);
-    // if (userBalance - 1500.0 >= 0) {
-    //   var p = userBalance - 1500.0;
-    //   setProfitLoss(p);
-    //   setColour("text-success");
-    //   setSign("+");
-    // } else if (userBalance - 1500.0 < 0) {
-    //   var l = userBalance - 1500.0;
-    //   setProfitLoss(l);
-    //   setColour("text-danger");
-    // }
   }, [assets]);
 
   if (userBalance) {
@@ -35,22 +27,20 @@ function TotalMoneyComponent({ userBalance, userName, assets }) {
         <h1>Welcome, {userName}!</h1>
         <Col>
           <div class="sub-section" mt={3} md={6} sm={12}>
-            <h2>Spending Balance:</h2>
+            <h3>Spending Balance:</h3>
             <p className="lead">{formatter.format(userBalance)}</p>
           </div>
         </Col>
         <Col>
           <div class="sub-section" mt={3} md={6} sm={12}>
-            <h2>Profit/Loss:</h2>
-            <p className={`lead ${color}`}>
-              {sign + formatter.format(profitLoss)}
-            </p>
+            <h3>Current Investment:</h3>
+            <p className={`lead`}>{formatter.format(currentInvestment)}</p>
           </div>
         </Col>
         <Col>
           <div class="sub-section" mt={3} md={6} sm={12}>
-            <h2>Investment Worth:</h2>
-            <p className={`lead ${color}`}>{sign + formatter.format(worth)}</p>
+            <h3>Investment Worth:</h3>
+            <p className={`lead`}>{formatter.format(worth)}</p>
           </div>
         </Col>
       </Row>

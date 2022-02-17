@@ -14,7 +14,13 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
+function BuyForm({
+  userBalance,
+  setUserBalance,
+  userSub,
+  handleClose,
+  currentInvestment,
+}) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
@@ -29,26 +35,6 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
   const [assetSymbol, setAssetSymbol] = useState("btc");
   // Purchase state
   const [isPurchased, setIsPurchased] = useState(false);
-  // Modal Show state
-  const [show1, setShow1] = useState(false);
-  const handleShow1 = () => setShow1(true);
-
-  function sendEmail() {
-    window.Email.send({
-      Host: "smtp.elasticemail.com",
-      Username: "TryptoCryptoCurrencyTrading@gmail.com",
-      Password: "CEC17BF627210E74C573D689894B9108AA71",
-      To: "coreymcrann@gmail.com",
-      From: "TryptoCryptoCurrencyTrading@gmail.com",
-      Subject: "Test Email",
-      Body:
-        "Thank you for using our app! This is a email to confirm you have sold " +
-        assetAmount +
-        " " +
-        selectedAsset +
-        "on our site. Best of luck!",
-    });
-  }
 
   // Formik
   const initialValues = {
@@ -69,6 +55,12 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
 
     // Calculate new Balance
     const newBalance = userBalance - Number(cost);
+    // Calculate current investment after buy
+    const newCurrentInvestment = Number(currentInvestment) + Number(cost);
+
+    console.log("currentInvestment");
+    console.log(currentInvestment);
+    console.log(newCurrentInvestment);
 
     // Create a transaction object
     const transaction = {
@@ -96,6 +88,7 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
     const account = {
       AccountId: userSub,
       Balance: newBalance,
+      CurrentInvestment: newCurrentInvestment,
     };
 
     // Post a transaction
@@ -119,8 +112,6 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
     console.log("Balance:" + userBalance);
     console.log(values.asset);
     // console.log("Form Values: " + JSON.stringify(values));
-
-    sendEmail();
   };
 
   // Formik

@@ -22,7 +22,8 @@ function App() {
   const [userName, setUserName] = useState("");
   //User Balance
   const [userBalance, setUserBalance] = useState();
-  //const [loading, setLoading] = useState(false);
+  // The user current investment
+  const [currentInvestment, setCurrentInvestment] = useState();
   // State to hold transactions
   const [transactions, setTransactions] = useState([]);
 
@@ -61,6 +62,8 @@ function App() {
         .then((response) => {
           setUserBalance(response.data.Balance);
           setUserName(response.data.Username);
+          setCurrentInvestment(response.data.CurrentInvestment);
+          console.log(response);
         });
     }
 
@@ -91,6 +94,7 @@ function App() {
           userName={userName}
           userSub={userSub}
           setUserSub={setUserSub}
+          currentInvestment={currentInvestment}
         />
         <Routes>
           <Route
@@ -106,6 +110,7 @@ function App() {
                 setTransactions={setTransactions}
                 userName={userName}
                 isLoggedIn={isLoggedIn}
+                currentInvestment={currentInvestment}
               />
             }
           />

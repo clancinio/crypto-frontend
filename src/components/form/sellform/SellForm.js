@@ -13,7 +13,13 @@ import { formatter } from "../../../helpers";
 import "../form.css";
 import { string } from "yup";
 
-function SellForm({ userBalance, assets, setUserBalance, userSub }) {
+function SellForm({
+  userBalance,
+  assets,
+  setUserBalance,
+  userSub,
+  currentInvestment,
+}) {
   // Selected asset to sell
   const [selectedAsset, setSelectedAsset] = useState("");
   // Price of selected asset
@@ -38,11 +44,18 @@ function SellForm({ userBalance, assets, setUserBalance, userSub }) {
       Host: "smtp.elasticemail.com",
       Username: "TryptoCryptoCurrencyTrading@gmail.com",
       Password: "CEC17BF627210E74C573D689894B9108AA71",
-      To: "coreymcrann@gmail.com", 
+      To: "coreymcrann@gmail.com",
       From: "TryptoCryptoCurrencyTrading@gmail.com",
       Subject: "Test Email",
-      Body: "Thank you for using our app! This is a email to confirm you have sold " +assetAmount+" " +selectedAsset+ "on our site. Best of luck!",
-   }).then((message) => alert("Thank you for your sale of " +assetAmount+ " " +selectedAsset));
+      Body:
+        "Thank you for using our app! This is a email to confirm you have sold " +
+        assetAmount +
+        " " +
+        selectedAsset +
+        "on our site. Best of luck!",
+    }).then((message) =>
+      alert("Thank you for your sale of " + assetAmount + " " + selectedAsset)
+    );
   }
 
   // Formik
@@ -68,8 +81,12 @@ function SellForm({ userBalance, assets, setUserBalance, userSub }) {
     console.log(userBalance);
     console.log(newBalance);
     console.log(sellPrice);
+
     // Calculate new Amount
     const newQuantity = assetAmount - quantity.toFixed(6);
+    // Calculate current investment after buy
+    const newCurrentInvestment =
+      Number(currentInvestment) - quantity.toFixed(6);
 
     // Create a transaction object
     const transaction = {
@@ -86,6 +103,7 @@ function SellForm({ userBalance, assets, setUserBalance, userSub }) {
     const account = {
       AccountId: userSub,
       Balance: newBalance,
+      CurrentInvestment: newCurrentInvestment,
     };
 
     const asset = {
@@ -103,26 +121,17 @@ function SellForm({ userBalance, assets, setUserBalance, userSub }) {
 
     // Update balance
     axios
-      .put(
-        "http://localhost:8080/api/account",
-        account
-      )
+      .put("http://localhost:8080/api/account", account)
       .then((response) => console.log(response));
 
     // Post a transaction
     axios
-      .post(
-        "http://localhost:8080/api/transaction/create",
-        transaction
-      )
+      .post("http://localhost:8080/api/transaction/create", transaction)
       .then((response) => console.log(response));
 
     // Update amount transaction
     axios
-      .put(
-        "http://localhost:8080/api/assets/",
-        asset
-      )
+      .put("http://localhost:8080/api/assets/", asset)
       .then((response) => console.log("SOLD!!!!!!!!!!!"));
 
     setIsSold(true);
