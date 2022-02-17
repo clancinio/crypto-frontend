@@ -9,13 +9,21 @@ import axios from "axios";
 function AdminContainer() {
 
   const [users, setUsers] = useState();
-  
+  const [transactions, setTransactions] = useState();
+
   // This hood will call the api once on render to fetch all users
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/account/")
       .then((response) => {
         setUsers((response.data).length);
+      })
+      .catch((error) => console.log(error.response.data.error));
+
+      axios
+      .get("http://localhost:8080/api/transaction/")
+      .then((response) => {
+        setTransactions((response.data).length);
       })
       .catch((error) => console.log(error.response.data.error));
   }, []);
@@ -28,7 +36,7 @@ function AdminContainer() {
         <Col>
           <div class="sub-section" mt={3} md={6} sm={12}>
             <h2>Totals transactions</h2>
-            <p className="lead">100,00</p>
+            <p className="lead">{transactions}</p>
           </div>
         </Col>
         <Col>
