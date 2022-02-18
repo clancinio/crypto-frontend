@@ -16,7 +16,6 @@ function HomeContainer({
   setTransactions,
   userName,
   worth,
-  currentInvestment,
 }) {
   const [isSession, setisSession] = useState(false);
   const { getSession } = useContext(AccountContext);
@@ -44,7 +43,6 @@ function HomeContainer({
             userName={userName}
             worth={worth}
             assets={assets}
-            currentInvestment={currentInvestment}
           />
           <PortfolioComponent assets={assets} />
           <TransactionComponent

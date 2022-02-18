@@ -55,12 +55,6 @@ function BuyForm({
 
     // Calculate new Balance
     const newBalance = userBalance - Number(cost);
-    // Calculate current investment after buy
-    const newCurrentInvestment = Number(currentInvestment) + Number(cost);
-
-    console.log("currentInvestment");
-    console.log(currentInvestment);
-    console.log(newCurrentInvestment);
 
     // Create a transaction object
     const transaction = {
@@ -88,7 +82,6 @@ function BuyForm({
     const account = {
       AccountId: userSub,
       Balance: newBalance,
-      CurrentInvestment: newCurrentInvestment,
     };
 
     // Post a transaction

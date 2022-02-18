@@ -4,12 +4,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { formatter } from "../../../helpers";
 import "./totalmoney.css";
 
-function TotalMoneyComponent({
-  userBalance,
-  userName,
-  assets,
-  currentInvestment,
-}) {
+function TotalMoneyComponent({ userBalance, userName, assets }) {
   // Calculate profite/loss
   const [worth, setWorth] = useState("");
 
@@ -29,12 +24,6 @@ function TotalMoneyComponent({
           <div class="sub-section" mt={3} md={6} sm={12}>
             <h3>Spending Balance:</h3>
             <p className="lead">{formatter.format(userBalance)}</p>
-          </div>
-        </Col>
-        <Col>
-          <div class="sub-section" mt={3} md={6} sm={12}>
-            <h3>Current Investment:</h3>
-            <p className={`lead`}>{formatter.format(currentInvestment)}</p>
           </div>
         </Col>
         <Col>
