@@ -14,13 +14,7 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 
-function BuyForm({
-  userBalance,
-  setUserBalance,
-  userSub,
-  handleClose,
-  currentInvestment,
-}) {
+function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
   // Selected asset to buy
   const [selectedAsset, setSelectedAsset] = useState("bitcoin");
   // Price of selected asset
@@ -36,7 +30,7 @@ function BuyForm({
   // Purchase state
   const [isPurchased, setIsPurchased] = useState(false);
   //Asset Image
-  const [image, setImage] = useState();
+  const [image, setImage] = useState("");
 
   // Formik
   const initialValues = {
