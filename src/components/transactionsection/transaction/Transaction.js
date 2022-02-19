@@ -9,10 +9,16 @@ function Transaction({
   cost,
   colour,
   sign,
+  image,
 }) {
   return (
     <tr>
-      <td>{asset.toUpperCase()}</td>
+      <td>
+        <div className="coin d-flex align-items-centre ">
+          <img src={image} alt="crypto" />
+          <h5>{asset.toUpperCase()}</h5>
+        </div>
+      </td>
       <td>{buy_sell.toUpperCase()}</td>
       <td>{amount}</td>
       <td>{formatter.format(price)}</td>

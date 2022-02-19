@@ -22,7 +22,6 @@ function App() {
   const [userName, setUserName] = useState("");
   //User Balance
   const [userBalance, setUserBalance] = useState();
-  //const [loading, setLoading] = useState(false);
   // State to hold transactions
   const [transactions, setTransactions] = useState([]);
 
@@ -61,6 +60,7 @@ function App() {
         .then((response) => {
           setUserBalance(response.data.Balance);
           setUserName(response.data.Username);
+          console.log(response);
         });
     }
 
@@ -77,8 +77,8 @@ function App() {
       fetchTransactions();
       getAssets();
       getBalance();
-    }, 2000);
-  }, [assets, userSub, userBalance]);
+    }, 5000);
+  }, [userSub, userBalance]);
 
   return (
     <Account>

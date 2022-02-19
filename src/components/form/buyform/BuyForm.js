@@ -29,21 +29,8 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
   const [assetSymbol, setAssetSymbol] = useState("btc");
   // Purchase state
   const [isPurchased, setIsPurchased] = useState(false);
-  // Modal Show state
-  const [show1, setShow1] = useState(false);
-  const handleShow1 = () => setShow1(true);
-  
-  function sendEmail() {
-    window.Email.send({
-      Host: "smtp.elasticemail.com",
-      Username: "TryptoCryptoCurrencyTrading@gmail.com",
-      Password: "CEC17BF627210E74C573D689894B9108AA71",
-      To: "coreymcrann@gmail.com",
-      From: "TryptoCryptoCurrencyTrading@gmail.com",
-      Subject: "Test Email",
-      Body: "Thank you for using our app! This is a email to confirm you have sold " +assetAmount+" " +selectedAsset+ "on our site. Best of luck!",
-   });
-  }
+  //Asset Image
+  const [image, setImage] = useState("");
 
   // Formik
   const initialValues = {
@@ -68,12 +55,13 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
     // Create a transaction object
     const transaction = {
       AccountId: userSub,
-      AssetId: values.asset,
+      AssetSymbol: assetSymbol,
       BuySell: "B",
       Amount: assetAmount,
       Price: assetPrice,
       Date: date,
       Cost: cost,
+      Image: image,
     };
 
     // Create an asset object
@@ -83,6 +71,7 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
       AssetSymbol: assetSymbol,
       Amount: assetAmount,
       AssetName: assetName,
+      Image: image,
     };
     console.log(transaction);
     console.log(asset);
@@ -114,9 +103,6 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
     console.log("Balance:" + userBalance);
     console.log(values.asset);
     // console.log("Form Values: " + JSON.stringify(values));
-
-   
-    sendEmail();
   };
 
   // Formik
@@ -132,12 +118,15 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
       const price = response.data.market_data.current_price.eur;
       const symbol = response.data.symbol;
       const name = response.data.name;
+      const image = response.data.image.small;
       const totalAsset = (Number(c) / Number(price)).toFixed(6);
       console.log();
       setAssetAmount(totalAsset);
       setAssetSymbol(symbol);
       setAssetPrice(price);
       setassetName(name);
+      setImage(image);
+      console.log(image);
       console.log(price);
       console.log(cost);
       console.log(totalAsset);
@@ -219,6 +208,7 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
               ) : null}
             </Form.Group>
             <div>
+              <h5>Spending Balance: {formatter.format(userBalance)}</h5>
               <h5>
                 Buying: {assetAmount} {assetSymbol.toUpperCase()}
               </h5>

@@ -1,9 +1,14 @@
 import { formatter } from "../../../helpers";
 
-function Asset({ name, symbol, amount, value, value_change_24h, price }) {
+function Asset({ name, symbol, amount, value, price, image }) {
   return (
     <tr>
-      <td>{name}</td>
+      <td>
+        <div className="coin d-flex align-items-centre ">
+          <img src={image} alt="crypto" />
+          <h5>{name}</h5>
+        </div>
+      </td>
       <td>{symbol.toUpperCase()}</td>
       <td>{amount}</td>
       <td>{formatter.format(value)}</td>

@@ -5,7 +5,6 @@ import TopSection from "../components/topsection/TopSection";
 import PortfolioComponent from "../components/portfoliosection/PortfolioComponent";
 import Footer from "../components/footer/Footer";
 import TransactionComponent from "../components/transactionsection/TransactionComponent";
-import LoginContainer from "./LoginContainer";
 import { AccountContext } from "../cognito/Account";
 import { useState, useEffect, useContext } from "react";
 
@@ -16,6 +15,7 @@ function HomeContainer({
   transactions,
   setTransactions,
   userName,
+  worth,
 }) {
   const [isSession, setisSession] = useState(false);
   const { getSession } = useContext(AccountContext);
@@ -38,7 +38,12 @@ function HomeContainer({
     return (
       <>
         <Container>
-          <TopSection userBalance={userBalance} userName={userName} />
+          <TopSection
+            userBalance={userBalance}
+            userName={userName}
+            worth={worth}
+            assets={assets}
+          />
           <PortfolioComponent assets={assets} />
           <TransactionComponent
             userSub={userSub}

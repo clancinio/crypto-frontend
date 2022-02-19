@@ -1,11 +1,14 @@
-import { Row, Col } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
 import TotalMoneyComponent from "./moneytotal/TotalMoneyComponent";
-import ProgressGraph from "./progressgraph/ProgressGraph";
 
-function TopSection({ userBalance, userName }) {
+function TopSection({ userBalance, userName, assets }) {
   return (
     <Col className="mt-5 section">
-      <TotalMoneyComponent userBalance={userBalance} userName={userName} />
+      <TotalMoneyComponent
+        userBalance={userBalance}
+        userName={userName}
+        assets={assets}
+      />
     </Col>
   );
 }
