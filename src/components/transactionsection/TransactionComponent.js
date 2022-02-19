@@ -58,12 +58,13 @@ function TransactionComponent({ transactions }) {
                 return (
                   <Transaction
                     key={index}
-                    asset={transaction.AssetId}
+                    asset={transaction.AssetSymbol}
                     buy_sell={transaction.BuySell}
                     amount={transaction.Amount}
                     price={transaction.Price}
                     date={transaction.Date}
                     cost={transaction.Cost}
+                    image={transaction.Image}
                     colour={colour}
                     sign={sign}
                   />

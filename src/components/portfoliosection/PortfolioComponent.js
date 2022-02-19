@@ -30,8 +30,8 @@ function PortfolioComponent({ assets }) {
                     symbol={asset.AssetSymbol}
                     amount={asset.Amount}
                     value={asset.value}
-                    value_change_24h={asset.value_change_24h}
                     price={asset.price}
+                    image={asset.Image}
                   />
                 );
               })}

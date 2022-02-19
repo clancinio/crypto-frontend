@@ -35,6 +35,8 @@ function BuyForm({
   const [assetSymbol, setAssetSymbol] = useState("btc");
   // Purchase state
   const [isPurchased, setIsPurchased] = useState(false);
+  //Asset Image
+  const [image, setImage] = useState();
 
   // Formik
   const initialValues = {
@@ -59,12 +61,13 @@ function BuyForm({
     // Create a transaction object
     const transaction = {
       AccountId: userSub,
-      AssetId: values.asset,
+      AssetSymbol: assetSymbol,
       BuySell: "B",
       Amount: assetAmount,
       Price: assetPrice,
       Date: date,
       Cost: cost,
+      Image: image,
     };
 
     // Create an asset object
@@ -74,6 +77,7 @@ function BuyForm({
       AssetSymbol: assetSymbol,
       Amount: assetAmount,
       AssetName: assetName,
+      Image: image,
     };
     console.log(transaction);
     console.log(asset);
@@ -120,12 +124,15 @@ function BuyForm({
       const price = response.data.market_data.current_price.eur;
       const symbol = response.data.symbol;
       const name = response.data.name;
+      const image = response.data.image.small;
       const totalAsset = (Number(c) / Number(price)).toFixed(6);
       console.log();
       setAssetAmount(totalAsset);
       setAssetSymbol(symbol);
       setAssetPrice(price);
       setassetName(name);
+      setImage(image);
+      console.log(image);
       console.log(price);
       console.log(cost);
       console.log(totalAsset);
