@@ -20,6 +20,7 @@ function App() {
   const [userSub, setUserSub] = useState("");
   // Username
   const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("");
   //User Balance
   const [userBalance, setUserBalance] = useState();
   // State to hold transactions
@@ -60,6 +61,7 @@ function App() {
         .then((response) => {
           setUserBalance(response.data.Balance);
           setUserName(response.data.Username);
+          setUserRole(response.data.Role);
           console.log(response);
         });
     }
@@ -85,6 +87,7 @@ function App() {
       <Router>
         <TopNav
           userBalance={userBalance}
+          role={userRole}
           assets={assets}
           setUserBalance={setUserBalance}
           isLoggedIn={isLoggedIn}
