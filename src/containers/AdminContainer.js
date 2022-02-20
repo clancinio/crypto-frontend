@@ -14,7 +14,7 @@ function AdminContainer() {
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("user");
   const [isRegistered, setIsRegistered] = useState(false);
   const [errorMessage, seterrorMessage] = useState();
   const [matchMessage, setMatchMessage] = useState("");
@@ -190,8 +190,8 @@ function AdminContainer() {
                 value={role}
                 onChange={(event) => setRole(event.target.value)}
               >
-                <option value="admin">Admin</option>
                 <option value="user">User</option>
+                <option value="admin">Admin</option>
               </Form.Select>
             </Form.Group>
 
