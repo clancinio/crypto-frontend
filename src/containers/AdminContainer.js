@@ -227,6 +227,7 @@ function AdminContainer() {
                   className="btn"
                   variant="success"
                   size="lg"
+                  onClick={onSubmit}
                 >
                   Submit
                 </Button>{" "}
