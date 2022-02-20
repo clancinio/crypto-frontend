@@ -6,10 +6,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import UserPool from "../cognito/UserPool";
-import { AccountContext } from "../cognito/Account";
+import Footer from "../components/footer/Footer";
 
 function AdminContainer() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
@@ -110,7 +109,6 @@ function AdminContainer() {
             Balance: 1500.0,
             Role: role,
             Username: username,
-
           })
           .then((response) => {
             console.log(response);
@@ -124,66 +122,69 @@ function AdminContainer() {
     axios
       .get("http://localhost:8080/api/account/")
       .then((response) => {
-        setUsers((response.data).length);
+        setUsers(response.data.length);
       })
       .catch((error) => console.log(error.response.data.error));
 
-      axios
+    axios
       .get("http://localhost:8080/api/transaction/")
       .then((response) => {
-        setTransactions((response.data).length);
+        setTransactions(response.data.length);
       })
       .catch((error) => console.log(error.response.data.error));
   }, []);
 
   return (
-    <Container>
-      <Col className={"mt-5 section"}>
-      <Row p={5}>
-        <h1>Admin</h1>
-        <Col>
-          <div class="sub-section" mt={3} md={6} sm={12}>
-            <h2>Totals transactions</h2>
-            <p className="lead">{transactions}</p>
-          </div>
+    <>
+      <Container>
+        <Col className={"mt-5 section"}>
+          <Row p={5}>
+            <h1>Admin</h1>
+            <Col>
+              <div class="sub-section" mt={3} md={6} sm={12}>
+                <h2>Totals transactions</h2>
+                <p className="lead">{transactions}</p>
+              </div>
+            </Col>
+            <Col>
+              <div class="sub-section" mt={3} md={6} sm={12}>
+                <h2>Total Users</h2>
+                <p className={`lead`}>{users}</p>
+              </div>
+            </Col>
+          </Row>
         </Col>
-        <Col>
-          <div class="sub-section" mt={3} md={6} sm={12}>
-            <h2>Total Users</h2>
-            <p className={`lead`}>
-              {users}
-            </p>
-          </div>
-        </Col>
-      </Row>
-      </Col>
-      <Col className="section mt-5">
+        <Col className="section mt-5">
+          <h1 className="text-center">Add New User</h1>
+          <Form className="sub-section mt-3 add-user-form">
+            <Form.Group className="mb-3" controlId="formBasicUsername">
+              <Form.Label className="login-lable text-white">
+                Username
+              </Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter a username"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+              />
+            </Form.Group>
 
-      <h1>Add New User</h1>
-      <Form className="sub-section mt-3">
-      <Form.Group className="mb-3" controlId="formBasicUsername">
-            <Form.Label className="login-lable text-white">Username</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter a username"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label className="login-lable text-white">
+                Email address
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="login-lable text-white">Email address</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </Form.Group>
-
-
-          <Form.Group className="mb-3" controlId="asset">
-              <Form.Label>Select Role</Form.Label>
+            <Form.Group className="mb-3" controlId="formBasicRole">
+              <Form.Label className="login-lable text-white">
+                Select Role
+              </Form.Label>
               <Form.Select
                 aria-label="Deslect role for new user"
                 name="role"
@@ -195,32 +196,36 @@ function AdminContainer() {
               </Form.Select>
             </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label className="login-lable text-white">Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label className="login-lable text-white">
+                Password
+              </Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-            <Form.Label className="login-lable text-white">Confirm Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Re-type password"
-              value={confirm_password}
-              onChange={(event) => {
-                setConfirmPassword(event.target.value);
-              }}
-              onKeyUp={(event) => {
-                validatePassword(event.target.value);
-              }}
-            />
-          </Form.Group>
-          {errorDiv}
-          {matchDiv}
+            <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
+              <Form.Label className="login-lable text-white">
+                Confirm Password
+              </Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Re-type password"
+                value={confirm_password}
+                onChange={(event) => {
+                  setConfirmPassword(event.target.value);
+                }}
+                onKeyUp={(event) => {
+                  validatePassword(event.target.value);
+                }}
+              />
+            </Form.Group>
+            {errorDiv}
+            {matchDiv}
             <Link to="/">
               <div className="d-grid gap-2">
                 <Button
@@ -234,14 +239,15 @@ function AdminContainer() {
               </div>
             </Link>
             {isRegistered && (
-            <Alert variant={"success mt-3"}>
-              Success! A new user has been created.
-            </Alert>
-          )}
+              <Alert variant={"success mt-3"}>
+                Success! A new user has been created.
+              </Alert>
+            )}
           </Form>
-      </Col>
-
-    </Container>
+        </Col>
+      </Container>
+      <Footer />
+    </>
   );
 }
 

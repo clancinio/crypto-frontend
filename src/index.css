@@ -67,6 +67,13 @@ h3 {
   text-decoration: none;
 }
 
+/* Add User Form */
+
+.add-user-form {
+  max-width: 550px;
+  margin: 0 auto;
+}
+
 .profile-image {
   width: 300px;
   height: 300px;

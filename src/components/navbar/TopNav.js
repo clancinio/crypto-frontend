@@ -91,12 +91,12 @@ function TopNav({
                 <Navbar.Text>{userName} | </Navbar.Text>
 
                 {role === "admin" && (
-                <Nav>
-                  <Nav.Link to="/admin">
+                  <Nav>
+                    <Nav.Link as={NavLink} to="/admin">
                       Admin |
-                   </Nav.Link>
-                </Nav>)}
-               
+                    </Nav.Link>
+                  </Nav>
+                )}
 
                 <Nav>
                   <Nav.Link to="/login" onClick={logoutUser}>
