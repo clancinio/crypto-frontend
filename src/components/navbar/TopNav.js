@@ -90,6 +90,12 @@ function TopNav({
                 <Navbar.Text>{userName} | </Navbar.Text>
 
                 <Nav>
+                  <Nav.Link to="/admin">
+                    Admin |
+                  </Nav.Link>
+                </Nav>
+
+                <Nav>
                   <Nav.Link to="/login" onClick={logoutUser}>
                     Logout
                   </Nav.Link>
