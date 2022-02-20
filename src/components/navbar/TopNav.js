@@ -13,6 +13,7 @@ import "./navbar.css";
 function TopNav({
   userBalance,
   setUserBalance,
+  role,
   assets,
   userName,
   setUserSub,
@@ -88,6 +89,14 @@ function TopNav({
               </Button>
               <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>{userName} | </Navbar.Text>
+
+                {role === "admin" && (
+                <Nav>
+                  <Nav.Link to="/admin">
+                      Admin |
+                   </Nav.Link>
+                </Nav>)}
+               
 
                 <Nav>
                   <Nav.Link to="/login" onClick={logoutUser}>
