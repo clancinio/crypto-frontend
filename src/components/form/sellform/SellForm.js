@@ -178,6 +178,7 @@ function SellForm({
     fetchPrice(quantity);
   }, [selectedAsset, quantity]);
 
+  if(!isSold){
   return (
     <Formik
       initialValues={initialValues}
@@ -292,6 +293,28 @@ function SellForm({
       )}
     </Formik>
   );
+}
+else {
+  return (
+    <>
+      <Alert variant={"success"}>Your sale was successful</Alert>
+      <h5>
+        You sold {assetAmount} {assetSymbol.toUpperCase()}
+      </h5>
+      <h5 className="text-success">Value: {"+" + formatter.format(sellPrice)}</h5>
+      <h5>New Balance: {formatter.format(userBalance)}</h5>
+      <Button
+        type="submit"
+        variant="success"
+        size="md"
+        className="btn-full mt-3"
+        onClick={handleClose}
+      >
+        Continue
+      </Button>
+    </>
+  );
+}
 }
 
 export default SellForm;
