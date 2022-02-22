@@ -12,6 +12,8 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 import { string } from "yup";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 function SellForm({
   userBalance,
@@ -19,6 +21,7 @@ function SellForm({
   setUserBalance,
   userSub,
   currentInvestment,
+  handleClose
 }) {
   // Selected asset to sell
   const [selectedAsset, setSelectedAsset] = useState("");
@@ -180,6 +183,7 @@ function SellForm({
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      handleClose={handleClose}
     >
       {({
         values,
@@ -260,16 +264,30 @@ function SellForm({
             )}
           </div>
           <hr />
-          <div className="d-grid gap-2">
+          <Row className="d-flex">
+              <Col>
+                <Button
+                  variant="danger"
+                  size="md"
+                  className="btn-full"
+                  onClick={handleClose}
+                >
+                  Cancel
+                </Button>
+              </Col>
+              <Col>
             <Button
               type="submit"
               variant="success"
-              size="lg"
+              size="md"
+              className="btn-full"
               disabled={isSold || quantity > assetAmount ? true : false}
             >
               {isSold ? <TiTick /> : "Sell"}
             </Button>
-          </div>
+          
+          </Col>
+            </Row>
         </Form>
       )}
     </Formik>
