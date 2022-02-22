@@ -145,6 +145,7 @@ function TopNav({
             assets={assets}
             userSub={userSub}
             currentInvestment={currentInvestment}
+            handleClose={handleClose2}
           />
         </Modal.Body>
       </Modal>
