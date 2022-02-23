@@ -12,6 +12,8 @@ import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
 import { string } from "yup";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 function SellForm({
   userBalance,
@@ -19,6 +21,7 @@ function SellForm({
   setUserBalance,
   userSub,
   currentInvestment,
+  handleClose,
 }) {
   // Selected asset to sell
   const [selectedAsset, setSelectedAsset] = useState("");
@@ -38,6 +41,8 @@ function SellForm({
   const [assetAmount, setAssetAmount] = useState(0);
   // Selected asset total amount owmed
   const [assetId, setAssetId] = useState("");
+  //Asset Image
+  const [image, setImage] = useState("");
 
   function sendEmail() {
     window.Email.send({
@@ -91,12 +96,13 @@ function SellForm({
     // Create a transaction object
     const transaction = {
       AccountId: userSub,
-      AssetId: values.asset,
+      AssetSymbol: assetSymbol,
       BuySell: "S",
       Amount: values.quantity,
       Price: assetPrice,
       Date: date,
       Cost: sellPrice,
+      Image: image,
     };
 
     // Create an account object
@@ -154,6 +160,7 @@ function SellForm({
       const price = response.data.market_data.current_price.eur;
       const symbol = response.data.symbol;
       const name = response.data.name;
+      const image = response.data.image.small;
       const totalAsset = Number(quantity) * Number(price);
       console.log(totalAsset);
       let obj = assets.find((o) => o.AssetSymbol === symbol);
@@ -162,6 +169,7 @@ function SellForm({
       setAssetSymbol(symbol);
       setAssetPrice(price);
       setassetName(name);
+      setImage(image);
     } catch (error) {
       console.log(error.response.data.error);
     }
@@ -175,105 +183,146 @@ function SellForm({
     fetchPrice(quantity);
   }, [selectedAsset, quantity]);
 
-  return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleSubmit,
-        handleBlur,
-      }) => (
-        <Form onSubmit={handleSubmit}>
-          {setSelectedAsset(values.asset)}
-          {setQuantity(values.quantity)}
-          {setAssetId(values.asset)}
-          {isSold && (
-            <Alert variant={"success"}>
-              Success!! You sold {quantity} {assetSymbol.toUpperCase()} for{" "}
-              {formatter.format(sellPrice)}
-            </Alert>
-          )}
-          <h5>Balance: {formatter.format(userBalance)}</h5>
-          {isSold && (
-            <p className="text-success lead">
-              {"+" + formatter.format(sellPrice)}
-            </p>
-          )}
-          <Form.Group className="mb-3" controlId="asset">
-            <Form.Label>Select Asset</Form.Label>
-            <Form.Select
-              aria-label="Select asset to buy"
-              name="asset"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.asset}
-              disabled={isSold ? true : false}
-            >
-              <option value=""></option>
-              {assets.map((asset) => {
-                return <option value={asset.AssetId}>{asset.AssetName}</option>;
-              })}
-            </Form.Select>
-            {touched.asset && errors.asset ? (
-              <div className="error">{errors.asset}</div>
-            ) : null}
-          </Form.Group>
-          <Form.Label>Quantity</Form.Label>
-          <Form.Group className="mb-3">
-            <InputGroup className="mb-2">
-              <FormControl
-                type="number"
-                step="any"
-                name="quantity"
+  if (!isSold) {
+    return (
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+        handleClose={handleClose}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleSubmit,
+          handleBlur,
+        }) => (
+          <Form onSubmit={handleSubmit}>
+            {setSelectedAsset(values.asset)}
+            {setQuantity(values.quantity)}
+            {setAssetId(values.asset)}
+            {isSold && (
+              <Alert variant={"success"}>
+                Success!! You sold {quantity} {assetSymbol.toUpperCase()} for{" "}
+                {formatter.format(sellPrice)}
+              </Alert>
+            )}
+            <h5>Balance: {formatter.format(userBalance)}</h5>
+            {isSold && (
+              <p className="text-success lead">
+                {"+" + formatter.format(sellPrice)}
+              </p>
+            )}
+            <Form.Group className="mb-3" controlId="asset">
+              <Form.Label>Select Asset</Form.Label>
+              <Form.Select
+                aria-label="Select asset to buy"
+                name="asset"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.quantity}
-              />
-            </InputGroup>
-            {touched.quantity && errors.quantity ? (
-              <div className="error">{errors.quantity}</div>
-            ) : null}
-            {quantity > assetAmount && (
-              <div className="error">
-                The maximum amount you can sell is {assetAmount}{" "}
-                {assetSymbol.toUpperCase()}
-              </div>
-            )}
-          </Form.Group>
-          <div>
-            {selectedAsset != "" && (
-              <>
-                <h5>
-                  Total {assetSymbol.toUpperCase()}: {assetAmount}
-                </h5>
-                <h5>
-                  Sell {Number(values.quantity).toFixed(6)}{" "}
-                  {assetSymbol.toUpperCase()} for {formatter.format(sellPrice)}
-                </h5>
-              </>
-            )}
-          </div>
-          <hr />
-          <div className="d-grid gap-2">
-            <Button
-              type="submit"
-              variant="success"
-              size="lg"
-              disabled={isSold || quantity > assetAmount ? true : false}
-            >
-              {isSold ? <TiTick /> : "Sell"}
-            </Button>
-          </div>
-        </Form>
-      )}
-    </Formik>
-  );
+                value={values.asset}
+                disabled={isSold ? true : false}
+              >
+                <option value=""></option>
+                {assets.map((asset) => {
+                  return (
+                    <option value={asset.AssetId}>{asset.AssetName}</option>
+                  );
+                })}
+              </Form.Select>
+              {touched.asset && errors.asset ? (
+                <div className="error">{errors.asset}</div>
+              ) : null}
+            </Form.Group>
+            <Form.Label>Quantity</Form.Label>
+            <Form.Group className="mb-3">
+              <InputGroup className="mb-2">
+                <FormControl
+                  type="number"
+                  step="any"
+                  name="quantity"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.quantity}
+                />
+              </InputGroup>
+              {touched.quantity && errors.quantity ? (
+                <div className="error">{errors.quantity}</div>
+              ) : null}
+              {quantity > assetAmount && (
+                <div className="error">
+                  The maximum amount you can sell is {assetAmount}{" "}
+                  {assetSymbol.toUpperCase()}
+                </div>
+              )}
+            </Form.Group>
+            <div>
+              {selectedAsset != "" && (
+                <>
+                  <h5>
+                    Total {assetSymbol.toUpperCase()}: {assetAmount}
+                  </h5>
+                  <h5>
+                    Sell {Number(values.quantity).toFixed(6)}{" "}
+                    {assetSymbol.toUpperCase()} for{" "}
+                    {formatter.format(sellPrice)}
+                  </h5>
+                </>
+              )}
+            </div>
+            <hr />
+            <Row className="d-flex">
+              <Col>
+                <Button
+                  variant="danger"
+                  size="md"
+                  className="btn-full"
+                  onClick={handleClose}
+                >
+                  Cancel
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  type="submit"
+                  variant="success"
+                  size="md"
+                  className="btn-full"
+                  disabled={isSold || quantity > assetAmount ? true : false}
+                >
+                  {isSold ? <TiTick /> : "Sell"}
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        )}
+      </Formik>
+    );
+  } else {
+    return (
+      <>
+        <Alert variant={"success"}>Your sale was successful</Alert>
+        <h5>
+          You sold {assetAmount} {assetSymbol.toUpperCase()}
+        </h5>
+        <h5 className="text-success">
+          Value: {"+" + formatter.format(sellPrice)}
+        </h5>
+        <h5>New Balance: {formatter.format(userBalance)}</h5>
+        <Button
+          type="submit"
+          variant="success"
+          size="md"
+          className="btn-full mt-3"
+          onClick={handleClose}
+        >
+          Continue
+        </Button>
+      </>
+    );
+  }
 }
 
 export default SellForm;
