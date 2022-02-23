@@ -81,7 +81,7 @@ function TopNav({
               <Button
                 className="button"
                 size="md"
-                variant="outline-danger"
+                variant="outline-secondary"
                 onClick={handleShow2}
                 disabled={assets.length === 0 ? true : false}
               >
