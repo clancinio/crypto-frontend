@@ -7,7 +7,7 @@ function Pagination({ transPerPage, totalTrans, currentPage, paginate }) {
     pageNumbers.push(i);
   }
   return (
-    <nav>
+    <nav className="mt-2">
       <ul className="pagination">
         {pageNumbers.map((number) => (
           <li
