@@ -36,7 +36,7 @@ function TransactionComponent({ transactions }) {
       <p className="lead">{transactions.length} Transactions</p>
       {transactions.length > 0 ? (
         <div className="table-container">
-          <Table className="table-dark" striped bordered>
+          <Table className="table-dark" striped bordered responsive="md">
             <thead>
               <tr>
                 <th>Asset</th>
