@@ -2,9 +2,7 @@ import Col from "react-bootstrap/Col";
 import "./progressgraph.css";
 import { Chart } from "react-google-charts";
 
-http://localhost:8080/api/balances/getAll/8d80b473-ce12-4262-966f-31a8930fa278
-
-function ProgressGraph() {
+function ProgressGraph({balances }) {
   return (
     <Col md={6}>
       <div className="section">
@@ -14,7 +12,7 @@ function ProgressGraph() {
           loader={<div>Loading Chart</div>}
           data={[
             ["Year", "Balance"],
-            ["1H", 53000],
+            [balances[0].date, 53000],
             ["1D", 35721],
             ["1W", 105000],
             ["1Y", 25000],

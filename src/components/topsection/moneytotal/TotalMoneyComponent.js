@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import Spinner from "react-bootstrap/Spinner";
 import { formatter } from "../../../helpers";
+import ProgressGraph from "../progressgraph/ProgressGraph";
 import "./totalmoney.css";
 
-function TotalMoneyComponent({ userBalance, userName, assets }) {
+function TotalMoneyComponent({ userBalance, userName, assets, balances }) {
   // Calculate profite/loss
   const [worth, setWorth] = useState("");
 
@@ -18,6 +19,7 @@ function TotalMoneyComponent({ userBalance, userName, assets }) {
 
   if (userBalance) {
     return (
+      <>
       <Row p={5}>
         <h1>Welcome, {userName}!</h1>
         <Col>
@@ -33,6 +35,14 @@ function TotalMoneyComponent({ userBalance, userName, assets }) {
           </div>
         </Col>
       </Row>
+      <Row p={5} >
+            <Col>
+              <ProgressGraph
+               balances={balances}
+                />
+            </Col>
+      </Row>
+      </>
     );
   } else {
     return (
