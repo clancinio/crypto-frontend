@@ -2,6 +2,8 @@ import Col from "react-bootstrap/Col";
 import "./progressgraph.css";
 import { Chart } from "react-google-charts";
 
+http://localhost:8080/api/balances/getAll/8d80b473-ce12-4262-966f-31a8930fa278
+
 function ProgressGraph() {
   return (
     <Col md={6}>

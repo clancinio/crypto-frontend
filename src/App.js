@@ -20,11 +20,14 @@ function App() {
   const [userSub, setUserSub] = useState("");
   // Username
   const [userName, setUserName] = useState("");
+  // User role
   const [userRole, setUserRole] = useState("");
   //User Balance
   const [userBalance, setUserBalance] = useState();
   // State to hold transactions
   const [transactions, setTransactions] = useState([]);
+  // State for past 7 day balances
+  const [balances, setBalances] = useState([]);
 
   useEffect(() => {
     async function getAssets() {
@@ -67,7 +70,6 @@ function App() {
     }
 
     async function fetchTransactions() {
-      //setLoading(true);
       await axios
         .get(`http://localhost:8080/api/transaction/${userSub}`)
         .then((response) => {
@@ -75,10 +77,16 @@ function App() {
         });
     }
 
+    async function getPreviouseBalances() {
+      const b  = await axios.get(`http://localhost:8080/api/balances/getAll/${userSub}`);
+        setBalances(b);
+    }
+
     setTimeout(() => {
       fetchTransactions();
       getAssets();
       getBalance();
+      getPreviouseBalances();
     }, 5000);
   }, [userSub, userBalance]);
 
