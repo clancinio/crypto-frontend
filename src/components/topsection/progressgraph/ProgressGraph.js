@@ -2,7 +2,7 @@ import Col from "react-bootstrap/Col";
 import "./progressgraph.css";
 import { Chart } from "react-google-charts";
 
-function ProgressGraph({balances }) {
+function ProgressGraph({ balances }) {
   return (
     <Col md={6}>
       <div className="section">
@@ -12,11 +12,18 @@ function ProgressGraph({balances }) {
           loader={<div>Loading Chart</div>}
           data={[
             ["Year", "Balance"],
-            [balances[0].date, 53000],
-            ["1D", 35721],
-            ["1W", 105000],
-            ["1Y", 25000],
-            ["All", 155000],
+            // balances.map(b => {
+            //   return(
+            //     [b.DateEntered, 35721]
+            //   )
+            // })
+            ["1D", parseFloat(balances[0].UserBalance)],
+            ["1W", parseFloat(balances[1].UserBalance)],
+            ["1Y", parseFloat(balances[2].UserBalance)],
+            ["All", parseFloat(balances[3].UserBalance)],
+            ["All", parseFloat(balances[4].UserBalance)],
+            ["All", parseFloat(balances[5].UserBalance)],
+            ["All", parseFloat(balances[6].UserBalance)],
           ]}
           options={{
             title: "Portfolio Balance",

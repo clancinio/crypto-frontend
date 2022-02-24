@@ -28,7 +28,7 @@ function App() {
   const [transactions, setTransactions] = useState([]);
   // State for past 7 day balances
   const [balances, setBalances] = useState([]);
-    
+
   useEffect(() => {
     async function getAssets() {
       const response = await axios.get(
@@ -77,20 +77,12 @@ function App() {
         });
     }
 
-    async function getPreviouseBalances() {
-      const b  = await axios.get(`http://localhost:8080/api/balances/getAll/${userSub}`);
-        setBalances(b);
-    }
-
-    console.log("BALANCES");
-    console.log(balances);
-
     setTimeout(() => {
-      getPreviouseBalances();
       fetchTransactions();
       getAssets();
       getBalance();
-    }, 5000);
+      //getPreviouseBalances();
+    }, 4000);
   }, [userSub, userBalance, balances]);
 
   return (
@@ -105,6 +97,8 @@ function App() {
           userName={userName}
           userSub={userSub}
           setUserSub={setUserSub}
+          setBalances={setBalances}
+          balances={balances}
         />
         <Routes>
           <Route

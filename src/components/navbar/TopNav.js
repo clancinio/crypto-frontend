@@ -8,6 +8,8 @@ import Modal from "react-bootstrap/Modal";
 import BuyForm from "../form/buyform/BuyForm";
 import SellForm from "../form/sellform/SellForm";
 import { AccountContext } from "../../cognito/Account";
+import axios from "axios";
+
 import "./navbar.css";
 
 function TopNav({
@@ -19,6 +21,8 @@ function TopNav({
   setUserSub,
   userSub,
   currentInvestment,
+  setBalances,
+  balances,
 }) {
   // Buy Modal state
   const [show, setShow] = useState(false);
@@ -48,7 +52,21 @@ function TopNav({
       console.log(session.idToken.payload.sub);
       setStatus(true);
     });
-  }, []);
+
+    function getPreviouseBalances() {
+      axios
+        .get(`http://localhost:8080/api/balances/getAll/${userSub}`)
+        .then((response) => {
+          setBalances(response.data);
+          console.log(".......................Balance");
+          console.log(balances);
+          console.log(typeof balances[0].UserBalance);
+        });
+    }
+
+    getPreviouseBalances();
+  }, [assets]);
+
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
