@@ -43,6 +43,7 @@ function HomeContainer({
             userName={userName}
             worth={worth}
             assets={assets}
+            userSub={userSub}
           />
           <PortfolioComponent assets={assets} />
           <TransactionComponent

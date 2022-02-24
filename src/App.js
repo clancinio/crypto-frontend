@@ -20,11 +20,14 @@ function App() {
   const [userSub, setUserSub] = useState("");
   // Username
   const [userName, setUserName] = useState("");
+
   const [userRole, setUserRole] = useState("");
   //User Balance
   const [userBalance, setUserBalance] = useState();
   // State to hold transactions
   const [transactions, setTransactions] = useState([]);
+  // State for balances
+  const [balances, setBalances] = useState([]);
 
   useEffect(() => {
     async function getAssets() {
@@ -55,17 +58,6 @@ function App() {
         });
     }
 
-    async function getBalance() {
-      await axios
-        .get(`http://localhost:8080/api/account/${userSub}`)
-        .then((response) => {
-          setUserBalance(response.data.Balance);
-          setUserName(response.data.Username);
-          setUserRole(response.data.Role);
-          console.log(response);
-        });
-    }
-
     async function fetchTransactions() {
       //setLoading(true);
       await axios
@@ -74,6 +66,8 @@ function App() {
           setTransactions(response.data);
         });
     }
+
+    
 
     setTimeout(() => {
       fetchTransactions();
