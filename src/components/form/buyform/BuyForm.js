@@ -80,6 +80,7 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
     const account = {
       AccountId: userSub,
       Balance: newBalance,
+      HasInvested: 1,
     };
 
     // Post a transaction

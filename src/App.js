@@ -25,6 +25,9 @@ function App() {
   const [userBalance, setUserBalance] = useState();
   // State to hold transactions
   const [transactions, setTransactions] = useState([]);
+  // All users for leaderboard
+  const [users, setUsers] = useState([]);
+  const [usersInPlay, setUsersInPlay] = useState([]);
 
   useEffect(() => {
     async function getAssets() {
@@ -66,6 +69,22 @@ function App() {
         });
     }
 
+    async function getUsers() {
+      await axios
+        .get("http://localhost:8080/api/account/")
+        .then((response) => {
+          console.log(response.data);
+          var sorted = response.data.sort((a, b) => b.Balance - a.Balance);
+          setUsers(sorted);
+
+          const inPlay = users.filter((u) => u.HasInvested == 1);
+          setUsersInPlay(inPlay);
+          console.log("inPlay");
+          console.log(inPlay);
+        })
+        .catch((error) => console.log(error.response.data.error));
+    }
+
     async function fetchTransactions() {
       //setLoading(true);
       await axios
@@ -76,6 +95,7 @@ function App() {
     }
 
     setTimeout(() => {
+      getUsers();
       fetchTransactions();
       getAssets();
       getBalance();
@@ -113,7 +133,17 @@ function App() {
             }
           />
           <Route exact path="/top" element={<TopCoinsContainer />} />
-          <Route exact path="/leader" element={<LeaderBoardContainer />} />
+          <Route
+            exact
+            path="/leader"
+            element={
+              <LeaderBoardContainer
+                users={users}
+                usersInPlay={usersInPlay}
+                userName={userName}
+              />
+            }
+          />
           <Route
             exact
             path="/login"
