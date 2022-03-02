@@ -58,9 +58,7 @@ function SellForm({
         " " +
         selectedAsset +
         "on our site. Best of luck!",
-    }).then((message) =>
-      alert("Thank you for your sale of " + assetAmount + " " + selectedAsset)
-    );
+    });
   }
 
   // Formik
