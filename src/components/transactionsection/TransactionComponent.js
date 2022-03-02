@@ -72,12 +72,14 @@ function TransactionComponent({ transactions }) {
               })}
             </tbody>
           </Table>
-          <Pagination
-            transPerPage={transPerPage}
-            totalTrans={transactions.length}
-            currentPage={currentPage}
-            paginate={paginate}
-          />
+          {transactions.length > 5 && (
+            <Pagination
+              transPerPage={transPerPage}
+              totalTrans={transactions.length}
+              currentPage={currentPage}
+              paginate={paginate}
+            />
+          )}
         </div>
       ) : (
         <h1 className="text-center display-4">
