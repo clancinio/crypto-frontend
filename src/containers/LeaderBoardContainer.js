@@ -17,7 +17,9 @@ function LeaderBoardContainer({ users, usersInPlay, userName }) {
 
   // This hood will call the api once on render to fetch all users
   useEffect(() => {
-    getInPlay();
+    setInterval(() => {
+      getInPlay();
+    }, 5000);
   }, []);
 
   return (
@@ -29,7 +31,11 @@ function LeaderBoardContainer({ users, usersInPlay, userName }) {
             <Col>
               <div class="sub-section" mt={3} md={6} sm={12}>
                 <h3>Your rank:</h3>
-                <p className="lead">{rank}</p>
+                {rank === "" ? (
+                  <p className="lead">Not in play</p>
+                ) : (
+                  <p className="lead">{rank}</p>
+                )}
               </div>
             </Col>
             <Col>

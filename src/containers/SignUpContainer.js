@@ -120,7 +120,7 @@ const SignUpContainer = () => {
             Balance: 1500.0,
             Role: "user",
             Username: username,
-            HasInvested: 1,
+            HasInvested: 0,
           })
           .then((response) => {
             console.log(response);
