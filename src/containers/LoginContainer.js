@@ -59,6 +59,10 @@ function LoginContainer() {
       });
   };
 
+  function resetMessage() {
+    seterrorMessage("");
+  }
+
   if (!isLoggedIn) {
     return (
       <div class="container">
@@ -77,6 +81,7 @@ function LoginContainer() {
                 placeholder="Enter email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
+                onFocus={() => resetMessage()}
               />
             </Form.Group>
 
@@ -87,6 +92,7 @@ function LoginContainer() {
                 placeholder="Password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
+                onFocus={() => resetMessage()}
               />
             </Form.Group>
             {errorDiv}

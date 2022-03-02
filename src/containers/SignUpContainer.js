@@ -47,11 +47,18 @@ const SignUpContainer = () => {
       setMatchMessage("Passwords match!");
       setMatchColour("text-success");
     }
+
     if (password !== confirm_password) {
       setMatchMessage("Passwords don't match!");
       setMatchColour("text-danger");
     }
   };
+
+  function resetMessage() {
+    seterrorMessage("");
+    setMatchMessage("");
+  }
+
   const onSubmit = (event) => {
     event.preventDefault();
 
@@ -139,6 +146,7 @@ const SignUpContainer = () => {
               placeholder="Enter a username"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
+              onFocus={() => resetMessage()}
             />
           </Form.Group>
 
@@ -149,6 +157,7 @@ const SignUpContainer = () => {
               placeholder="Enter email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              onFocus={() => resetMessage()}
             />
           </Form.Group>
 
@@ -159,6 +168,7 @@ const SignUpContainer = () => {
               placeholder="Password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              onFocus={() => resetMessage()}
             />
           </Form.Group>
 
