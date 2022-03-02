@@ -109,7 +109,7 @@ function SellForm({
     const account = {
       AccountId: userSub,
       Balance: newBalance,
-      CurrentInvestment: newCurrentInvestment,
+      HasInvested: 1,
     };
 
     const asset = {
