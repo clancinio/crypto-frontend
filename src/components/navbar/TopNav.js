@@ -54,7 +54,7 @@ function TopNav({
       <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
         <Container>
           <Navbar.Brand></Navbar.Brand>
-          <Navbar.Brand href="#home">TRYTPO.COM</Navbar.Brand>
+          <Navbar.Brand href="#home">TRYTPO.IE</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           {status && (
             <Navbar.Collapse id="basic-navbar-nav">
