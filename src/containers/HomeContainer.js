@@ -21,6 +21,8 @@ function HomeContainer({
   const { getSession } = useContext(AccountContext);
 
   useEffect(() => {
+    document.title = "Home | Trypto";
+
     getSession().then((session) => {
       setisSession(true);
     });

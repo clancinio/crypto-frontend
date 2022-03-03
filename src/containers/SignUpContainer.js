@@ -37,6 +37,8 @@ const SignUpContainer = () => {
   const { getSession } = useContext(AccountContext);
 
   useEffect(() => {
+    document.title = "Sign Up | Trypto";
+
     getSession().then((session) => {
       setisSession(true);
     });

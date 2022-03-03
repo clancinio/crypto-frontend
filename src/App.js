@@ -99,7 +99,7 @@ function App() {
       fetchTransactions();
       getAssets();
       getBalance();
-    }, 5000);
+    }, 3000);
   }, [userSub, userBalance]);
 
   return (

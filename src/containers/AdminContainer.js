@@ -119,6 +119,8 @@ function AdminContainer() {
 
   // This hood will call the api once on render to fetch all users
   useEffect(() => {
+    document.title = "Admin Dashboard | Trypto";
+
     axios
       .get("http://localhost:8080/api/account/")
       .then((response) => {

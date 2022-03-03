@@ -17,9 +17,11 @@ function LeaderBoardContainer({ users, usersInPlay, userName }) {
 
   // This hood will call the api once on render to fetch all users
   useEffect(() => {
+    document.title = "Leaderboard | Trypto";
+
     setInterval(() => {
       getInPlay();
-    }, 5000);
+    }, 3000);
   }, []);
 
   return (

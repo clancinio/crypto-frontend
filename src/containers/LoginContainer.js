@@ -23,6 +23,8 @@ function LoginContainer() {
   const [isSession, setisSession] = useState(false);
 
   useEffect(() => {
+    document.title = "Login | Trypto";
+
     getSession().then((session) => {
       setisSession(true);
     });
