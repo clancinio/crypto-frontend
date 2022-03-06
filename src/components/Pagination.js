@@ -16,7 +16,7 @@ function Pagination({ transPerPage, totalTrans, currentPage, paginate }) {
           >
             <a
               onClick={(e) => paginate(e, number)}
-              href=""
+              href="#"
               className="page-link "
             >
               {number}

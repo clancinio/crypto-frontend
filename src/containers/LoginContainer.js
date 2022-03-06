@@ -10,7 +10,7 @@ function LoginContainer() {
   const [errorMessage, seterrorMessage] = useState("");
 
   let errorDiv;
-  if (errorMessage != "") {
+  if (errorMessage !== "") {
     errorDiv = <div className="error mb-2">{errorMessage}</div>;
   } else {
     errorDiv = "";
@@ -43,7 +43,6 @@ function LoginContainer() {
     authenticate(email, password)
       .then((data) => {
         setisLoggedIn(true);
-        console.log("Logged in!", data);
         navigate("/");
         window.location.reload(false);
       })
@@ -67,7 +66,7 @@ function LoginContainer() {
 
   if (!isLoggedIn) {
     return (
-      <div class="container">
+      <div className="container">
         {isSession && <Navigate to="/" />}
         <div className="form-container  mt-5">
           <Form className="login-form mt-3">

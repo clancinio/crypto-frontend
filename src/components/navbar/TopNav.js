@@ -42,10 +42,7 @@ function TopNav({
 
   useEffect(() => {
     getSession().then((session) => {
-      console.log("Session: ", session);
-      console.log(session.idToken.payload.email);
       setUserSub(session.idToken.payload.sub);
-      console.log(session.idToken.payload.sub);
       setStatus(true);
     });
   }, []);
@@ -74,7 +71,6 @@ function TopNav({
                 size="md"
                 variant="outline-success"
                 onClick={handleShow}
-                onclick="this.blur();"
               >
                 Buy
               </Button>

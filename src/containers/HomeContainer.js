@@ -1,4 +1,4 @@
-import { Navigate, useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Spinner from "react-bootstrap/Spinner";
 import TopSection from "../components/topsection/TopSection";
@@ -58,7 +58,12 @@ function HomeContainer({
     );
   } else {
     return (
-      <Spinner class="spinner" animation="border" role="status" variant="light">
+      <Spinner
+        className="spinner"
+        animation="border"
+        role="status"
+        variant="light"
+      >
         <span className="visually-hidden">Loading...</span>
       </Spinner>
     );

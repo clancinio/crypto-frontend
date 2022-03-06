@@ -18,14 +18,14 @@ const SignUpContainer = () => {
   const [matchColour, setMatchColour] = useState("");
 
   let errorDiv;
-  if (errorMessage != "") {
+  if (errorMessage !== "") {
     errorDiv = <div className="error mb-2">{errorMessage}</div>;
   } else {
     errorDiv = "";
   }
 
   let matchDiv;
-  if (matchMessage != "") {
+  if (matchMessage !== "") {
     matchDiv = (
       <div className={`${matchColour}  error mb-2`}>{matchMessage}</div>
     );
@@ -80,7 +80,7 @@ const SignUpContainer = () => {
       seterrorMessage("Please enter a password");
       return;
     }
-    if (password != confirm_password) {
+    if (password !== confirm_password) {
       seterrorMessage("Passwords do not match");
       return;
     }
@@ -132,7 +132,7 @@ const SignUpContainer = () => {
   };
 
   return (
-    <div class="container">
+    <div className="container">
       {isSession && <Navigate to="/" />}
       <div className="form-container mt-5">
         <Form className="login-form mt-3 section">

@@ -11,7 +11,6 @@ import * as Yup from "yup";
 import { assetData } from "../../../api";
 import { formatter } from "../../../helpers";
 import "../form.css";
-import { string } from "yup";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
@@ -80,16 +79,9 @@ function SellForm({
 
     // Calculate new Balance
     const newBalance = Number(userBalance) + sellPrice;
-    console.log("NEW BALANCE!!!!!!!!");
-    console.log(userBalance);
-    console.log(newBalance);
-    console.log(sellPrice);
 
     // Calculate new Amount
     const newQuantity = assetAmount - quantity.toFixed(6);
-    // Calculate current investment after buy
-    const newCurrentInvestment =
-      Number(currentInvestment) - quantity.toFixed(6);
 
     // Create a transaction object
     const transaction = {
@@ -160,7 +152,6 @@ function SellForm({
       const name = response.data.name;
       const image = response.data.image.small;
       const totalAsset = Number(quantity) * Number(price);
-      console.log(totalAsset);
       let obj = assets.find((o) => o.AssetSymbol === symbol);
       setAssetAmount(obj.Amount);
       setSellPrice(totalAsset);
@@ -257,7 +248,7 @@ function SellForm({
               )}
             </Form.Group>
             <div>
-              {selectedAsset != "" && (
+              {selectedAsset !== "" && (
                 <>
                   <h5>
                     Total {assetSymbol.toUpperCase()}: {assetAmount}
