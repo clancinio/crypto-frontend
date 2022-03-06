@@ -213,6 +213,7 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
             <Row className="d-flex">
               <Col>
                 <Button
+                  variant=""
                   size="md"
                   className="btn-full btn-outline-secondary"
                   onClick={handleClose}
