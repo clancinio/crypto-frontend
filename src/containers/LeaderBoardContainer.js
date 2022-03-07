@@ -1,11 +1,9 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
-import axios from "axios";
 import Footer from "../components/footer/Footer";
 import User from "../components/user/User";
 
@@ -31,7 +29,7 @@ function LeaderBoardContainer({ users, usersInPlay, userName }) {
           <Row>
             <h1>Leaderboard</h1>
             <Col>
-              <div class="sub-section" mt={3} md={6} sm={12}>
+              <div className="sub-section" mt={3} md={6} sm={12}>
                 <h3>Your rank:</h3>
                 {rank === "" ? (
                   <p className="lead">Not in play</p>
@@ -41,19 +39,19 @@ function LeaderBoardContainer({ users, usersInPlay, userName }) {
               </div>
             </Col>
             <Col>
-              <div class="sub-section" mt={3} md={6} sm={12}>
+              <div className="sub-section" mt={3} md={6} sm={12}>
                 <h3>Leader: </h3>
                 <p className="lead">{leader}</p>
               </div>
             </Col>
             <Col>
-              <div class="sub-section" mt={3} md={6} sm={12}>
+              <div className="sub-section" mt={3} md={6} sm={12}>
                 <h3>Total members: </h3>
                 <p className="lead">{users.length}</p>
               </div>
             </Col>
             <Col>
-              <div class="sub-section" mt={3} md={6} sm={12}>
+              <div className="sub-section" mt={3} md={6} sm={12}>
                 <h3>In play: </h3>
                 <p className="lead">{usersInPlay.length}</p>
               </div>

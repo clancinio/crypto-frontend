@@ -65,7 +65,6 @@ function App() {
           setUserBalance(response.data.Balance);
           setUserName(response.data.Username);
           setUserRole(response.data.Role);
-          console.log(response);
         });
     }
 
@@ -73,14 +72,11 @@ function App() {
       await axios
         .get("http://localhost:8080/api/account/")
         .then((response) => {
-          console.log(response.data);
           var sorted = response.data.sort((a, b) => b.Balance - a.Balance);
           setUsers(sorted);
 
-          const inPlay = users.filter((u) => u.HasInvested == 1);
+          const inPlay = users.filter((u) => u.HasInvested === 1);
           setUsersInPlay(inPlay);
-          console.log("inPlay");
-          console.log(inPlay);
         })
         .catch((error) => console.log(error.response.data.error));
     }
@@ -100,7 +96,7 @@ function App() {
       getAssets();
       getBalance();
     }, 3000);
-  }, [userSub, userBalance]);
+  }, [userSub, userBalance, users]);
 
   return (
     <Account>
@@ -123,7 +119,6 @@ function App() {
               <HomeContainer
                 userBalance={userBalance}
                 assets={assets}
-                userBalance={userBalance}
                 userSub={userSub}
                 transactions={transactions}
                 setTransactions={setTransactions}

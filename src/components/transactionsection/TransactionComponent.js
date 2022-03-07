@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import Transaction from "./transaction/Transaction";
@@ -6,8 +6,6 @@ import Pagination from "../Pagination";
 import "./transation.css";
 
 function TransactionComponent({ transactions }) {
-  const [loading, setLoading] = useState(false);
-
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [transPerPage] = useState(5);
@@ -27,9 +25,6 @@ function TransactionComponent({ transactions }) {
     setCurrentPage(pageNumber);
   }
 
-  if (loading) {
-    return <h1 className="text-center display-4">Loading...</h1>;
-  }
   return (
     <Col className="section mt-5">
       <h1>Transactions</h1>
