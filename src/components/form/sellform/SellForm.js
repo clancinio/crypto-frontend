@@ -265,9 +265,9 @@ function SellForm({
             <Row className="d-flex">
               <Col>
                 <Button
-                  variant="danger"
+                  variant=""
                   size="md"
-                  className="btn-full"
+                  className="btn-full btn-outline-secondary"
                   onClick={handleClose}
                 >
                   Cancel
