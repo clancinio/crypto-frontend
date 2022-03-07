@@ -138,7 +138,7 @@ const SignUpContainer = () => {
         <Form className="login-form mt-3 section">
           <h2 className="text-center">Hello. It's nice to meet you.</h2>
           <p className="text-muted text-center">
-            Please create an account to gain access to Trypto.com
+            Please create an account to gain access to Trypto.ie
           </p>
           <hr />
           <Form.Group className="mb-3" controlId="formBasicUsername">
