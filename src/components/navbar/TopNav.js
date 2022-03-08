@@ -46,10 +46,7 @@ function TopNav({
 
   useEffect(() => {
     getSession().then((session) => {
-      console.log("Session: ", session);
-      console.log(session.idToken.payload.email);
       setUserSub(session.idToken.payload.sub);
-      console.log(session.idToken.payload.sub);
       setStatus(true);
     });
 
@@ -58,9 +55,6 @@ function TopNav({
         .get(`http://localhost:8080/api/balances/getAll/${userSub}`)
         .then((response) => {
           setBalances(response.data);
-          console.log(".......................Balance");
-          console.log(balances);
-          console.log(typeof balances[0].UserBalance);
         });
     }
 

@@ -5,7 +5,14 @@ import { formatter } from "../../../helpers";
 import ProgressGraph from "../progressgraph/ProgressGraph";
 import "./totalmoney.css";
 
-function TotalMoneyComponent({ userBalance, userName, assets, balances }) {
+function TotalMoneyComponent({
+  userBalance,
+  userName,
+  assets,
+  balances,
+  setBalances,
+  userSub,
+}) {
   // Calculate profite/loss
   const [worth, setWorth] = useState("");
 
@@ -37,7 +44,12 @@ function TotalMoneyComponent({ userBalance, userName, assets, balances }) {
         </Row>
         <Row p={5}>
           <Col>
-            <ProgressGraph balances={balances} />
+            <ProgressGraph
+              balances={balances}
+              setBalances={setBalances}
+              userSub={userSub}
+              userBalance={userBalance}
+            />
           </Col>
         </Row>
       </>

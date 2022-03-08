@@ -27,7 +27,16 @@ function App() {
   // State to hold transactions
   const [transactions, setTransactions] = useState([]);
   // State for past 7 day balances
-  const [balances, setBalances] = useState([]);
+  const [balances, setBalances] = useState([
+    { UserBalance: 0.0 },
+    { UserBalance: 0.0 },
+    { UserBalance: 0.0 },
+    { UserBalance: 0.0 },
+    { UserBalance: 0.0 },
+    { UserBalance: 0.0 },
+    { UserBalance: 0.0 },
+    { UserBalance: 0.0 },
+  ]);
 
   useEffect(() => {
     async function getAssets() {
@@ -65,7 +74,6 @@ function App() {
           setUserBalance(response.data.Balance);
           setUserName(response.data.Username);
           setUserRole(response.data.Role);
-          console.log(response);
         });
     }
 
@@ -81,7 +89,6 @@ function App() {
       fetchTransactions();
       getAssets();
       getBalance();
-      //getPreviouseBalances();
     }, 4000);
   }, [userSub, userBalance, balances]);
 
@@ -108,7 +115,6 @@ function App() {
               <HomeContainer
                 userBalance={userBalance}
                 assets={assets}
-                userBalance={userBalance}
                 userSub={userSub}
                 transactions={transactions}
                 setTransactions={setTransactions}
