@@ -1,38 +1,8 @@
 import Col from "react-bootstrap/Col";
 import "./progressgraph.css";
 import { Chart } from "react-google-charts";
-import { useEffect } from "react";
-import axios from "axios";
 
-function ProgressGraph({ balances, userSub, userBalance }) {
-  const MINUTE_MS = 60000;
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     var today = new Date();
-  //     var dd = String(today.getDate()).padStart(2, "0");
-  //     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-  //     var yyyy = today.getFullYear();
-
-  //     today = yyyy + "/" + mm + "/" + dd;
-
-  //     const balance = {
-  //       AccountID: userSub,
-  //       UserBalance: userBalance,
-  //       DateEntered: today,
-  //     };
-
-  //     await axios
-  //       .post(`http://localhost:8080/api/balances/${userSub}`, balance)
-  //       .then((response) => {
-  //         console.log("Inserted to Balances.");
-  //       });
-  //   }, MINUTE_MS);
-
-  //   // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-  //   return () => clearInterval(interval);
-  // }, []);
-
+function ProgressGraph({ balances }) {
   if (balances.length > 6) {
     return (
       <Col md={6}>
@@ -66,7 +36,7 @@ function ProgressGraph({ balances, userSub, userBalance }) {
   } else {
     return (
       <h2 className="text-center mt-5">
-        A chart will be available after 7 days{" "}
+        A chart will be available 7 days after registration{" "}
       </h2>
     );
   }

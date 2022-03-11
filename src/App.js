@@ -28,16 +28,7 @@ function App() {
   const [transactions, setTransactions] = useState([]);
 
   // State for past 7 day balances
-  const [balances, setBalances] = useState([
-    { UserBalance: 0.0 },
-    { UserBalance: 0.0 },
-    { UserBalance: 0.0 },
-    { UserBalance: 0.0 },
-    { UserBalance: 0.0 },
-    { UserBalance: 0.0 },
-    { UserBalance: 0.0 },
-    { UserBalance: 0.0 },
-  ]);
+  const [balances, setBalances] = useState([]);
 
   // All users for leaderboard
   const [users, setUsers] = useState([]);

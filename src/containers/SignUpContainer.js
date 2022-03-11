@@ -101,7 +101,7 @@ const SignUpContainer = () => {
           err.message ===
           "Password did not conform with policy: Password must have uppercase characters"
         ) {
-          seterrorMessage("Password must have uppercase characterss");
+          seterrorMessage("Password must have uppercase characters");
         }
         if (
           err.message ===
