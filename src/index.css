@@ -90,7 +90,6 @@ h3 {
 .spinner-border {
   height: 250px !important;
   width: 250px !important;
-  border: 1em solid currentColor;
   display: block !important;
   margin: 100px auto;
 }

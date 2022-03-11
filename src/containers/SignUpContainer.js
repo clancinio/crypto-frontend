@@ -18,14 +18,14 @@ const SignUpContainer = () => {
   const [matchColour, setMatchColour] = useState("");
 
   let errorDiv;
-  if (errorMessage != "") {
+  if (errorMessage !== "") {
     errorDiv = <div className="error mb-2">{errorMessage}</div>;
   } else {
     errorDiv = "";
   }
 
   let matchDiv;
-  if (matchMessage != "") {
+  if (matchMessage !== "") {
     matchDiv = (
       <div className={`${matchColour}  error mb-2`}>{matchMessage}</div>
     );
@@ -37,6 +37,8 @@ const SignUpContainer = () => {
   const { getSession } = useContext(AccountContext);
 
   useEffect(() => {
+    document.title = "Sign Up | Trypto";
+
     getSession().then((session) => {
       setisSession(true);
     });
@@ -47,11 +49,18 @@ const SignUpContainer = () => {
       setMatchMessage("Passwords match!");
       setMatchColour("text-success");
     }
+
     if (password !== confirm_password) {
       setMatchMessage("Passwords don't match!");
       setMatchColour("text-danger");
     }
   };
+
+  function resetMessage() {
+    seterrorMessage("");
+    setMatchMessage("");
+  }
+
   const onSubmit = (event) => {
     event.preventDefault();
 
@@ -71,7 +80,7 @@ const SignUpContainer = () => {
       seterrorMessage("Please enter a password");
       return;
     }
-    if (password != confirm_password) {
+    if (password !== confirm_password) {
       seterrorMessage("Passwords do not match");
       return;
     }
@@ -113,6 +122,7 @@ const SignUpContainer = () => {
             Balance: 1500.0,
             Role: "user",
             Username: username,
+            HasInvested: 0,
           })
           .then((response) => {
             console.log(response);
@@ -122,13 +132,13 @@ const SignUpContainer = () => {
   };
 
   return (
-    <div class="container">
+    <div className="container">
       {isSession && <Navigate to="/" />}
       <div className="form-container mt-5">
         <Form className="login-form mt-3 section">
           <h2 className="text-center">Hello. It's nice to meet you.</h2>
           <p className="text-muted text-center">
-            Please create an account to gain access to Trypto.com
+            Please create an account to gain access to Trypto.ie
           </p>
           <hr />
           <Form.Group className="mb-3" controlId="formBasicUsername">
@@ -138,6 +148,7 @@ const SignUpContainer = () => {
               placeholder="Enter a username"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
+              onFocus={() => resetMessage()}
             />
           </Form.Group>
 
@@ -148,6 +159,7 @@ const SignUpContainer = () => {
               placeholder="Enter email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              onFocus={() => resetMessage()}
             />
           </Form.Group>
 
@@ -158,6 +170,7 @@ const SignUpContainer = () => {
               placeholder="Password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              onFocus={() => resetMessage()}
             />
           </Form.Group>
 

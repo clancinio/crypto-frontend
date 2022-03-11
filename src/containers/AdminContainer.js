@@ -22,14 +22,14 @@ function AdminContainer() {
   const [transactions, setTransactions] = useState();
 
   let errorDiv;
-  if (errorMessage != "") {
+  if (errorMessage !== "") {
     errorDiv = <div className="error mb-2">{errorMessage}</div>;
   } else {
     errorDiv = "";
   }
 
   let matchDiv;
-  if (matchMessage != "") {
+  if (matchMessage !== "") {
     matchDiv = (
       <div className={`${matchColour}  error mb-2`}>{matchMessage}</div>
     );
@@ -67,7 +67,7 @@ function AdminContainer() {
       seterrorMessage("Please enter a password");
       return;
     }
-    if (password != confirm_password) {
+    if (password !== confirm_password) {
       seterrorMessage("Passwords do not match");
       return;
     }
@@ -110,15 +110,15 @@ function AdminContainer() {
             Role: role,
             Username: username,
           })
-          .then((response) => {
-            console.log(response);
-          });
+          .then((response) => {});
       }
     });
   };
 
   // This hood will call the api once on render to fetch all users
   useEffect(() => {
+    document.title = "Admin Dashboard | Trypto";
+
     axios
       .get("http://localhost:8080/api/account/")
       .then((response) => {
@@ -141,13 +141,13 @@ function AdminContainer() {
           <Row p={5}>
             <h1>Admin</h1>
             <Col>
-              <div class="sub-section" mt={3} md={6} sm={12}>
+              <div className="sub-section" mt={3} md={6} sm={12}>
                 <h2>Totals transactions</h2>
                 <p className="lead">{transactions}</p>
               </div>
             </Col>
             <Col>
-              <div class="sub-section" mt={3} md={6} sm={12}>
+              <div className="sub-section" mt={3} md={6} sm={12}>
                 <h2>Total Users</h2>
                 <p className={`lead`}>{users}</p>
               </div>

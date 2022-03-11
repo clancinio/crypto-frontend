@@ -12,11 +12,12 @@ function TopCoinsContainer() {
 
   // This hood will call the api once on render
   useEffect(() => {
+    document.title = "Top Cryptocurrencies | Trypto";
+
     axios
       .get(top100)
       .then((response) => {
         setCoins(response.data);
-        console.log(coins);
       })
       .catch((error) => console.log(error.response.data.error));
   }, []);

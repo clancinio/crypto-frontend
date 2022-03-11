@@ -6,7 +6,6 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Alert from "react-bootstrap/Alert";
-import { TiTick } from "react-icons/ti/";
 import { Formik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
@@ -73,13 +72,12 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
       AssetName: assetName,
       Image: image,
     };
-    console.log(transaction);
-    console.log(asset);
 
     // Create an account object
     const account = {
       AccountId: userSub,
       Balance: newBalance,
+      HasInvested: 1,
     };
 
     // Post a transaction
@@ -99,9 +97,6 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
 
     setIsPurchased(true);
     setUserBalance(newBalance);
-    console.log(values.assetAmount);
-    console.log("Balance:" + userBalance);
-    console.log(values.asset);
     // console.log("Form Values: " + JSON.stringify(values));
   };
 
@@ -138,7 +133,7 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
   // When component renders, call the fetchPrice function
   useEffect(() => {
     fetchPrice(cost);
-  }, [selectedAsset, cost, userBalance]);
+  }, [selectedAsset, cost, userBalance, fetchPrice]);
 
   if (!isPurchased) {
     return (
@@ -201,7 +196,7 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
               {touched.amount && errors.amount ? (
                 <div className="error">{errors.amount}</div>
               ) : null}
-              {userBalance - cost < 0 && isPurchased == false ? (
+              {userBalance - cost < 0 && isPurchased === false ? (
                 <div className="error">
                   You do not have enough money to make this purchase
                 </div>
@@ -218,9 +213,9 @@ function BuyForm({ userBalance, setUserBalance, userSub, handleClose }) {
             <Row className="d-flex">
               <Col>
                 <Button
-                  variant="danger"
+                  variant=""
                   size="md"
-                  className="btn-full"
+                  className="btn-full btn-outline-secondary"
                   onClick={handleClose}
                 >
                   Cancel

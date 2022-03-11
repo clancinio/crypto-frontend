@@ -10,7 +10,7 @@ function LoginContainer() {
   const [errorMessage, seterrorMessage] = useState("");
 
   let errorDiv;
-  if (errorMessage != "") {
+  if (errorMessage !== "") {
     errorDiv = <div className="error mb-2">{errorMessage}</div>;
   } else {
     errorDiv = "";
@@ -23,6 +23,8 @@ function LoginContainer() {
   const [isSession, setisSession] = useState(false);
 
   useEffect(() => {
+    document.title = "Login | Trypto";
+
     getSession().then((session) => {
       setisSession(true);
     });
@@ -41,7 +43,6 @@ function LoginContainer() {
     authenticate(email, password)
       .then((data) => {
         setisLoggedIn(true);
-        console.log("Logged in!", data);
         navigate("/");
         window.location.reload(false);
       })
@@ -59,9 +60,13 @@ function LoginContainer() {
       });
   };
 
+  function resetMessage() {
+    seterrorMessage("");
+  }
+
   if (!isLoggedIn) {
     return (
-      <div class="container">
+      <div className="container">
         {isSession && <Navigate to="/" />}
         <div className="form-container  mt-5">
           <Form className="login-form mt-3">
@@ -77,6 +82,7 @@ function LoginContainer() {
                 placeholder="Enter email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
+                onFocus={() => resetMessage()}
               />
             </Form.Group>
 
@@ -87,6 +93,7 @@ function LoginContainer() {
                 placeholder="Password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
+                onFocus={() => resetMessage()}
               />
             </Form.Group>
             {errorDiv}
