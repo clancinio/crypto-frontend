@@ -20,11 +20,16 @@ function App() {
   const [userSub, setUserSub] = useState("");
   // Username
   const [userName, setUserName] = useState("");
+  // User role
   const [userRole, setUserRole] = useState("");
   //User Balance
   const [userBalance, setUserBalance] = useState();
   // State to hold transactions
   const [transactions, setTransactions] = useState([]);
+
+  // State for past 7 day balances
+  const [balances, setBalances] = useState([]);
+
   // All users for leaderboard
   const [users, setUsers] = useState([]);
   const [usersInPlay, setUsersInPlay] = useState([]);
@@ -82,7 +87,6 @@ function App() {
     }
 
     async function fetchTransactions() {
-      //setLoading(true);
       await axios
         .get(`http://localhost:8080/api/transaction/${userSub}`)
         .then((response) => {
@@ -95,8 +99,8 @@ function App() {
       fetchTransactions();
       getAssets();
       getBalance();
-    }, 3000);
-  }, [userSub, userBalance, users]);
+    }, 4000);
+  }, [userSub, userBalance, balances]);
 
   return (
     <Account>
@@ -110,6 +114,8 @@ function App() {
           userName={userName}
           userSub={userSub}
           setUserSub={setUserSub}
+          setBalances={setBalances}
+          balances={balances}
         />
         <Routes>
           <Route
@@ -124,6 +130,7 @@ function App() {
                 setTransactions={setTransactions}
                 userName={userName}
                 isLoggedIn={isLoggedIn}
+                balances={balances}
               />
             }
           />

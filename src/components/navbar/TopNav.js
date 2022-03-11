@@ -8,6 +8,8 @@ import Modal from "react-bootstrap/Modal";
 import BuyForm from "../form/buyform/BuyForm";
 import SellForm from "../form/sellform/SellForm";
 import { AccountContext } from "../../cognito/Account";
+import axios from "axios";
+
 import "./navbar.css";
 
 function TopNav({
@@ -19,6 +21,8 @@ function TopNav({
   setUserSub,
   userSub,
   currentInvestment,
+  setBalances,
+  balances,
 }) {
   // Buy Modal state
   const [show, setShow] = useState(false);
@@ -45,13 +49,24 @@ function TopNav({
       setUserSub(session.idToken.payload.sub);
       setStatus(true);
     });
-  }, []);
+
+    function getPreviouseBalances() {
+      axios
+        .get(`http://localhost:8080/api/balances/getAll/${userSub}`)
+        .then((response) => {
+          setBalances(response.data);
+        });
+    }
+
+    getPreviouseBalances();
+  }, [assets]);
+
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
         <Container>
           <Navbar.Brand></Navbar.Brand>
-          <Navbar.Brand href="#home">TRYTPO.IE</Navbar.Brand>
+          <Navbar.Brand href="#home">TRYPO.IE</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           {status && (
             <Navbar.Collapse id="basic-navbar-nav">
