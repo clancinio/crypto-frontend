@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
 import TopSection from "../components/topsection/TopSection";
 import PortfolioComponent from "../components/portfoliosection/PortfolioComponent";
@@ -7,6 +8,7 @@ import Footer from "../components/footer/Footer";
 import TransactionComponent from "../components/transactionsection/TransactionComponent";
 import { AccountContext } from "../cognito/Account";
 import { useState, useEffect, useContext } from "react";
+import ProgressGraph from "../components/topsection/progressgraph/ProgressGraph";
 
 function HomeContainer({
   assets,
@@ -57,6 +59,14 @@ function HomeContainer({
             transactions={transactions}
             setTransactions={setTransactions}
           />
+          <Row p={5}>
+            <ProgressGraph
+              balances={balances}
+              setBalances={setBalances}
+              userSub={userSub}
+              userBalance={userBalance}
+            />
+          </Row>
         </Container>
         <Footer />
       </>

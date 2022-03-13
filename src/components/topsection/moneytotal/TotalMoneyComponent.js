@@ -42,16 +42,6 @@ function TotalMoneyComponent({
             </div>
           </Col>
         </Row>
-        <Row p={5}>
-          <Col>
-            <ProgressGraph
-              balances={balances}
-              setBalances={setBalances}
-              userSub={userSub}
-              userBalance={userBalance}
-            />
-          </Col>
-        </Row>
       </>
     );
   } else {

@@ -67,7 +67,7 @@ function TopNav({
         <Container>
           <Navbar.Brand></Navbar.Brand>
           <Navbar.Brand href="#home">TRYPO.IE</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          {status && <Navbar.Toggle aria-controls="basic-navbar-nav" />}
           {status && (
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
