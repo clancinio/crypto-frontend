@@ -11,13 +11,13 @@ function Footer() {
               <Link to="/">Home</Link>
             </li>
             <li className="list-inline-item">
-              <Link to="/top">Top 100</Link>
-            </li>
-            <li className="list-inline-item">
               <Link to="/leader">Leaderboard</Link>
             </li>
+            <li className="list-inline-item">
+              <Link to="/top">Top 100</Link>
+            </li>
           </ul>
-          <p className="copyright">TRYPTO.COM © 2021</p>
+          <p className="copyright">TRYPTO.IE © 2022</p>
         </div>
       </footer>
     </div>
