@@ -58,7 +58,9 @@ function TopNav({
         });
     }
 
-    getPreviouseBalances();
+    setInterval(() => {
+      getPreviouseBalances();
+    }, 5000);
   }, [assets]);
 
   return (
